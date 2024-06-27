@@ -1,0 +1,78 @@
+{
+    "workbench.colorCustomizations": {
+        // Cores gerais do ambiente de trabalho
+        "editor.background": "#000000", // Fundo do editor
+        "editor.foreground": "#ABB2BF", // Cor do texto do editor
+        "editorCursor.foreground": "#528BFF", // Cor do cursor
+        "editor.lineHighlightBackground": "#1f1f1f", // Fundo da linha destacada
+        "editorLineNumber.foreground": "#636D83", // Cor dos números de linha
+        "activityBar.background": "#21252B", // Fundo da barra de atividades
+        "sideBar.background": "#15171a" // Fundo da barra lateral
+    },
+    "editor.tokenColorCustomizations": {
+        "textMateRules": [
+            {
+                // Cor para nomes de classes
+                "scope": "entity.name.type.class",
+                "settings": {
+                    "foreground": "#ff0f7f"
+                }
+            },
+            {
+                // Cor para definições de funções
+                "scope": "entity.name.function",
+                "settings": {
+                    "foreground": "#07df07"
+                }
+            },
+            {
+                // Cor para chamadas de métodos e funções (append, etc.)
+                "scope": [
+                    "meta.function-call.generic",
+                    "meta.method-call.generic",
+                    "meta.method-call.python",
+                    // "meta.function-call.python"
+                ],
+                "settings": {
+                    "foreground": "#00b7ff"
+                }
+            }
+            {
+                // Cor para funções integradas (como print, len, etc.)
+                "scope": "support.function.builtin",
+                "settings": {
+                    "foreground": "#9a5dc5"
+                }
+            },
+            {
+                // Cor para funções definidas pelo usuário
+                "scope": "support.function",
+                "settings": {
+                    "foreground": "#3cd9a2"
+                }
+            },
+            {
+                // Cor para palavras-chave de controle (if, else, while, etc.)
+                "scope": "keyword.control",
+                "settings": {
+                    "foreground": "#fc7b04"
+                }
+            },
+            {
+                // Cor para operadores (+, -, =, etc.)
+                "scope": "keyword.operator",
+                "settings": {
+                    "foreground": "#fc7b04"
+                }
+            },
+            {
+                // Cor para outras palavras-chave não especificadas
+                "scope": "keyword.other",
+                "settings": {
+                    "foreground": "#fc7b04"
+                }
+            }
+           
+        ]
+    }
+}
