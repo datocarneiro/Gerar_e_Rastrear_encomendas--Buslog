@@ -8,10 +8,9 @@ def load_token():
     token = os.getenv("TOKEN")
     return token
 
-def autenthicate_sessao():
+def authenticate_sessao():
     token = load_token()
     url = f"http://api.track3r.com.br/v2/api/Autenticacao?token={token}"
     response = requests.get(url)
     retorno = response.json()
-    return retorno 
-
+    return retorno
