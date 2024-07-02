@@ -48,7 +48,6 @@ def consultar_status(chave_session):
             'Comprovante': CaminhoFoto
         })
         df = pd.DataFrame(dados_rastreamento)
-
     return df
 
 

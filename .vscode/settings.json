@@ -4,7 +4,7 @@
         "editor.background": "#000000", // Fundo do editor
         "editor.foreground": "#ABB2BF", // Cor do texto do editor
         "editorCursor.foreground": "#528BFF", // Cor do cursor
-        "editor.lineHighlightBackground": "#1f1f1f", // Fundo da linha destacada
+        "editor.lineHighlightBackground": "#121212", // Fundo da linha destacada
         "editorLineNumber.foreground": "#636D83", // Cor dos números de linha
         "activityBar.background": "#21252B", // Fundo da barra de atividades
         "sideBar.background": "#15171a" // Fundo da barra lateral
