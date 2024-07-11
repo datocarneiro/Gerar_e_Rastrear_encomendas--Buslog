@@ -1,10 +1,8 @@
 # Rastreador_de_Objeto_Buslog-API-
 
-Abaixo segue link da nossa API e Token de acesso;
+Nesse projeto atuei como Desenvolvedor, construindo uma aplicação que pudesse rastrear encomendas de forma eficiente. 
+Então com base na documentação API enviada pela transportadora, desenvolvemos a aplicação, trazendo o resultado esperado, com consultas realizadas de forma instantânea.
 
-https://documenter.getpostman.com/view/13136644/TVeta5Yg
+Tecnologias aplicadas: Tecnologia: 🎯 Python, API Requests , Pandas, Json, Tkinter.
 
-intalar biliotecas necessarias 
-pip install python-dotenv
-pip install requests
-
+![Uploading image.png…]()
