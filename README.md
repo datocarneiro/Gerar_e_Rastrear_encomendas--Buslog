@@ -44,4 +44,4 @@ requests
 pandas
 openpyxl
 python-dotenv
-tkinter
+tkinter.
