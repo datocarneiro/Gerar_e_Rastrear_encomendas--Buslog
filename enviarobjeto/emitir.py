@@ -22,7 +22,7 @@ def enviarobjeto(chave):
           # Os códigos devem ser solicitados à transportadora.
           # Cada transportadora tem o seu código e produto específico.
           "id_produto": 0,   
-          "numero_pedido": "6647217",
+          "numero_pedido": "dato123",
           # "data_agendamento": "05/11/2020",
           # "hora_agendamento": "10:00",
           # "nome_marca": null,
@@ -40,9 +40,9 @@ def enviarobjeto(chave):
             # 2 = NFC (Nota Fiscal ao Consumidor)
             # 3 = Declaração
             "tipo": "3", 
-            "numero": "4625886",
+            "numero": "644936",
             "quantidade_volumes": "1",
-            "valor_documento": 59.00
+            "valor_documento": 20.00
             # "serie": "65",
             # "chave_acesso": "31200514055516000814550650010415031006468477",
             # "data_emissao": "13/05/2020"
@@ -55,48 +55,48 @@ def enviarobjeto(chave):
           # },
 
           "embarcador": {
-            "cnpj": "04.403.408/0013-07"
+            "cnpj": "02.891.567/0002-01",
+            "razao_social": "SUBWAY SYSTEMS DO BRASIL LTDA",
             # "inscricao_estadual": "373.091.203.117",
-            # "razao_social": "Embarcador Homologação",
-            # "endereco": {
-            #   "cep": "06460-100",
-            #   "bairro": "Tamboré",
-            #   "rua": "Alameda Pucurui",
-            #   "numero": "51",
-            #   "complemento": "",
-            #   "cidade": "Barueri",
-            #   "estado": "SP"
-            # }
+            "endereco": {
+              "cep": "83412-585",
+              "bairro": "Canguiri",
+              "rua": "Pedro Zanetti",
+              "numero": "230",
+              "complemento": "Barracão 2",
+              "cidade": "Colombo",
+              "estado": "PR"
+            }
           },
 
-          #   "tomador": {
-          #     "cnpj": "14.055.516/0008-14",
-          #     "inscricao_estadual": "373.091.203.117",
-          #     "razao_social": "EMBARCADOR HOMOLOGAÇÃO",
-          #     "endereco": {
-          #       "cep": "06460100",
-          #       "bairro": "Tamboré",
-          #       "rua": "AVENIDA PUCURUI",
-          #       "numero": "51",
-          #       "complemento": "",
-          #       "cidade": "Barueri",
-          #       "estado": "SP"
-          #     }
-          # },
+            "tomador": {
+              "cnpj": "08.806.647/0001-17",
+              "inscricao_estadual": "9040355992",
+              "razao_social": "Amplo Logistica e Armazenagem Ltda",
+              "endereco": {
+                "cep": "83412-585",
+                "bairro": "Canguiri",
+                "rua": "Pedro Zanetti",
+                "numero": "230",
+                "complemento": "Barracão 2",
+                "cidade": "Colombo",
+                "estado": "PR"
+              }
+          },
 
           "destinatario": {
               "tipo_pessoa": "F",     # F = Pessoa Física,  J = Pessoa Jurídica
-              "cnpj_cpf": "217.565.328-50",
+              "cnpj_cpf": "478.517.310-62",
               # "inscricao_estadual": "",
-              "nome": "MILENA ALVES DOS SANTOS",
+              "nome": "Dato Amplo",
               "endereco": {
-              "cep": "07811-030",
-              "bairro": "CHACARAS DAS COLINAS",
-              "rua": "ESTRADA PARA PARNAIBA",
-              "numero": "15",
-              "complemento": "casa",
-              "cidade": "Franco da Rocha",
-              "estado": "SP"
+              "cep": "83411-240",
+              "bairro": "São Dimas",
+              "rua": "Ipê",
+              "numero": "1062",
+              "complemento": "casa 2",
+              "cidade": "Colombo",
+              "estado": "PR"
               # "email": "milena.alves@hotmail.com",
               # "telefone": "11912345678",
               # "observacoes": "",
@@ -160,3 +160,5 @@ def enviarobjeto(chave):
   response = requests.request("POST", url, headers=headers, data=payload)
 
   print(response.text)
+
+
