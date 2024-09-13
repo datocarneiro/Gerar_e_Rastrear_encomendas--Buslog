@@ -46,7 +46,9 @@ openpyxl
 python-dotenv
 tkinter.
 
-# No mes de setembro/2024 iniciamos uma nova faze do projeto (EMISSÃO DE PEDIDO)
+# Iniciando Fase 2 do projeto - 09/2024
+No mes de setembro/2024 iniciamos uma nova faze do projeto (EMISSÃO DE PEDIDO)
+
 Estamos incluindo uma nova funcionalidade ao projeto
 estamos trabalhando para realizar as Emissões de pediod de forma automatica para a transportadora
 
