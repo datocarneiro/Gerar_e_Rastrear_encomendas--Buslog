@@ -13,5 +13,4 @@ def authenticate_sessao():
     url = f"http://api.track3r.com.br/v2/api/Autenticacao?token={token}"
     response = requests.get(url)
     retorno = response.json()
-    print(F'RESPOSTAS............ {retorno}')
     return retorno
