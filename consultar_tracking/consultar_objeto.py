@@ -28,7 +28,7 @@ def importar_arquivo(chave_session):
             "DataInicial": "",
             "DataFinal": "",
             "Pedidos": [
-                {"NotaFiscal": coluna_c}
+                {"NotaFiscal": str(coluna_c)}
             ]
         }
         
