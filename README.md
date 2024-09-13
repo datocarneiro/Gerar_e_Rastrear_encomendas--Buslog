@@ -45,3 +45,15 @@ pandas
 openpyxl
 python-dotenv
 tkinter.
+
+# No mes de setembro/2024 iniciamos uma nova faze do projeto (EMISSÃO DE PEDIDO)
+Estamos incluindo uma nova funcionalidade ao projeto
+estamos trabalhando para realizar as Emissões de pediod de forma automatica para a transportadora
+
+## Objetivo: 
+- Ganhar agilidade no processo de operação
+- Ganhar tempo em prazo de entrega de curto prazo
+- Evitar perda de objetos
+- Evitar perda de tempo tentando identificar o objeto com a transportadora
+- Evitar que a carga fique parada na Base da transortadora (para realizar operações internas, pois os objetos ja estaão prontos para seguir viajem)
+
