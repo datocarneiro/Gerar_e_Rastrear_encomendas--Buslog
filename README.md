@@ -45,8 +45,8 @@ pandas
 openpyxl
 python-dotenv
 tkinter.
-
-# Iniciando Fase 2 do projeto - 09/2024
+ 
+# Iniciando Fase 2 do projeto - 09/2024 
 No mes de setembro/2024 iniciamos uma nova faze do projeto (EMISSÃO DE PEDIDO)
 
 Estamos incluindo uma nova funcionalidade ao projeto
