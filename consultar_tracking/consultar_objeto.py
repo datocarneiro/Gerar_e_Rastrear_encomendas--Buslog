@@ -5,7 +5,7 @@ from gerar_encomenda.m_gerar_encomenda import enviarobjeto
 import requests
 import pandas as pd
 import tkinter as tk
-from tkinter import filedialog, messagebox, Label
+from tkinter import *
 
 
 # Variável global para armazenar dados do rastreamento
@@ -15,16 +15,16 @@ def importar_arquivo(chave_session):
     global dados_rastreamento
     app = tk.Tk()
     app.withdraw()  # Oculta a janela principal
-    file_path = filedialog.askopenfilename(title="Selecione um arquivo", filetypes=[("Arquivos Excel", "*.xlsx *.xls")])
+    file_path = tk.filedialog.askopenfilename(title="Selecione um arquivo", filetypes=[("Arquivos Excel", "*.xlsx *.xls")])
     
     if not file_path:
-        messagebox.showinfo("Informação", "Nenhum arquivo selecionado")
+        tk.messagebox.showinfo("Informação", "Nenhum arquivo selecionado")
         return
     
     dados = pd.read_excel(file_path, engine='openpyxl')
     dados_rastreamento.clear()  # Limpa dados anteriores
 
-    messagebox.showinfo("Informação", "Arquivo importado com sucesso")
+    tk.messagebox.showinfo("Informação", "Arquivo importado com sucesso")
 
 
     for coluna_a, coluna_c in zip(dados.iloc[:, 0], dados.iloc[:, 2]):
@@ -66,19 +66,22 @@ def importar_arquivo(chave_session):
 
     
 
-    messagebox.showinfo("Informação", "Resultado já disponível para exportação")
+    tk.messagebox.showinfo("Informação", "Resultado já disponível para exportação")
 
 def exportar_arquivo():
     global dados_rastreamento
     if not dados_rastreamento:
-        messagebox.showinfo("Informação", "Nenhum dado para exportar")
+        tk.messagebox.showinfo("Informação", "Nenhum dado para exportar")
         return
     
     df = pd.DataFrame(dados_rastreamento)
-    export_file_path = filedialog.asksaveasfilename(defaultextension=".xlsx", filetypes=[("Arquivos Excel", "*.xlsx *.xls")])
+    export_file_path = tk.filedialog.asksaveasfilename(defaultextension=".xlsx", filetypes=[("Arquivos Excel", "*.xlsx *.xls")])
     if export_file_path:
         df.to_excel(export_file_path, index=False)
-        messagebox.showinfo("Informação", f"Arquivo exportado com sucesso para: {export_file_path}")
+        tk.messagebox.showinfo("Informação", f"Arquivo exportado com sucesso para: {export_file_path}")
+
+def veridficar_usuario(usuario):
+    print(f'Usuario "{usuario}" registrado!')
 
 def criar_janela(chave_session):
     app = tk.Tk()
@@ -97,21 +100,27 @@ def criar_janela(chave_session):
 
     app.title("BUGLOG: | Gerar encomendas | Rastrear Objetos")
     app.configure(background='#273142')
-    texto1 = 'Essa aplicação '
-    Label(app, text='Essa aplicação ......',background='#ff9').place(x=10,y=10)
+
+    # Nome e Input Usuario
+    usuario = Label(app, text='Usuário',background='#273142',foreground='#fff', anchor='w')
+    usuario.place(x=10,y=20, width=100, height=20)
+
+    input_usuario = Entry(app, background='#dde', foreground='#009',font=5)
+    input_usuario.place(x=10,y=50,width=300, height=30,)
+ 
+    btn_gravar_usuario = tk.Button(app, text="Entrar", background='#3f8f57',foreground='#fff', command=lambda:veridficar_usuario(input_usuario.get()), width=10, height=1)
+    btn_gravar_usuario.place(x=230,y=85)
     
-
-
     # Botão para importar arquivo
-    btn_importar = tk.Button(app, text="Rastrear Objetos", font=20, command=lambda: importar_arquivo(chave_session), width=30, height=2)
+    btn_importar = tk.Button(app, text="Rastrear Objetos", background='#dde', font=5, command=lambda: importar_arquivo(chave_session), width=20, height=2)
     btn_importar.pack(pady=40)
 
     # Botão para importar arquivo
-    btn_importar = tk.Button(app, text="Gerar encomendas", font=20, command=lambda: enviarobjeto(chave_session), width=30, height=2)
+    btn_importar = tk.Button(app, text="Gerar encomendas", background='#dde',font=5,command=lambda: enviarobjeto(chave_session), width=20, height=2)
     btn_importar.pack(pady=40)
     
     # Botão para exportar arquivo
-    btn_exportar = tk.Button(app, text="Exportar Arquivo", font=20, command=exportar_arquivo, width=30, height=2)
+    btn_exportar = tk.Button(app, text="Exportar Arquivo", background='#dde', font=5,command=exportar_arquivo, width=20, height=2)
     btn_exportar.pack(pady=40)
     
     app.mainloop()
