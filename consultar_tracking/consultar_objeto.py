@@ -5,7 +5,7 @@ from gerar_encomenda.m_gerar_encomenda import enviarobjeto
 import requests
 import pandas as pd
 import tkinter as tk
-from tkinter import * 
+from tkinter import *  
 
 
 # Variável global para armazenar dados do rastreamento
