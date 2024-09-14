@@ -1,12 +1,16 @@
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from authentication.authenticate import authenticate_sessao as aut
 import requests
 import pandas as pd
 import tkinter as tk
 from tkinter import filedialog, messagebox
 import json
+from dotenv import load_dotenv as lddd
 
-
-def enviarobjeto():
-  # chave = chave_session['sessao']
+def enviarobjeto(chave_session):
+  chave = chave_session['sessao']
   url = "https://api.track3r.com.br/v2/api/GerarEncomendas"
 
   payload = json.dumps(
@@ -22,7 +26,7 @@ def enviarobjeto():
           # Os códigos devem ser solicitados à transportadora.
           # Cada transportadora tem o seu código e produto específico.
           "id_produto": 0,   
-          "numero_pedido": "dato123",
+          "numero_pedido": "DatoTeste001",
           # "data_agendamento": "05/11/2020",
           # "hora_agendamento": "10:00",
           # "nome_marca": null,
@@ -40,7 +44,7 @@ def enviarobjeto():
             # 2 = NFC (Nota Fiscal ao Consumidor)
             # 3 = Declaração
             "tipo": "3", 
-            "numero": "644936",
+            "numero": "OR644901",
             "quantidade_volumes": "1",
             "valor_documento": 20.00
             # "serie": "65",
@@ -159,8 +163,8 @@ def enviarobjeto():
 
   response = requests.request("POST", url, headers=headers, data=payload)
 
-  print(response.text)
+  print(f'fim do envio {response.text}')
+  
+  return response
 
 
-resposta = enviarobjeto()
-print(resposta)
