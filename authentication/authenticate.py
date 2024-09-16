@@ -3,10 +3,10 @@ import os
 from dotenv import load_dotenv
 
 def load_token():
-    # Carrega o token do arquivo .env
     load_dotenv()
     token = os.getenv("TOKEN")
     return token
+
 
 def authenticate_sessao():
     token = load_token()
@@ -14,3 +14,8 @@ def authenticate_sessao():
     response = requests.get(url)
     retorno = response.json()
     return retorno
+
+def load_apikey():
+    load_dotenv()
+    apikey = os.getenv("APIKEY")
+    return apikey
