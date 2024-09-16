@@ -5,20 +5,32 @@ from gerar_encomenda.m_gerar_encomenda import enviarobjeto
 import requests
 import pandas as pd
 import tkinter as tk
-from tkinter import *  
+from tkinter import messagebox, Label, Entry, filedialog, END
 
 
-# Variável global para armazenar dados do rastreamento
+# Variável global para armazenar dados do rastreamentoclear
 dados_rastreamento = []
 
-def importar_arquivo(chave_session):
+def rastrear_objeto(chave_session, usuario):
     global dados_rastreamento
+
+    if usuario == "":
+        messagebox.showinfo("Informação", "Nenhum usuário foi registrado, registre-se")
+        return
+    
+    usuario_formatado = usuario.capitalize()
+    usuarios_permitidos = ['Ana', 'Katia R.', 'Alex', 'Milena', 'Marcos', 'Daniele', 'Katia D.', 'Dato']
+    
+    if usuario_formatado not in usuarios_permitidos:
+        messagebox.showinfo("Informação", "Usuário:" f' "{usuario_formatado}"' " sem permissão ! ... Verifique o usuario registrado, ou entre em contato com a equipe de TI")
+        return
+  
     app = tk.Tk()
     app.withdraw()  # Oculta a janela principal
-    file_path = tk.filedialog.askopenfilename(title="Selecione um arquivo", filetypes=[("Arquivos Excel", "*.xlsx *.xls")])
+    file_path = filedialog.askopenfilename(title="Selecione um arquivo", filetypes=[("Arquivos Excel", "*.xlsx *.xls")])
     
     if not file_path:
-        tk.messagebox.showinfo("Informação", "Nenhum arquivo selecionado")
+        messagebox.showinfo("Informação", "Nenhum arquivo selecionado")
         return
     
     dados = pd.read_excel(file_path, engine='openpyxl')
@@ -68,21 +80,34 @@ def importar_arquivo(chave_session):
 
     tk.messagebox.showinfo("Informação", "Resultado já disponível para exportação")
 
-def exportar_arquivo():
+def exportar_arquivo(usuario):
     global dados_rastreamento
+    if usuario == "":
+        messagebox.showinfo("Informação", "Nenhum usuário foi registrado, registre-se")
+        return
+    
+    print(f'Usuário "{usuario}" sem formatação, registrado!')
+    usuario_formatado = usuario.capitalize()
+    print(f'Usuário "{usuario_formatado}" FORMATADO , registrado!')
+    usuarios_permitidos = ['Ana', 'Katia R.', 'Alex', 'Milena', 'Marcos', 'Daniele', 'Katia D.', 'Dato']
+    
+    if usuario_formatado not in usuarios_permitidos:
+        messagebox.showinfo("Informação", "Usuário:" f' "{usuario_formatado}"' " sem permissão ! ... Verifique o usuario registrado, ou entre em contato com a equipe de TI")
+        return
     if not dados_rastreamento:
-        tk.messagebox.showinfo("Informação", "Nenhum dado para exportar")
+        messagebox.showinfo("Informação", "Nenhum dado para exportar")
         return
     
     df = pd.DataFrame(dados_rastreamento)
-    export_file_path = tk.filedialog.asksaveasfilename(defaultextension=".xlsx", filetypes=[("Arquivos Excel", "*.xlsx *.xls")])
+    export_file_path = filedialog.asksaveasfilename(defaultextension=".xlsx", filetypes=[("Arquivos Excel", "*.xlsx *.xls")])
     if export_file_path:
         df.to_excel(export_file_path, index=False)
-        tk.messagebox.showinfo("Informação", f"Arquivo exportado com sucesso para: {export_file_path}")
+        messagebox.showinfo("Informação", f"Arquivo exportado com sucesso para: {export_file_path}")
 
-def veridficar_usuario(usuario):
-    print(f'Usuario "{usuario}" registrado!')
-
+def registra_usuario(usuario):
+    # Aqui você coloca a lógica de registro do usuário
+    print(f"Usuário registrado: {usuario}")
+    
 def criar_janela(chave_session):
     app = tk.Tk()
     
@@ -102,25 +127,26 @@ def criar_janela(chave_session):
     app.configure(background='#273142')
 
     # Nome e Input Usuario
-    usuario = Label(app, text='Usuário',background='#273142',foreground='#fff', anchor='w')
-    usuario.place(x=10,y=20, width=100, height=20)
+    usuario = Label(app, text='Usuário',background='#273142',font=80, foreground='#ffae00', anchor='w')
+    usuario.place(x=20,y=20, width=100, height=20)
 
     input_usuario = Entry(app, background='#dde', foreground='#009',font=5)
-    input_usuario.place(x=10,y=50,width=300, height=30,)
+    input_usuario.place(x=20,y=50,width=300, height=35,)
  
-    btn_gravar_usuario = tk.Button(app, text="Entrar", background='#3f8f57',foreground='#fff', command=lambda:veridficar_usuario(input_usuario.get()), width=10, height=1)
-    btn_gravar_usuario.place(x=230,y=85)
-    
+    btn_gravar_usuario = tk.Button(app, text="Registrar usuário", background='#3f8f57', font= 4, foreground='#fff', command=lambda:registra_usuario(input_usuario.get()), width=13, height=1)
+    btn_gravar_usuario.place(x=193,y=89)
+
+
     # Botão para importar arquivo
-    btn_importar = tk.Button(app, text="Rastrear Objetos", background='#dde', font=5, command=lambda: importar_arquivo(chave_session), width=20, height=2)
+    btn_importar = tk.Button(app, text="Rastrear objetos", background='#dde', font=5, command=lambda: rastrear_objeto(chave_session, input_usuario.get()), width=20, height=2)
     btn_importar.pack(pady=40)
 
     # Botão para importar arquivo
-    btn_importar = tk.Button(app, text="Gerar encomendas", background='#dde',font=5,command=lambda: enviarobjeto(chave_session), width=20, height=2)
+    btn_importar = tk.Button(app, text="Gerar encomendas", background='#dde',font=5,command=lambda: enviarobjeto(chave_session, input_usuario.get()), width=20, height=2)
     btn_importar.pack(pady=40)
     
     # Botão para exportar arquivo
-    btn_exportar = tk.Button(app, text="Exportar Arquivo", background='#dde', font=5,command=exportar_arquivo, width=20, height=2)
+    btn_exportar = tk.Button(app, text="Exportar Arquivo", background='#dde', font=5,command=lambda:exportar_arquivo(input_usuario.get()), width=20, height=2)
     btn_exportar.pack(pady=40)
-    
+
     app.mainloop()
