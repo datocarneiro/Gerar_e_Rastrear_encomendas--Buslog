@@ -13,7 +13,6 @@ def obter_session():
 # def main():
 #     dados_eship()
 
-    
-
 if __name__ == "__main__":
     main()
+
