@@ -222,13 +222,13 @@
                     },
                     "enderecoRemetente": {
                         "id": 2736,
-                        "logradouro": "Rua Pedro Zanetti",
-                        "numero": "230",
+                        "logradouro": "Rua Teste",
+                        "numero": "123",
                         "bairro": "CANGUIRI",
                         "complemento": "",
-                        "telefone": "(41) 3033-3858",
-                        "celular": "(41) 99575-0138",
-                        "codigoPostal": "83.412-585",
+                        "telefone": "(41) 3333-3333",
+                        "celular": "(41) 99999-9999",
+                        "codigoPostal": "80000-000",
                         "somenteLeitura": false,
                         "principal": true,
                         "cadastro": null,
@@ -236,7 +236,7 @@
                         "municipio": {
                             "id": 1,
                             "codigo": 4105805,
-                            "descricao": "Colombo",
+                            "descricao": "São paulo",
                             "latitude": 0,
                             "longitude": 0,
                             "estado": {
