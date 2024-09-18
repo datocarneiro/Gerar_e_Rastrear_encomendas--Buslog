@@ -24,9 +24,14 @@ def rastrear_objeto(chave_session, usuario):
     usuarios_permitidos = load_usuario_permitidos()
     
     if usuario_formatado not in usuarios_permitidos:
-        messagebox.showinfo("Informação", f'*** !!! ATENÇÂO !!! ***\n\n\nUsuário: "{usuario_formatado}" sem permissão ! ... \n\nVerifique o usuario registrado.\nou entre em contato com a equipe de TI"')
+        messagebox.showinfo("Informação",
+            f'''    *** !!! ATENÇÂO !!! ***\n\n\n
+            Usuário: "{usuario_formatado}" sem permissão ! ... \n\n
+            Verifique o usuario registrado.\n
+            Ou entre em contato com a equipe de TI
+        ''')
         return
-  
+      
     app = tk.Tk()
     app.withdraw()  # Oculta a janela principal
     file_path = filedialog.askopenfilename(title="Selecione um arquivo", filetypes=[("Arquivos Excel", "*.xlsx *.xls")])
@@ -76,7 +81,7 @@ def rastrear_objeto(chave_session, usuario):
             'Data/Hora': Data,
             'NomeRecebedor': NomeRecebedor,
             'Comprovante': CaminhoFoto,
-            "LogUsuario": usuario_formatado
+            "UsuarioLog": usuario_formatado
         })
     
 
@@ -89,16 +94,15 @@ def exportar_arquivo(usuario):
         return
     
     usuario_formatado = usuario.capitalize()
-    print(f'Usuário: "{usuario_formatado}" registrado!')
-    usuarios_permitidos = ['Ana', 'Katia R.', 'Alex', 'Milena', 'Marcos', 'Daniele', 'Katia D.', 'Dato']
+    usuarios_permitidos = load_usuario_permitidos()
     
     if usuario_formatado not in usuarios_permitidos:
-        messagebox.showinfo('''
-            "Informação", f'*** !!! ATENÇÂO !!! ***\n\n\n
-            Usuário: "{usuario_formatado}" sem permissão ! ...\n\n
-            Verifique o usuario registrado.\nou entre em contato com a equipe de TI"'
+        messagebox.showinfo("Informação",                                                    
+            f'''    *** !!! ATENÇÂO !!! ***\n\n\n
+            Usuário: "{usuario_formatado}" sem permissão ! ... \n\n
+            Verifique o usuario registrado.\n
+            Ou entre em contato com a equipe de TI
         ''')
-
         return
     
     if not dados_rastreamento:
@@ -109,7 +113,7 @@ def exportar_arquivo(usuario):
     export_file_path = filedialog.asksaveasfilename(defaultextension=".xlsx", filetypes=[("Arquivos Excel", "*.xlsx *.xls")])
     if export_file_path:
         df.to_excel(export_file_path, index=False)
-        messagebox.showinfo("Informação", f"Arquivo exportado com sucesso para: {export_file_path}")
+        messagebox.showinfo("Informação", f"Arquivo exportado com sucesso para:\n\n{export_file_path}")
 
 def registra_usuario(usuario):
     # Aqui você coloca a lógica de registro do usuário
@@ -144,14 +148,14 @@ def criar_janela(chave_session):
     btn_gravar_usuario = tk.Button(app, text="Registrar usuário", background='#08990f', foreground='#ffffff', command=lambda:registra_usuario(input_usuario.get()), width=13, height=1)
     btn_gravar_usuario.place(x=218,y=129)
 
+ 
+    # Botão para importar arquivo
+    btn_rastrear_objeto = tk.Button(app, text="Rastrear objetos", background='#dde', font=5, command=lambda: rastrear_objeto(chave_session, input_usuario.get()), width=20, height=2)
+    btn_rastrear_objeto.pack(pady=(180, 35))
 
     # Botão para importar arquivo
-    btn_importar = tk.Button(app, text="Rastrear objetos", background='#dde', font=5, command=lambda: rastrear_objeto(chave_session, input_usuario.get()), width=20, height=2)
-    btn_importar.pack(pady=(180, 35))
-
-    # Botão para importar arquivo
-    btn_importar = tk.Button(app, text="Gerar encomendas", background='#dde',font=5,command=lambda: enviarobjeto(chave_session, input_usuario.get()), width=20, height=2)
-    btn_importar.pack(pady=(35, 35))
+    btn_gerar_encomenda = tk.Button(app, text="Gerar encomendas", background='#dde',font=5,command=lambda: enviarobjeto(chave_session, input_usuario.get()), width=20, height=2)
+    btn_gerar_encomenda.pack(pady=(35, 35))
     
     # Botão para exportar arquivo
     btn_exportar = tk.Button(app, text="Exportar Arquivo", background='#ffae00', font=2,command=lambda:exportar_arquivo(input_usuario.get()))

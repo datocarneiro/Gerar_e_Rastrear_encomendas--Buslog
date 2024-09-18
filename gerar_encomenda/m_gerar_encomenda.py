@@ -10,9 +10,9 @@ from tkinter import messagebox, Label, Entry, filedialog
 import json
 from dotenv import load_dotenv as ld
 
+
 def enviarobjeto(chave_session, usuario):
-	app = tk.Tk()
-	app.withdraw()  
+
 	if usuario == "":
 		messagebox.showinfo("Informação", "Nenhum usuário foi registrado, registre-se")
 		return
@@ -21,19 +21,22 @@ def enviarobjeto(chave_session, usuario):
 	usuarios_permitidos = load_usuario_permitidos()
 	
 	if usuario_formatado not in usuarios_permitidos:
-		messagebox.showinfo('''
-			"Informação", f'*** !!! ATENÇÂO !!! ***\n\n\n
-			Usuário: "{usuario_formatado}" sem permissão ! ...\n\n
-			Verifique o usuario registrado.\nou entre em contato com a equipe de TI"'
-		''')
-		
+		messagebox.showinfo("Informação",
+			f'''    *** !!! ATENÇÂO !!! ***\n\n\n
+            Usuário: "{usuario_formatado}" sem permissão ! ... \n\n
+            Verifique o usuario registrado.\n
+            Ou entre em contato com a equipe de TI
+        ''')
 		return
 	
-	eship = buscar_dados_eship(usuario_formatado)
+	buscar_dados_eship(usuario_formatado)
 
-	print(f'Estamos no fim ....{eship}')
-	messagebox.showinfo("Informação", "Aqui chegamos para enviar os dados na API da BUSLOG")
+	messagebox.showinfo("Informação", "Retornamos ao modulo gerar .....FIM")
 
+
+
+
+	################################ AQUI COMEÇA O ENVIOU ############################
 
 	# chave = chave_session['sessao']
 	# url = "https://api.track3r.com.br/v2/api/GerarEncomendas"
