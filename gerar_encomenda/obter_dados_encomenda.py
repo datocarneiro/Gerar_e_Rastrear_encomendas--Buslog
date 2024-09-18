@@ -4,7 +4,7 @@ import requests
 import pandas as pd
 import tkinter as tk
 from tkinter import messagebox, Label, Entry, filedialog
-from tabulate import tabulate
+# from tabulate import tabulate
 
 dados_encomenda = []
 

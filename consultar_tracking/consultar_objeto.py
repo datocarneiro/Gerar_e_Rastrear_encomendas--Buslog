@@ -128,13 +128,13 @@ def criar_janela(chave_session):
 
     # Nome e Input Usuario
     usuario = Label(app, text='Usuário',background='#273142',font=80, foreground='#ffae00', anchor='w')
-    usuario.place(x=20,y=20, width=100, height=20)
+    usuario.place(x=20,y=60, width=100, height=20)
 
     input_usuario = Entry(app, background='#dde', foreground='#009',font=5)
-    input_usuario.place(x=20,y=50,width=300, height=35,)
+    input_usuario.place(x=20,y=90,width=300, height=35,)
  
-    btn_gravar_usuario = tk.Button(app, text="Registrar usuário", background='#3f8f57', font= 4, foreground='#fff', command=lambda:registra_usuario(input_usuario.get()), width=13, height=1)
-    btn_gravar_usuario.place(x=193,y=89)
+    btn_gravar_usuario = tk.Button(app, text="Registrar usuário", background='#3f8f57', foreground='#fff', command=lambda:registra_usuario(input_usuario.get()), width=13, height=1)
+    btn_gravar_usuario.place(x=218,y=129)
 
 
     # Botão para importar arquivo
