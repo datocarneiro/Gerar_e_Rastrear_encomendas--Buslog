@@ -14,6 +14,7 @@ Tecnologias aplicadas: Tecnologia: 🎯 Python, API Requests , Pandas, Json, Tki
     ├── .env
     ├── requirements.txt
     └── README.md
+![image](https://github.com/user-attachments/assets/58fb9c7b-a650-4299-a47c-5a8e90c7abcf)
 
 
 ![image](https://github.com/datocarneiro/Rastreador_de_Objeto_Buslog-API-/assets/132966071/56e93925-d740-4de7-9f6b-ab8cc294b463)
