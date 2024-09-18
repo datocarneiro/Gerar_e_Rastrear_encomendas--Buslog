@@ -19,3 +19,8 @@ def load_apikey():
     load_dotenv()
     apikey = os.getenv("APIKEY")
     return apikey
+
+def load_usuario_permitidos():
+    load_dotenv()
+    usuario_permitidos = os.getenv("USUARIOS_PERMITIDOS")
+    return usuario_permitidos

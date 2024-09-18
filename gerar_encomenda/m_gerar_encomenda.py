@@ -1,14 +1,14 @@
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from authentication.authenticate import authenticate_sessao as aut
+from authentication.authenticate import authenticate_sessao as aut, load_usuario_permitidos
 from gerar_encomenda.obter_dados_encomenda import buscar_dados_eship
 import requests
 import pandas as pd
 import tkinter as tk
 from tkinter import messagebox, Label, Entry, filedialog
 import json
-from dotenv import load_dotenv as lddd
+from dotenv import load_dotenv as ld
 
 def enviarobjeto(chave_session, usuario):
 	app = tk.Tk()
@@ -18,13 +18,19 @@ def enviarobjeto(chave_session, usuario):
 		return
 	
 	usuario_formatado = usuario.capitalize()
-	usuarios_permitidos = ['Ana', 'Katia R.', 'Alex', 'Milena', 'Marcos', 'Daniele', 'Katia D.', 'Dato']
+	usuarios_permitidos = load_usuario_permitidos()
 	
 	if usuario_formatado not in usuarios_permitidos:
-		messagebox.showinfo("Informação", "Usuário:" f' "{usuario_formatado}"' " sem permissão ! ... Verifique o usuario registrado, ou entre em contato com a equipe de TI")
+		messagebox.showinfo('''
+			"Informação", f'*** !!! ATENÇÂO !!! ***\n\n\n
+			Usuário: "{usuario_formatado}" sem permissão ! ...\n\n
+			Verifique o usuario registrado.\nou entre em contato com a equipe de TI"'
+		''')
+		
 		return
 	
 	eship = buscar_dados_eship(usuario_formatado)
+
 	print(f'Estamos no fim ....{eship}')
 	messagebox.showinfo("Informação", "Aqui chegamos para enviar os dados na API da BUSLOG")
 

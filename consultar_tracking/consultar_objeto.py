@@ -6,6 +6,7 @@ import requests
 import pandas as pd
 import tkinter as tk
 from tkinter import messagebox, Label, Entry, filedialog, END
+from authentication.authenticate import load_usuario_permitidos
 
 
 # Variável global para armazenar dados do rastreamentoclear
@@ -19,10 +20,11 @@ def rastrear_objeto(chave_session, usuario):
         return
     
     usuario_formatado = usuario.capitalize()
-    usuarios_permitidos = ['Ana', 'Katia R.', 'Alex', 'Milena', 'Marcos', 'Daniele', 'Katia D.', 'Dato']
+    
+    usuarios_permitidos = load_usuario_permitidos()
     
     if usuario_formatado not in usuarios_permitidos:
-        messagebox.showinfo("Informação", "Usuário:" f' "{usuario_formatado}"' " sem permissão ! ... Verifique o usuario registrado, ou entre em contato com a equipe de TI")
+        messagebox.showinfo("Informação", f'*** !!! ATENÇÂO !!! ***\n\n\nUsuário: "{usuario_formatado}" sem permissão ! ... \n\nVerifique o usuario registrado.\nou entre em contato com a equipe de TI"')
         return
   
     app = tk.Tk()
@@ -73,9 +75,9 @@ def rastrear_objeto(chave_session, usuario):
             'Status': status,
             'Data/Hora': Data,
             'NomeRecebedor': NomeRecebedor,
-            'Comprovante': CaminhoFoto
+            'Comprovante': CaminhoFoto,
+            "LogUsuario": usuario_formatado
         })
-
     
 
     tk.messagebox.showinfo("Informação", "Resultado já disponível para exportação")
@@ -86,14 +88,19 @@ def exportar_arquivo(usuario):
         messagebox.showinfo("Informação", "Nenhum usuário foi registrado, registre-se")
         return
     
-    print(f'Usuário "{usuario}" sem formatação, registrado!')
     usuario_formatado = usuario.capitalize()
-    print(f'Usuário "{usuario_formatado}" FORMATADO , registrado!')
+    print(f'Usuário: "{usuario_formatado}" registrado!')
     usuarios_permitidos = ['Ana', 'Katia R.', 'Alex', 'Milena', 'Marcos', 'Daniele', 'Katia D.', 'Dato']
     
     if usuario_formatado not in usuarios_permitidos:
-        messagebox.showinfo("Informação", "Usuário:" f' "{usuario_formatado}"' " sem permissão ! ... Verifique o usuario registrado, ou entre em contato com a equipe de TI")
+        messagebox.showinfo('''
+            "Informação", f'*** !!! ATENÇÂO !!! ***\n\n\n
+            Usuário: "{usuario_formatado}" sem permissão ! ...\n\n
+            Verifique o usuario registrado.\nou entre em contato com a equipe de TI"'
+        ''')
+
         return
+    
     if not dados_rastreamento:
         messagebox.showinfo("Informação", "Nenhum dado para exportar")
         return
@@ -106,7 +113,8 @@ def exportar_arquivo(usuario):
 
 def registra_usuario(usuario):
     # Aqui você coloca a lógica de registro do usuário
-    print(f"Usuário registrado: {usuario}")
+    usuario_formatado = usuario.capitalize()
+    print(f"Usuário registrado: {usuario_formatado}")
     
 def criar_janela(chave_session):
     app = tk.Tk()
@@ -133,20 +141,21 @@ def criar_janela(chave_session):
     input_usuario = Entry(app, background='#dde', foreground='#009',font=5)
     input_usuario.place(x=20,y=90,width=300, height=35,)
  
-    btn_gravar_usuario = tk.Button(app, text="Registrar usuário", background='#3f8f57', foreground='#fff', command=lambda:registra_usuario(input_usuario.get()), width=13, height=1)
+    btn_gravar_usuario = tk.Button(app, text="Registrar usuário", background='#08990f', foreground='#ffffff', command=lambda:registra_usuario(input_usuario.get()), width=13, height=1)
     btn_gravar_usuario.place(x=218,y=129)
 
 
     # Botão para importar arquivo
     btn_importar = tk.Button(app, text="Rastrear objetos", background='#dde', font=5, command=lambda: rastrear_objeto(chave_session, input_usuario.get()), width=20, height=2)
-    btn_importar.pack(pady=40)
+    btn_importar.pack(pady=(180, 35))
 
     # Botão para importar arquivo
     btn_importar = tk.Button(app, text="Gerar encomendas", background='#dde',font=5,command=lambda: enviarobjeto(chave_session, input_usuario.get()), width=20, height=2)
-    btn_importar.pack(pady=40)
+    btn_importar.pack(pady=(35, 35))
     
     # Botão para exportar arquivo
-    btn_exportar = tk.Button(app, text="Exportar Arquivo", background='#dde', font=5,command=lambda:exportar_arquivo(input_usuario.get()), width=20, height=2)
-    btn_exportar.pack(pady=40)
+    btn_exportar = tk.Button(app, text="Exportar Arquivo", background='#ffae00', font=2,command=lambda:exportar_arquivo(input_usuario.get()))
+    btn_exportar.pack(pady=(40, 35))
+
 
     app.mainloop()

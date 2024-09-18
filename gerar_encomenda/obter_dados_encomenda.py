@@ -9,7 +9,6 @@ from tkinter import messagebox, Label, Entry, filedialog
 dados_encomenda = []
 
 def buscar_dados_eship(usuario):
-	usuario = "Fulano"
 	app = tk.Tk()
 	app.withdraw()  # Oculta a janela principal
 	file_path = filedialog.askopenfilename(title="Selecione um arquivo", filetypes=[("Arquivos Excel", "*.xlsx *.xls")])
@@ -24,7 +23,12 @@ def buscar_dados_eship(usuario):
 	messagebox.showinfo("Informação", "Arquivo importado com sucesso")
     
     # Pergunta ao usuário se deseja continuar
-	resposta = messagebox.askquestion("Confirmação", f'*** !!! ATENÇÂO !!! ***\n\n\nTem certeza que deseja realizar a Emissão em lote?\nEssa ação será irrevercível.\n\n\n{usuario}, você confirma a emissão?')
+	resposta = messagebox.askquestion('''
+		"Confirmação", f'*** !!! ATENÇÂO !!! ***\n\n\n
+		Tem certeza que deseja realizar a Emissão em lote?\n
+		Essa ação será irrevercível.\n\n\n
+		{usuario}, você confirma a emissão?'
+	''')
     
 	if resposta == 'no':
 		messagebox.showinfo("Informação", "Operação cancelada.")
@@ -50,12 +54,11 @@ def buscar_dados_eship(usuario):
 		response_data = response.json()
 		
 		ordem = response_data['corpo']['body']['dados'][0]['produtosOrdem'][0]['idOrdem']
-		# print('='*60)
-		# print('ORDEM vinda da api................')
-		# print(ordem)
-		# print('='*60)
+		print('='*60)
+		print('ORDEM vinda da api................')
+		print(ordem)
+		print('='*60)
 
-	return ordem
 
 		# remetente = response_data['corpo']['body']['dados'][0]['produtosOrdem'][0]['ordem']['remetente']
 		# print('REMETENTE')
@@ -91,6 +94,7 @@ def buscar_dados_eship(usuario):
 		# print(peso)
 		# print('='*60)
 
+	##################3 REVISAR DAQUI PARA BAIXO #############################################################
 
 		# dados_encomenda.append({
 		#         'ORDEM': "|000000",
@@ -130,5 +134,6 @@ def buscar_dados_eship(usuario):
 		# "configuracaoCadastro": null,
 		# "info": null
 
+	return ordem
 
 
