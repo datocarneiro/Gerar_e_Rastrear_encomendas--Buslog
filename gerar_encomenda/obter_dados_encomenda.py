@@ -71,6 +71,9 @@ def buscar_dados_eship(usuario):
 		print(f'tipo: ', tipo_documento_transportado)
 		print(f'numero: ', numero_pedido)
 
+		dimenssao_volume = dados_volumes(apikey, ordem)
+		qtd_volume = len(dimenssao_volume)
+		print(f'quantidade_volumes:', qtd_volume)
 
 		# .......................
 		print('='*60)
@@ -83,10 +86,6 @@ def buscar_dados_eship(usuario):
 	# 	enderecoRemetente = response_data['corpo']['body']['dados'][0]['produtosOrdem'][0]['ordem']['enderecoRemetente']
 
 
-		dimenssao_volume = dados_volumes(apikey, ordem)
-		print(dimenssao_volume)
-		qtd_volume = len(dimenssao_volume)
-		print(f'Qtd de volumes:', qtd_volume)
 	
 	# 	destinatario = response_data['corpo']['body']['dados'][0]['produtosOrdem'][0]['ordem']['destinatario']
 	# 	print('DESTINATARIO')
