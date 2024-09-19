@@ -5,17 +5,26 @@ from authentication.authenticate import load_apikey
 import requests
 import json
 
-url = "http://amplo.eship.com.br/v2/?funcao=webServiceConsultarDadosVolumesFaturamento"
+def dados_volumes(apikey, ordem):
+	url = "http://amplo.eship.com.br/v2/?funcao=webServiceConsultarDadosVolumesFaturamento"
 
-payload = json.dumps({
-  "numeroOrdem": "644936"
-})
-headers = {
-  'Content-Type': 'application/json',
-  'api': '56c113c26deeb18c682ba0ccc1796d8d',
-  'Cookie': 'amplo=q9nmqhk3o28mt0tdskrchp14r9'
-}
+	payload = json.dumps({
+	"numeroOrdem": ordem
+	})
+	headers = {
+	'Content-Type': 'application/json',
+	'api': apikey
+	}
 
-response = requests.request("GET", url, headers=headers, data=payload)
+	response = requests.request("GET", url, headers=headers, data=payload)
+	response_data = response.json()
 
-print(response.text)
+	dadosFaturamento = response_data['corpo']['classePadrao']['dadosFaturamento'][0]['dados']
+
+	dados_volumes = dadosFaturamento
+
+	return dados_volumes
+
+
+
+

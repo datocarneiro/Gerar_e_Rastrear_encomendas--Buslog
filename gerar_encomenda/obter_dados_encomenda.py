@@ -1,5 +1,6 @@
 '''Iniciando modulo para buscar dados de encomenda'''
 from authentication.authenticate import load_apikey
+from gerar_encomenda.dados_faturamento import dados_volumes
 import requests
 import pandas as pd
 import tkinter as tk
@@ -36,12 +37,14 @@ def buscar_dados_eship(usuario):
 
 	# for coluna_a, coluna_b, coluna_c in zip(dados.iloc[:, 0], dados.iloc[:, 1], dados.iloc[:, 2]):
 	# 	print(f'Franquia: {coluna_a} | Cliente: {coluna_b} | Ordem: {coluna_c, type(coluna_c)}')
+		ordem = '649739'
+		apikey = load_apikey()
+
 		url = 'https://amplo.eship.com.br/v3/?api=&funcao=webServiceGetOrdem'
 
 		payload = {
-			"ordem": '644936'
+			"ordem": ordem
 		}		
-		apikey = load_apikey()
 
 		# Cabeçalhos da requisição
 		headers = {
@@ -53,19 +56,37 @@ def buscar_dados_eship(usuario):
 		response = requests.get(url, headers=headers, json=payload)
 		response_data = response.json()
 		
-		ordem = response_data['corpo']['body']['dados'][0]['produtosOrdem'][0]['idOrdem']
+		# .........................encomendas
+		print('='*60)
+		id_produto = 1
+		print('id_produto: ', id_produto)
+
 		print('='*60)
 		print('ORDEM vinda da api................')
-		print(ordem)
+		numero_pedido = response_data['corpo']['body']['dados'][0]['produtosOrdem'][0]['idOrdem']
+		print(f'numero_pedido: ',numero_pedido)
 
+		# ...................... documento_transportado
+		tipo_documento_transportado = 3  # // 1 NF, 2 NFC,  3 = Declaração
+		print(f'tipo: ', tipo_documento_transportado)
+		print(f'numero: ', numero_pedido)
+
+
+		# .......................
+		print('='*60)
+		print('REMETENTE................')
 		remetente = response_data['corpo']['body']['dados'][0]['produtosOrdem'][0]['ordem']['remetente']
 		cnpj_remetente = remetente['cnpj']
 		razaoSocial = remetente['razaoSocial']
-		print('='*60)
-		print('REMETENTE................')
 		print(cnpj_remetente)
 		print(razaoSocial  )
 	# 	enderecoRemetente = response_data['corpo']['body']['dados'][0]['produtosOrdem'][0]['ordem']['enderecoRemetente']
+
+
+		dimenssao_volume = dados_volumes(apikey, ordem)
+		print(dimenssao_volume)
+		qtd_volume = len(dimenssao_volume)
+		print(f'Qtd de volumes:', qtd_volume)
 	
 	# 	destinatario = response_data['corpo']['body']['dados'][0]['produtosOrdem'][0]['ordem']['destinatario']
 	# 	print('DESTINATARIO')
@@ -87,10 +108,6 @@ def buscar_dados_eship(usuario):
 	# 	print(usuario_emissor)
 	# 	print('='*60)
 
-	# 	print('PESO ')
-	# 	peso = response_data['corpo']['body']['dados'][0]['produtosOrdem'][0]['produto']
-	# 	print(peso)
-	# 	print('='*60)
 
 	# 	dados_encomenda.append({
 	# 	        'ORDEM': ordem,

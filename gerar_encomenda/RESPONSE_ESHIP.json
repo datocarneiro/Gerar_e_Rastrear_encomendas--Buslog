@@ -24,7 +24,7 @@
                                 "logradouro": "Rua Pedro Zanetti",
                                 "numero": "230",
                                 "bairro": "CANGUIRI",
-                                "complemento": "",
+                                "complemento": "end REMETENTE - ok 16/09",
                                 "telefone": "(41) 3033-3858",
                                 "celular": "(41) 99575-0138",
                                 "codigoPostal": "83.412-585",
@@ -79,7 +79,7 @@
                             "logradouro": "Rua Pedro Zanetti",
                             "numero": "230",
                             "bairro": "CANGUIRI",
-                            "complemento": "",
+                            "complemento": "end REMETENTE - ok 16/09",
                             "telefone": "(41) 3033-3858",
                             "celular": "(41) 99575-0138",
                             "codigoPostal": "83.412-585",
@@ -124,14 +124,14 @@
                     },
                     "flagDescontarOcupacaoFila": null,
                     "saidas": null,
-                    "id": 644936,
+                    "id": 649739,
                     "dataHora": {
-                        "date": "2024-09-11 17:52:49.000000",
+                        "date": "2024-09-18 20:50:14.000000",
                         "timezone_type": 3,
                         "timezone": "America/Fortaleza"
                     },
                     "dataHoraAtualizacao": {
-                        "date": "2024-09-12 11:00:52.000000",
+                        "date": "2024-09-18 20:54:52.000000",
                         "timezone_type": 3,
                         "timezone": "America/Fortaleza"
                     },
@@ -222,56 +222,15 @@
                     },
                     "enderecoRemetente": {
                         "id": 2736,
-                        "logradouro": "Rua Teste",
-                        "numero": "123",
+                        "logradouro": "Rua Pedro Zanetti",
+                        "numero": "230",
                         "bairro": "CANGUIRI",
-                        "complemento": "",
-                        "telefone": "(41) 3333-3333",
-                        "celular": "(41) 99999-9999",
-                        "codigoPostal": "80000-000",
+                        "complemento": "end REMETENTE - ok 16/09",
+                        "telefone": "(41) 3033-3858",
+                        "celular": "(41) 99575-0138",
+                        "codigoPostal": "83.412-585",
                         "somenteLeitura": false,
                         "principal": true,
-                        "cadastro": null,
-                        "status": null,
-                        "municipio": {
-                            "id": 1,
-                            "codigo": 4105805,
-                            "descricao": "São paulo",
-                            "latitude": 0,
-                            "longitude": 0,
-                            "estado": {
-                                "id": 18,
-                                "sigla": "PR",
-                                "descricao": "Paraná",
-                                "prefixo": 41,
-                                "idRegiao": null,
-                                "idPais": null,
-                                "municipios": []
-                            },
-                            "pais": {
-                                "id": 87,
-                                "nome": "Brasil",
-                                "municipios": [],
-                                "estados": []
-                            },
-                            "idUf": 18
-                        },
-                        "municipioOk": true,
-                        "forceInsert": false,
-                        "idCadastro": 3,
-                        "info": null
-                    },
-                    "enderecoDestinatario": {
-                        "id": 174417,
-                        "logradouro": "pedro zanetti",
-                        "numero": "230",
-                        "bairro": "canguiri",
-                        "complemento": "ATUALIZAÇÃO POR CSV",
-                        "telefone": "",
-                        "celular": "",
-                        "codigoPostal": "83.411-240",
-                        "somenteLeitura": false,
-                        "principal": false,
                         "cadastro": null,
                         "status": null,
                         "municipio": {
@@ -297,20 +256,61 @@
                             },
                             "idUf": 18
                         },
-                        "municipioOk": true,
+                        "municipioOk": null,
+                        "forceInsert": false,
+                        "idCadastro": 3,
+                        "info": null
+                    },
+                    "enderecoDestinatario": {
+                        "id": 58026,
+                        "logradouro": "Pedro zanetti",
+                        "numero": "230",
+                        "bairro": "Canguiri",
+                        "complemento": "Barracão 2  (endereço destinatario - ok 16/09)",
+                        "telefone": "",
+                        "celular": "",
+                        "codigoPostal": "83.412-585",
+                        "somenteLeitura": false,
+                        "principal": true,
+                        "cadastro": null,
+                        "status": null,
+                        "municipio": {
+                            "id": 1,
+                            "codigo": 4105805,
+                            "descricao": "Colombo",
+                            "latitude": 0,
+                            "longitude": 0,
+                            "estado": {
+                                "id": 18,
+                                "sigla": "PR",
+                                "descricao": "Paraná",
+                                "prefixo": 41,
+                                "idRegiao": null,
+                                "idPais": null,
+                                "municipios": []
+                            },
+                            "pais": {
+                                "id": 87,
+                                "nome": "Brasil",
+                                "municipios": [],
+                                "estados": []
+                            },
+                            "idUf": 18
+                        },
+                        "municipioOk": null,
                         "forceInsert": false,
                         "idCadastro": 52052,
                         "info": null
                     },
                     "status": {
-                        "id": 7,
-                        "descricao": "Em Expedição",
+                        "id": 6,
+                        "descricao": "Aguardando Expedição",
                         "somenteLeitura": true,
                         "cor": {
-                            "id": 2,
-                            "descricao": "AZUL",
-                            "hexadecimal": "#42a5f5",
-                            "corContraste": 6
+                            "id": 1,
+                            "descricao": "AMARELO",
+                            "hexadecimal": "#ffff00",
+                            "corContraste": 8
                         },
                         "icone": {
                             "id": null,
@@ -369,7 +369,7 @@
                     "anexos": [],
                     "produtosOrdem": [
                         {
-                            "id": 3311489,
+                            "id": 3342002,
                             "produto": {
                                 "id": 14648,
                                 "codigo": "CAIXASUBWAY1P26",
@@ -438,27 +438,27 @@
                                 "info": null,
                                 "baseFormulario": null
                             },
-                            "quantidade": 1,
+                            "quantidade": 2,
                             "dataHoraAlteracao": {
                                 "date": "2024-09-11 17:53:20.000000",
                                 "timezone_type": 3,
                                 "timezone": "America/Fortaleza"
                             },
                             "emitido": true,
-                            "idOrdem": 644936,
+                            "idOrdem": 649739,
                             "ordem": {
                                 "transportes": [],
                                 "transporteSuperior": null,
                                 "flagDescontarOcupacaoFila": null,
                                 "saidas": null,
-                                "id": 644936,
+                                "id": 649739,
                                 "dataHora": {
-                                    "date": "2024-09-11 17:52:49.000000",
+                                    "date": "2024-09-18 20:50:14.000000",
                                     "timezone_type": 3,
                                     "timezone": "America/Fortaleza"
                                 },
                                 "dataHoraAtualizacao": {
-                                    "date": "2024-09-12 11:00:52.000000",
+                                    "date": "2024-09-18 20:54:52.000000",
                                     "timezone_type": 3,
                                     "timezone": "America/Fortaleza"
                                 },
@@ -552,7 +552,7 @@
                                     "logradouro": "Rua Pedro Zanetti",
                                     "numero": "230",
                                     "bairro": "CANGUIRI",
-                                    "complemento": "",
+                                    "complemento": "end REMETENTE - ok 16/09",
                                     "telefone": "(41) 3033-3858",
                                     "celular": "(41) 99575-0138",
                                     "codigoPostal": "83.412-585",
@@ -589,16 +589,16 @@
                                     "info": null
                                 },
                                 "enderecoDestinatario": {
-                                    "id": 174417,
-                                    "logradouro": "pedro zanetti",
+                                    "id": 58026,
+                                    "logradouro": "Pedro zanetti",
                                     "numero": "230",
-                                    "bairro": "canguiri",
-                                    "complemento": "ATUALIZAÇÃO POR CSV",
+                                    "bairro": "Canguiri",
+                                    "complemento": "Barracão 2  (endereço destinatario - ok 16/09)",
                                     "telefone": "",
                                     "celular": "",
-                                    "codigoPostal": "83.411-240",
+                                    "codigoPostal": "83.412-585",
                                     "somenteLeitura": false,
-                                    "principal": false,
+                                    "principal": true,
                                     "cadastro": null,
                                     "status": null,
                                     "municipio": {
@@ -642,11 +642,11 @@
                                     "historico": []
                                 },
                                 "informacaoOperacao": null,
-                                "idStatus": 7,
+                                "idStatus": 6,
                                 "idTipo": 14,
                                 "idUsuario": 9,
                                 "idEndRemetente": 2736,
-                                "idEndDestinatario": 174417,
+                                "idEndDestinatario": 58026,
                                 "idArmazem": 4,
                                 "transpor": null,
                                 "ignorarValidacaoQuantidadeConferencia": null,
@@ -659,6 +659,590 @@
                             "idProduto": 14648,
                             "ignorarReservas": false,
                             "info": null
+                        },
+                        {
+                            "id": 3342003,
+                            "produto": {
+                                "id": 14973,
+                                "codigo": "CAIXASUBWAY1G27",
+                                "codigoBarras": "CAIXASUBWAY1G27",
+                                "descricao": "CAIXA SUBWAY - [G ] - FINA - 95X27X112",
+                                "pesoLiquido": 404,
+                                "pesoBruto": 404,
+                                "pesoCubico": 0,
+                                "largura": 940,
+                                "comprimento": 260,
+                                "altura": 100,
+                                "dataCriacao": {
+                                    "date": "2021-10-14 00:00:00.000000",
+                                    "timezone_type": 3,
+                                    "timezone": "America/Fortaleza"
+                                },
+                                "caracteristicas": "",
+                                "embalado": 2,
+                                "somenteLeitura": false,
+                                "cfop": null,
+                                "idUnidadeMedida": 8,
+                                "unidadeMedida": {
+                                    "id": 8,
+                                    "descricao": "Unidade",
+                                    "sigla": "un.",
+                                    "proporcao": "1",
+                                    "editavel": null,
+                                    "fracionamento": false
+                                },
+                                "tipo": {
+                                    "id": 1,
+                                    "descricao": "Simples"
+                                },
+                                "debito": {
+                                    "id": 2,
+                                    "descricao": "FIFO",
+                                    "cor": null,
+                                    "idCor": null,
+                                    "svg": null
+                                },
+                                "status": {},
+                                "statusBloqueio": [],
+                                "cadastro": null,
+                                "controles": [],
+                                "variante": null,
+                                "composicao": [],
+                                "imagemPrincipal": null,
+                                "imagens": [],
+                                "categorias": [],
+                                "diretorioImagens": "/var/www/html/amplo.eship.com.br/Repositorio/Sistemas/141/ImagensProdutos/14973/",
+                                "historico": {
+                                    "historico": []
+                                },
+                                "idStatus": 1,
+                                "idCadastro": 3,
+                                "idTipo": 1,
+                                "tolerancia": 0,
+                                "depositosApontamento": [
+                                    {
+                                        "4": [
+                                            59
+                                        ]
+                                    }
+                                ],
+                                "depositosSaida": [
+                                    {}
+                                ],
+                                "buscadoCategoria": true,
+                                "categoriaPorNivel": [],
+                                "info": null,
+                                "baseFormulario": null
+                            },
+                            "quantidade": 1,
+                            "dataHoraAlteracao": {
+                                "date": "2024-09-17 10:32:45.000000",
+                                "timezone_type": 3,
+                                "timezone": "America/Fortaleza"
+                            },
+                            "emitido": true,
+                            "idOrdem": 649739,
+                            "ordem": {
+                                "transportes": [],
+                                "transporteSuperior": null,
+                                "flagDescontarOcupacaoFila": null,
+                                "saidas": null,
+                                "id": 649739,
+                                "dataHora": {
+                                    "date": "2024-09-18 20:50:14.000000",
+                                    "timezone_type": 3,
+                                    "timezone": "America/Fortaleza"
+                                },
+                                "dataHoraAtualizacao": {
+                                    "date": "2024-09-18 20:54:52.000000",
+                                    "timezone_type": 3,
+                                    "timezone": "America/Fortaleza"
+                                },
+                                "observacao": "<p><strong>TESTE EMISSÂO VIA API</strong></p>",
+                                "remetente": {
+                                    "id": 3,
+                                    "nome": "SUBWAY",
+                                    "razaoSocial": "SUBWAY SYSTEMS DO BRASIL LTDA",
+                                    "ie": "",
+                                    "site": "",
+                                    "data": {
+                                        "date": "2020-04-18 00:00:00.000000",
+                                        "timezone_type": 3,
+                                        "timezone": "America/Fortaleza"
+                                    },
+                                    "cnpj": "02891567000201",
+                                    "cpf": "",
+                                    "rg": "",
+                                    "tipo": null,
+                                    "tipoFiscal": {
+                                        "id": 1,
+                                        "descricao": "Jurídica",
+                                        "somenteleitura": true
+                                    },
+                                    "classificacao": null,
+                                    "status": {
+                                        "id": 1,
+                                        "descricao": "Ativado",
+                                        "cor": {
+                                            "id": 3,
+                                            "descricao": "VERDE",
+                                            "hexadecimal": "#00e676",
+                                            "corContraste": 6
+                                        },
+                                        "idCor": null,
+                                        "svg": null
+                                    },
+                                    "cadastroSuperior": null,
+                                    "idCadastroSuperior": 2,
+                                    "enderecos": [],
+                                    "enderecoPrincipal": null,
+                                    "contatos": [],
+                                    "codigo": "1",
+                                    "configuracaoCadastro": null,
+                                    "info": null
+                                },
+                                "destinatario": {
+                                    "id": 52052,
+                                    "nome": "Dato Amplo",
+                                    "razaoSocial": "",
+                                    "ie": "",
+                                    "site": "",
+                                    "data": {
+                                        "date": "2021-05-25 00:00:00.000000",
+                                        "timezone_type": 3,
+                                        "timezone": "America/Fortaleza"
+                                    },
+                                    "cnpj": "",
+                                    "cpf": "47851731062",
+                                    "rg": "47851731062",
+                                    "tipo": null,
+                                    "tipoFiscal": {
+                                        "id": 2,
+                                        "descricao": "Física",
+                                        "somenteleitura": true
+                                    },
+                                    "classificacao": null,
+                                    "status": {
+                                        "id": 1,
+                                        "descricao": "Ativado",
+                                        "cor": {
+                                            "id": 3,
+                                            "descricao": "VERDE",
+                                            "hexadecimal": "#00e676",
+                                            "corContraste": 6
+                                        },
+                                        "idCor": null,
+                                        "svg": null
+                                    },
+                                    "cadastroSuperior": null,
+                                    "idCadastroSuperior": 2,
+                                    "enderecos": [],
+                                    "enderecoPrincipal": null,
+                                    "contatos": [],
+                                    "codigo": "DatoAmplo",
+                                    "configuracaoCadastro": null,
+                                    "info": null
+                                },
+                                "enderecoRemetente": {
+                                    "id": 2736,
+                                    "logradouro": "Rua Pedro Zanetti",
+                                    "numero": "230",
+                                    "bairro": "CANGUIRI",
+                                    "complemento": "end REMETENTE - ok 16/09",
+                                    "telefone": "(41) 3033-3858",
+                                    "celular": "(41) 99575-0138",
+                                    "codigoPostal": "83.412-585",
+                                    "somenteLeitura": false,
+                                    "principal": true,
+                                    "cadastro": null,
+                                    "status": null,
+                                    "municipio": {
+                                        "id": 1,
+                                        "codigo": 4105805,
+                                        "descricao": "Colombo",
+                                        "latitude": 0,
+                                        "longitude": 0,
+                                        "estado": {
+                                            "id": 18,
+                                            "sigla": "PR",
+                                            "descricao": "Paraná",
+                                            "prefixo": 41,
+                                            "idRegiao": null,
+                                            "idPais": null,
+                                            "municipios": []
+                                        },
+                                        "pais": {
+                                            "id": 87,
+                                            "nome": "Brasil",
+                                            "municipios": [],
+                                            "estados": []
+                                        },
+                                        "idUf": 18
+                                    },
+                                    "municipioOk": null,
+                                    "forceInsert": false,
+                                    "idCadastro": 3,
+                                    "info": null
+                                },
+                                "enderecoDestinatario": {
+                                    "id": 58026,
+                                    "logradouro": "Pedro zanetti",
+                                    "numero": "230",
+                                    "bairro": "Canguiri",
+                                    "complemento": "Barracão 2  (endereço destinatario - ok 16/09)",
+                                    "telefone": "",
+                                    "celular": "",
+                                    "codigoPostal": "83.412-585",
+                                    "somenteLeitura": false,
+                                    "principal": true,
+                                    "cadastro": null,
+                                    "status": null,
+                                    "municipio": {
+                                        "id": 1,
+                                        "codigo": 4105805,
+                                        "descricao": "Colombo",
+                                        "latitude": 0,
+                                        "longitude": 0,
+                                        "estado": {
+                                            "id": 18,
+                                            "sigla": "PR",
+                                            "descricao": "Paraná",
+                                            "prefixo": 41,
+                                            "idRegiao": null,
+                                            "idPais": null,
+                                            "municipios": []
+                                        },
+                                        "pais": {
+                                            "id": 87,
+                                            "nome": "Brasil",
+                                            "municipios": [],
+                                            "estados": []
+                                        },
+                                        "idUf": 18
+                                    },
+                                    "municipioOk": null,
+                                    "forceInsert": false,
+                                    "idCadastro": 52052,
+                                    "info": null
+                                },
+                                "status": null,
+                                "tipo": null,
+                                "usuario": null,
+                                "armazem": null,
+                                "anexos": [],
+                                "produtosOrdem": [],
+                                "reservas": [],
+                                "quantidadeProdutosReservas": [],
+                                "inserindoReserva": false,
+                                "historico": {
+                                    "historico": []
+                                },
+                                "informacaoOperacao": null,
+                                "idStatus": 6,
+                                "idTipo": 14,
+                                "idUsuario": 9,
+                                "idEndRemetente": 2736,
+                                "idEndDestinatario": 58026,
+                                "idArmazem": 4,
+                                "transpor": null,
+                                "ignorarValidacaoQuantidadeConferencia": null,
+                                "armazemSelecionado": null,
+                                "info": null,
+                                "baseFormulario": null,
+                                "falhas": [],
+                                "nfeReferencia": []
+                            },
+                            "idProduto": 14973,
+                            "ignorarReservas": false,
+                            "info": null
+                        },
+                        {
+                            "id": 3342004,
+                            "produto": {
+                                "id": 26485,
+                                "codigo": "SUB001323AI",
+                                "codigoBarras": "SUB001323AI",
+                                "descricao": "ADESIVO CARDÁPIO 88,88 - SUBSERIES DF 2024",
+                                "pesoLiquido": 22,
+                                "pesoBruto": 22,
+                                "pesoCubico": 0,
+                                "largura": 10,
+                                "comprimento": 10,
+                                "altura": 10,
+                                "dataCriacao": {
+                                    "date": "2023-05-26 00:00:00.000000",
+                                    "timezone_type": 3,
+                                    "timezone": "America/Fortaleza"
+                                },
+                                "caracteristicas": "ADESIVO PRECIFICADOR 8888Formato: 21 x 28 cm Impressão: OffsetSubstrato: Adesivo brilho removível 190g Cores: 4X0 CMYKAcabamento: FACA ESPECIAL, meio corte em cartela, laminação Bopp fosca, separação em kits 1.800 kits com 2 cartelas cada.Quantidade: 1.800 kits x 02 unidades = 3.600 unidades",
+                                "embalado": 2,
+                                "somenteLeitura": false,
+                                "cfop": null,
+                                "idUnidadeMedida": 8,
+                                "unidadeMedida": {
+                                    "id": 8,
+                                    "descricao": "Unidade",
+                                    "sigla": "un.",
+                                    "proporcao": "1",
+                                    "editavel": null,
+                                    "fracionamento": false
+                                },
+                                "tipo": {
+                                    "id": 1,
+                                    "descricao": "Simples"
+                                },
+                                "debito": {
+                                    "id": 2,
+                                    "descricao": "FIFO",
+                                    "cor": null,
+                                    "idCor": null,
+                                    "svg": null
+                                },
+                                "status": {},
+                                "statusBloqueio": [],
+                                "cadastro": null,
+                                "controles": [],
+                                "variante": null,
+                                "composicao": [],
+                                "imagemPrincipal": null,
+                                "imagens": [],
+                                "categorias": [],
+                                "diretorioImagens": "/var/www/html/amplo.eship.com.br/Repositorio/Sistemas/141/ImagensProdutos/26485/",
+                                "historico": {
+                                    "historico": []
+                                },
+                                "idStatus": 1,
+                                "idCadastro": 3,
+                                "idTipo": 1,
+                                "tolerancia": 0,
+                                "depositosApontamento": null,
+                                "depositosSaida": null,
+                                "buscadoCategoria": true,
+                                "categoriaPorNivel": [],
+                                "info": null,
+                                "baseFormulario": null
+                            },
+                            "quantidade": 1,
+                            "dataHoraAlteracao": {
+                                "date": "2024-09-18 20:52:18.000000",
+                                "timezone_type": 3,
+                                "timezone": "America/Fortaleza"
+                            },
+                            "emitido": true,
+                            "idOrdem": 649739,
+                            "ordem": {
+                                "transportes": [],
+                                "transporteSuperior": null,
+                                "flagDescontarOcupacaoFila": null,
+                                "saidas": null,
+                                "id": 649739,
+                                "dataHora": {
+                                    "date": "2024-09-18 20:50:14.000000",
+                                    "timezone_type": 3,
+                                    "timezone": "America/Fortaleza"
+                                },
+                                "dataHoraAtualizacao": {
+                                    "date": "2024-09-18 20:54:52.000000",
+                                    "timezone_type": 3,
+                                    "timezone": "America/Fortaleza"
+                                },
+                                "observacao": "<p><strong>TESTE EMISSÂO VIA API</strong></p>",
+                                "remetente": {
+                                    "id": 3,
+                                    "nome": "SUBWAY",
+                                    "razaoSocial": "SUBWAY SYSTEMS DO BRASIL LTDA",
+                                    "ie": "",
+                                    "site": "",
+                                    "data": {
+                                        "date": "2020-04-18 00:00:00.000000",
+                                        "timezone_type": 3,
+                                        "timezone": "America/Fortaleza"
+                                    },
+                                    "cnpj": "02891567000201",
+                                    "cpf": "",
+                                    "rg": "",
+                                    "tipo": null,
+                                    "tipoFiscal": {
+                                        "id": 1,
+                                        "descricao": "Jurídica",
+                                        "somenteleitura": true
+                                    },
+                                    "classificacao": null,
+                                    "status": {
+                                        "id": 1,
+                                        "descricao": "Ativado",
+                                        "cor": {
+                                            "id": 3,
+                                            "descricao": "VERDE",
+                                            "hexadecimal": "#00e676",
+                                            "corContraste": 6
+                                        },
+                                        "idCor": null,
+                                        "svg": null
+                                    },
+                                    "cadastroSuperior": null,
+                                    "idCadastroSuperior": 2,
+                                    "enderecos": [],
+                                    "enderecoPrincipal": null,
+                                    "contatos": [],
+                                    "codigo": "1",
+                                    "configuracaoCadastro": null,
+                                    "info": null
+                                },
+                                "destinatario": {
+                                    "id": 52052,
+                                    "nome": "Dato Amplo",
+                                    "razaoSocial": "",
+                                    "ie": "",
+                                    "site": "",
+                                    "data": {
+                                        "date": "2021-05-25 00:00:00.000000",
+                                        "timezone_type": 3,
+                                        "timezone": "America/Fortaleza"
+                                    },
+                                    "cnpj": "",
+                                    "cpf": "47851731062",
+                                    "rg": "47851731062",
+                                    "tipo": null,
+                                    "tipoFiscal": {
+                                        "id": 2,
+                                        "descricao": "Física",
+                                        "somenteleitura": true
+                                    },
+                                    "classificacao": null,
+                                    "status": {
+                                        "id": 1,
+                                        "descricao": "Ativado",
+                                        "cor": {
+                                            "id": 3,
+                                            "descricao": "VERDE",
+                                            "hexadecimal": "#00e676",
+                                            "corContraste": 6
+                                        },
+                                        "idCor": null,
+                                        "svg": null
+                                    },
+                                    "cadastroSuperior": null,
+                                    "idCadastroSuperior": 2,
+                                    "enderecos": [],
+                                    "enderecoPrincipal": null,
+                                    "contatos": [],
+                                    "codigo": "DatoAmplo",
+                                    "configuracaoCadastro": null,
+                                    "info": null
+                                },
+                                "enderecoRemetente": {
+                                    "id": 2736,
+                                    "logradouro": "Rua Pedro Zanetti",
+                                    "numero": "230",
+                                    "bairro": "CANGUIRI",
+                                    "complemento": "end REMETENTE - ok 16/09",
+                                    "telefone": "(41) 3033-3858",
+                                    "celular": "(41) 99575-0138",
+                                    "codigoPostal": "83.412-585",
+                                    "somenteLeitura": false,
+                                    "principal": true,
+                                    "cadastro": null,
+                                    "status": null,
+                                    "municipio": {
+                                        "id": 1,
+                                        "codigo": 4105805,
+                                        "descricao": "Colombo",
+                                        "latitude": 0,
+                                        "longitude": 0,
+                                        "estado": {
+                                            "id": 18,
+                                            "sigla": "PR",
+                                            "descricao": "Paraná",
+                                            "prefixo": 41,
+                                            "idRegiao": null,
+                                            "idPais": null,
+                                            "municipios": []
+                                        },
+                                        "pais": {
+                                            "id": 87,
+                                            "nome": "Brasil",
+                                            "municipios": [],
+                                            "estados": []
+                                        },
+                                        "idUf": 18
+                                    },
+                                    "municipioOk": null,
+                                    "forceInsert": false,
+                                    "idCadastro": 3,
+                                    "info": null
+                                },
+                                "enderecoDestinatario": {
+                                    "id": 58026,
+                                    "logradouro": "Pedro zanetti",
+                                    "numero": "230",
+                                    "bairro": "Canguiri",
+                                    "complemento": "Barracão 2  (endereço destinatario - ok 16/09)",
+                                    "telefone": "",
+                                    "celular": "",
+                                    "codigoPostal": "83.412-585",
+                                    "somenteLeitura": false,
+                                    "principal": true,
+                                    "cadastro": null,
+                                    "status": null,
+                                    "municipio": {
+                                        "id": 1,
+                                        "codigo": 4105805,
+                                        "descricao": "Colombo",
+                                        "latitude": 0,
+                                        "longitude": 0,
+                                        "estado": {
+                                            "id": 18,
+                                            "sigla": "PR",
+                                            "descricao": "Paraná",
+                                            "prefixo": 41,
+                                            "idRegiao": null,
+                                            "idPais": null,
+                                            "municipios": []
+                                        },
+                                        "pais": {
+                                            "id": 87,
+                                            "nome": "Brasil",
+                                            "municipios": [],
+                                            "estados": []
+                                        },
+                                        "idUf": 18
+                                    },
+                                    "municipioOk": null,
+                                    "forceInsert": false,
+                                    "idCadastro": 52052,
+                                    "info": null
+                                },
+                                "status": null,
+                                "tipo": null,
+                                "usuario": null,
+                                "armazem": null,
+                                "anexos": [],
+                                "produtosOrdem": [],
+                                "reservas": [],
+                                "quantidadeProdutosReservas": [],
+                                "inserindoReserva": false,
+                                "historico": {
+                                    "historico": []
+                                },
+                                "informacaoOperacao": null,
+                                "idStatus": 6,
+                                "idTipo": 14,
+                                "idUsuario": 9,
+                                "idEndRemetente": 2736,
+                                "idEndDestinatario": 58026,
+                                "idArmazem": 4,
+                                "transpor": null,
+                                "ignorarValidacaoQuantidadeConferencia": null,
+                                "armazemSelecionado": null,
+                                "info": null,
+                                "baseFormulario": null,
+                                "falhas": [],
+                                "nfeReferencia": []
+                            },
+                            "idProduto": 26485,
+                            "ignorarReservas": false,
+                            "info": null
                         }
                     ],
                     "reservas": [],
@@ -668,11 +1252,11 @@
                         "historico": []
                     },
                     "informacaoOperacao": null,
-                    "idStatus": 7,
+                    "idStatus": 6,
                     "idTipo": 14,
                     "idUsuario": 9,
                     "idEndRemetente": 2736,
-                    "idEndDestinatario": 174417,
+                    "idEndDestinatario": 58026,
                     "idArmazem": 4,
                     "transpor": null,
                     "ignorarValidacaoQuantidadeConferencia": null,

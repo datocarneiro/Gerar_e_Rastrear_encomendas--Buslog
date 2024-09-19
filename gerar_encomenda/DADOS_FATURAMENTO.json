@@ -7,25 +7,48 @@
         "classePadrao": {
             "dadosFaturamento": [
                 {
-                    "codigo": "OR000000648986",
+                    "codigo": "OR000000649739",
                     "cnpjRemetenteWms": "02891567000201",
                     "chaveNotaVenda": "",
                     "cfopNotaVenda": "",
                     "reservas": [],
                     "ordens": {
-                        "codigo": "OR000000648986",
-                        "quantidadeVolumes": 1,
-                        "quantidadeVolumesRemessa": 1,
+                        "codigo": "OR000000649739",
+                        "quantidadeVolumes": 2,
+                        "quantidadeVolumesRemessa": 2,
                         "quantidadeVolumesPreVolumetria": 0,
-                        "pesoTotal": "0.79"
+                        "pesoTotal": "1.20"
                     },
                     "dados": [
                         {
-                            "codigoVolume": "VL000000436340",
-                            "pesoVolume": 789,
-                            "larguraVolume": 1040,
+                            "codigoVolume": "VL000000436866",
+                            "pesoVolume": 426,
+                            "larguraVolume": 950,
+                            "comprimentoVolume": 270,
+                            "alturaVolume": 110,
+                            "checkouts": [
+                                {
+                                    "codigoProduto": "CAIXASUBWAY1G27",
+                                    "produto": "CAIXASUBWAY1G27",
+                                    "pesoProduto": 404,
+                                    "descricaoProduto": "CAIXA SUBWAY - [G ] - FINA - 95X27X112",
+                                    "quantidade": 1
+                                },
+                                {
+                                    "codigoProduto": "SUB001323AI",
+                                    "produto": "SUB001323AI",
+                                    "pesoProduto": 22,
+                                    "descricaoProduto": "ADESIVO CARDÁPIO 88,88 - SUBSERIES DF 2024",
+                                    "quantidade": 1
+                                }
+                            ]
+                        },
+                        {
+                            "codigoVolume": "VL000000436867",
+                            "pesoVolume": 770,
+                            "larguraVolume": 200,
                             "comprimentoVolume": 520,
-                            "alturaVolume": 750,
+                            "alturaVolume": 1300,
                             "checkouts": [
                                 {
                                     "codigoProduto": "CAIXASUBWAY1P26",
@@ -35,10 +58,10 @@
                                     "quantidade": 1
                                 },
                                 {
-                                    "codigoProduto": "CAIXASUBWAY1G27",
-                                    "produto": "CAIXASUBWAY1G27",
-                                    "pesoProduto": 404,
-                                    "descricaoProduto": "CAIXA SUBWAY - [G ] - FINA - 95X27X112",
+                                    "codigoProduto": "CAIXASUBWAY1P26",
+                                    "produto": "CAIXASUBWAY1P26",
+                                    "pesoProduto": 385,
+                                    "descricaoProduto": "CAIXA SUBWAY - [P] - FINA - 65X26X10",
                                     "quantidade": 1
                                 }
                             ]
@@ -52,7 +75,7 @@
                             "produto": "CAIXASUBWAY1P26",
                             "pesoProduto": 385,
                             "descricaoProduto": "CAIXA SUBWAY - [P] - FINA - 65X26X10",
-                            "quantidade": 1
+                            "quantidade": 2
                         },
                         {
                             "codigoDeposito": "DP000000000059",
@@ -61,6 +84,15 @@
                             "produto": "CAIXASUBWAY1G27",
                             "pesoProduto": 404,
                             "descricaoProduto": "CAIXA SUBWAY - [G ] - FINA - 95X27X112",
+                            "quantidade": 1
+                        },
+                        {
+                            "codigoDeposito": "DP000000000059",
+                            "descricaoDeposito": "SUBWAY",
+                            "codigoProduto": "SUB001323AI",
+                            "produto": "SUB001323AI",
+                            "pesoProduto": 22,
+                            "descricaoProduto": "ADESIVO CARDÁPIO 88,88 - SUBSERIES DF 2024",
                             "quantidade": 1
                         }
                     ]
