@@ -38,7 +38,7 @@ def buscar_dados_eship(usuario):
 
 	# for coluna_a, coluna_b, coluna_c in zip(dados.iloc[:, 0], dados.iloc[:, 1], dados.iloc[:, 2]):
 	# 	print(f'Franquia: {coluna_a} | Cliente: {coluna_b} | Ordem: {coluna_c, type(coluna_c)}')
-		ordem = '649739' # 649739 (F)    650224 (J)
+		ordem = '648986' # 649739 (F)    650224 (J) 648986 (luiz)
 		apikey = load_apikey()
 
 		url = 'https://amplo.eship.com.br/v3/?api=&funcao=webServiceGetOrdem'
@@ -235,11 +235,13 @@ def buscar_dados_eship(usuario):
 		for volume in volumes_ordem:
 			lista_volumes.append({
 				"codigo_etiqueta": volume['codigoVolume'],
-				"altura": volume['alturaVolume'],
-				"largura": volume['larguraVolume'],
-				"comprimento": volume['comprimentoVolume'],
-				"peso_real": volume['pesoVolume'],
-				"peso_cubado": (volume['alturaVolume'] * volume['larguraVolume'] *  volume['larguraVolume']) * 200
+				"altura": float(volume['alturaVolume']/1000),
+				"largura": float(volume['larguraVolume']/1000),
+				"comprimento": float(volume['comprimentoVolume']/1000),
+				"peso_real": float(volume['pesoVolume']/1000),
+				"peso_cubado": (volume['alturaVolume']) * (volume['larguraVolume'] ) * (volume['comprimentoVolume']) * 200
+
+
 			})
 		volumes = lista_volumes
 		print(volumes)
