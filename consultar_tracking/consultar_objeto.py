@@ -74,7 +74,6 @@ def rastrear_objeto(chave_session, usuario):
         CaminhoFoto = response_data['Pedidos'][0]['Ocorrencias'][0]['CaminhoFoto']
         
         dados_rastreamento.append({
-            'Fraquia': coluna_a,
             'NrNota': NrNota,
             'DtPrevistaEntrega': DtPrevistaEntrega,
             'Status': status,

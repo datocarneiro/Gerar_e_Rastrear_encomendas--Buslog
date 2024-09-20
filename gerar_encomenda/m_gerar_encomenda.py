@@ -12,6 +12,7 @@ from dotenv import load_dotenv as ld
 
 
 def enviarobjeto(chave_session, usuario):
+	app = tk.Tk()
 
 	if usuario == "":
 		messagebox.showinfo("Informação", "Nenhum usuário foi registrado, registre-se")
@@ -28,10 +29,51 @@ def enviarobjeto(chave_session, usuario):
             Ou entre em contato com a equipe de TI
         ''')
 		return
-	
-	buscar_dados_eship(usuario_formatado)
 
+	
+	app.withdraw()  # Oculta a janela principal
+	file_path = filedialog.askopenfilename(title="Selecione um arquivo", filetypes=[("Arquivos Excel", "*.xlsx *.xls")])
+    
+	if not file_path:
+		messagebox.showinfo("Informação", "Nenhum arquivo selecionado")
+		return
+    
+	messagebox.showinfo("Informação", "Arquivo importado com sucesso")
+
+	# Pergunta ao usuário se deseja continuar
+	resposta = messagebox.askquestion('''
+		"Confirmação", f'*** !!! ATENÇÂO !!! ***\n\n\n
+		Tem certeza que deseja realizar a Emissão em lote?\n
+		Essa ação será irrevercível.\n\n\n
+		{usuario}, você confirma a emissão?'
+	''')
+	
+	if resposta == 'no':
+		messagebox.showinfo("Informação", "Operação cancelada.")
+		return
+	
+	dados = pd.read_excel(file_path, engine='openpyxl')
+
+	dados_emitidos = []
+	for  coluna_a, coluna_b, coluna_c in zip(dados.iloc[:, 0], dados.iloc[:, 1], dados.iloc[:, 2]):
+		totalOrdens = dados['CTE'].value_counts()
+		# print(f'Progresso:{totalOrdens} | Franquia: {coluna_a} | Cliente: {coluna_b} | Ordem: {coluna_c, type(coluna_c)}')
+		franquia = coluna_a
+		ordem = coluna_c
+		
+		dados_para_envio = buscar_dados_eship(franquia, ordem)
+		print(f'Dadous para envio retornado: \n {dados_para_envio}')
+		print('='*90)
+		dados_emitidos.append(dados_para_envio})
+
+	df = pd.DataFrame(dados_emitidos)
+	export_file_path = filedialog.asksaveasfilename(defaultextension=".xlsx", filetypes=[("Arquivos Excel", "*.xlsx *.xls")])
+	if export_file_path:
+		# df.to_json(export_file_path, index=False)
+		df.to_excel(export_file_path, index=False)
+	
 	messagebox.showinfo("Informação", "Retornamos ao modulo gerar .....FIM")
+
 
 
 
