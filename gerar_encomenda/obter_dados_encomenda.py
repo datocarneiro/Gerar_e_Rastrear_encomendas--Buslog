@@ -11,40 +11,44 @@ import re
 dados_encomenda = []
 
 def buscar_dados_eship(usuario):
-	# app = tk.Tk()
-	# app.withdraw()  # Oculta a janela principal
-	# file_path = filedialog.askopenfilename(title="Selecione um arquivo", filetypes=[("Arquivos Excel", "*.xlsx *.xls")])
+	global dados_encomenda
+	app = tk.Tk()
+	app.withdraw()  # Oculta a janela principal
+	file_path = filedialog.askopenfilename(title="Selecione um arquivo", filetypes=[("Arquivos Excel", "*.xlsx *.xls")])
     
-	# if not file_path:
-	# 	messagebox.showinfo("Informação", "Nenhum arquivo selecionado")
-	# 	return
+	if not file_path:
+		messagebox.showinfo("Informação", "Nenhum arquivo selecionado")
+		return
     
-	# dados = pd.read_excel(file_path, engine='openpyxl')
-	# dados_encomenda.clear()  # Limpa dados anteriores
+	dados = pd.read_excel(file_path, engine='openpyxl')
+	dados_encomenda.clear()  # Limpa dados anteriores
 
-	# messagebox.showinfo("Informação", "Arquivo importado com sucesso")
+	messagebox.showinfo("Informação", "Arquivo importado com sucesso")
     
-    # # Pergunta ao usuário se deseja continuar
-	# resposta = messagebox.askquestion('''
-	# 	"Confirmação", f'*** !!! ATENÇÂO !!! ***\n\n\n
-	# 	Tem certeza que deseja realizar a Emissão em lote?\n
-	# 	Essa ação será irrevercível.\n\n\n
-	# 	{usuario}, você confirma a emissão?'
-	# ''')
+    # Pergunta ao usuário se deseja continuar
+	resposta = messagebox.askquestion('''
+		"Confirmação", f'*** !!! ATENÇÂO !!! ***\n\n\n
+		Tem certeza que deseja realizar a Emissão em lote?\n
+		Essa ação será irrevercível.\n\n\n
+		{usuario}, você confirma a emissão?'
+	''')
     
-	# if resposta == 'no':
-	# 	messagebox.showinfo("Informação", "Operação cancelada.")
-	# 	return
+	if resposta == 'no':
+		messagebox.showinfo("Informação", "Operação cancelada.")
+		return
 
-	# for coluna_a, coluna_b, coluna_c in zip(dados.iloc[:, 0], dados.iloc[:, 1], dados.iloc[:, 2]):
-	# 	print(f'Franquia: {coluna_a} | Cliente: {coluna_b} | Ordem: {coluna_c, type(coluna_c)}')
-		ordem = '648986' # 649739 (F)    650224 (J) 648986 (luiz)
+	dados_encomenda.clear()  # Limpa dados anteriores
+
+	for coluna_a, coluna_b, coluna_c in zip(dados.iloc[:, 0], dados.iloc[:, 1], dados.iloc[:, 2]):
+		print(f'Franquia: {coluna_a} | Cliente: {coluna_b} | Ordem: {coluna_c, type(coluna_c)}')
+		# ordem = '648986' # 649739 (F)    650224 (J) 648986 (luiz)
+		ordem = coluna_c
 		apikey = load_apikey()
 
 		url = 'https://amplo.eship.com.br/v3/?api=&funcao=webServiceGetOrdem'
 
 		payload = {
-			"ordem": ordem
+			"ordem": ordem,
 		}		
 
 		# Cabeçalhos da requisição
@@ -56,6 +60,7 @@ def buscar_dados_eship(usuario):
 		# Realiza a requisição GET
 		response = requests.get(url, headers=headers, json=payload)
 		response_data = response.json()
+
 		
 		print('.........................................encomendas.......................................')
 		id_produto = 1
@@ -64,6 +69,7 @@ def buscar_dados_eship(usuario):
 		numero_pedido = response_data['corpo']['body']['dados'][0]['produtosOrdem'][0]['idOrdem']
 		print(f'numero_pedido:', numero_pedido)
 
+
 		print('.................................... documento_transportado ..............................')
 		tipo_documento_transportado = 3  # // 1 NF, 2 NFC,  3 = Declaração
 		print(f'tipo:', tipo_documento_transportado)
@@ -71,8 +77,9 @@ def buscar_dados_eship(usuario):
 
 		dimenssao_volume = dados_volumes(apikey, ordem)
 		qtd_volume = len(dimenssao_volume)
+		valor_documento = 'R$ 0,00'
 		print(f'quantidade_volumes:', qtd_volume)
-		print(f'valor_documento:', 'PENDENTE *****')
+		print(f'valor_documento:', valor_documento)
 
 		print('................ .........................embarcador ...................................')
 		embarcador = response_data['corpo']['body']['dados'][0]['produtosOrdem'][0]['ordem']['remetente']
@@ -119,24 +126,6 @@ def buscar_dados_eship(usuario):
 		print('estado_tomador:', estado_tomador)
 	
 		print('......................................... destinatario ......................................')
-		# def tipo_de_destinatario(destinatario, tipo_fiscal):
-		# 	if tipo_fiscal == 1:
-		# 		tipo_pessoa = 'J'
-		# 		cnpj_cpf_destinatario = destinatario['cnpj']
-		# 		ie_destinatario = destinatario['ie']
-		# 		nome_destinatario = destinatario['razaoSocial']
-		# 	else:
-		# 		tipo_pessoa = 'F'
-		# 		cnpj_cpf_destinatario = destinatario['cpf']
-		# 		ie_destinatario = ''
-		# 		nome_destinatario = destinatario['nome']
-		# 	return tipo_pessoa, cnpj_cpf_destinatario, ie_destinatario, nome_destinatario
-
-		# destinatario = response_data['corpo']['body']['dados'][0]['produtosOrdem'][0]['ordem']['destinatario']
-		# tipo_fiscal = destinatario['tipoFiscal']['id']
-		# tipo_pessoa, cnpj_cpf_destinatario, ie_destinatario, nome_destinatario = tipo_de_destinatario(destinatario, tipo_fiscal)
-
-
 		def formata_cnpj(cnpj):
 			"""
 			Formata um CNPJ que pode vir com 14 dígitos não formatados ou já formatado.
@@ -151,30 +140,15 @@ def buscar_dados_eship(usuario):
 				raise ValueError(f"CNPJ inválido: {cnpj}. Deve conter 14 dígitos.")
 
 		def formata_cpf(cpf):
-			"""
-			Formata um CPF que pode vir com 11 dígitos não formatados ou já formatado.
-			"""
 			# Remove qualquer caractere que não seja número
 			cpf = re.sub(r'\D', '', cpf)
-			
 			# Verifica se tem 11 dígitos
 			if len(cpf) == 11:
 				return f'{cpf[:3]}.{cpf[3:6]}.{cpf[6:9]}-{cpf[9:]}'
 			else:
 				raise ValueError(f"CPF inválido: {cpf}. Deve conter 11 dígitos.")
 
-		def tipo_de_destinatario(destinatario, tipo_fiscal):
-			"""
-			Determina o tipo de destinatário (Pessoa Jurídica ou Física) e formata o CNPJ ou CPF.
-
-			Args:
-				destinatario (dict): Dicionário com informações do destinatário.
-				tipo_fiscal (int): Tipo fiscal do destinatário (1 para PJ, outro valor para PF).
-
-			Returns:
-				tuple: Contém o tipo de pessoa ('J' ou 'F'), CNPJ/CPF, IE e nome do destinatário.
-			"""
-			
+		def tipo_de_destinatario(destinatario, tipo_fiscal):	
 			if tipo_fiscal == 1:
 				# Pessoa Jurídica (PJ)
 				tipo_pessoa = 'J'
@@ -239,33 +213,32 @@ def buscar_dados_eship(usuario):
 				"largura": float(volume['larguraVolume']/1000),
 				"comprimento": float(volume['comprimentoVolume']/1000),
 				"peso_real": float(volume['pesoVolume']/1000),
-				"peso_cubado": (volume['alturaVolume']) * (volume['larguraVolume'] ) * (volume['comprimentoVolume']) * 200
+				"peso_cubado": float((volume['alturaVolume'])/1000 * (volume['larguraVolume']/1000 ) * (volume['comprimentoVolume']/1000) * 200)
 
 
 			})
 		volumes = lista_volumes
 		print(volumes)
 
-	# 	dados_encomenda.append({
-	# 	        'ORDEM': ordem,
-	# 	        'remetente': remetente,
-	# 	        'enderecoRemetente': enderecoRemetente,
-	# 	        'destinatario': destinatario,
-	# 	        'enderecoDestinatario': enderecoDestinatario,
-	# 			'tomador': tomador,
-	# 			'UsuarioLog': usuario
-	# 	    })
-		
-	# df = pd.DataFrame(dados_encomenda)
-	# print(df)
+		dados_encomenda.append({
+			'id_produto': id_produto,
+			'numero_pedido': numero_pedido,
+			'tipo': tipo_documento_transportado,
+			'numero': numero_pedido,
+			'quantidade_volumes': qtd_volume,
+			'valor_documento': valor_documento
+		})
 
-	# export_file_path = filedialog.asksaveasfilename(defaultextension=".xlsx", filetypes=[("Arquivos Excel", "*.xlsx *.xls")])
-	# if export_file_path:
-	# 	df.to_excel(export_file_path, index=False)
-	# 	messagebox.showinfo("Informação", f"Arquivo exportado com sucesso para:\n\n{export_file_path}")
+	print('=' * 80)
+	print(f'\nDADOS ENCOMENDA ANTES DO DATAFRAME::::::::')	
 
+	
+	print('=' * 80)
+	df = pd.DataFrame(dados_encomenda)
+	print(f'DATAFRAME::::::::\n{df}')
 
-
-
-		
-
+	export_file_path = filedialog.asksaveasfilename(defaultextension=".json", filetypes=[("Arquivos", "*.json")])
+	if export_file_path:
+		df.to_json(export_file_path, index=False)
+		# df.to_excel(export_file_path, index=False)
+		messagebox.showinfo("Informação", f"Arquivo exportado com sucesso para:\n\n{export_file_path}")
