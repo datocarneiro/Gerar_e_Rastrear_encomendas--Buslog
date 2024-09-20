@@ -1,6 +1,9 @@
 # GERAR E RASTREAR ENCOMENDAS - BUSLOG
 
-Nesse projeto atuei como `Desenvolvedor`, construindo uma aplicação permite autenticar uma sessão via API, importar dados de um arquivo Excel, consultar informações de rastreamento de objetos e exportar os resultados para um novo arquivo Excel. A interface gráfica é implementada usando Tkinter.
+Nesse projeto atuei como `Desenvolvedor`, construindo uma aplicação permite autenticar uma sessão via API, importar dados de um arquivo Excel, consultar informações de rastreamento de objetos e exportar os resultados para um novo arquivo Excel
+
+Alem disso iniciamos a 2ª fase do projeto que é gerar encomenda na transportado (em fase de desenvolvimento).
+A interface gráfica é implementada usando Tkinter.
 
 Tecnologias aplicadas: Tecnologia: 🎯 Python, API Requests , Pandas, Json, Tkinter.
 
