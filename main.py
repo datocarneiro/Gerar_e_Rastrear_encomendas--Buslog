@@ -1,5 +1,5 @@
+from gerar_encomenda.m_gerar_encomenda import enviarobjeto
 from authentication.authenticate import authenticate_sessao as aut
-from gerar_encomenda.obter_dados_encomenda import buscar_dados_eship
 from consultar_tracking.consultar_objeto import criar_janela
 
 def main():
@@ -11,7 +11,7 @@ def obter_session():
     return chave_session
 
 # def main():
-#     dados_eship()
+#     enviarobjeto('1234', 'Dato')
 
 if __name__ == "__main__":
     main()
