@@ -144,7 +144,11 @@ def criar_janela(chave_session):
     input_usuario = Entry(app, background='#dde', foreground='#009',font=5)
     input_usuario.place(x=20,y=90,width=300, height=35,)
  
+<<<<<<< HEAD
     btn_gravar_usuario = tk.Button(app, text="Registrar usuário", background='#08990f', foreground='#ffffff', command=lambda:registra_usuario(input_usuario.get()), width=13, height=1)
+=======
+    btn_gravar_usuario = tk.Button(app, text="Registrar usuário", background='#3f8f57', foreground='#fff', command=lambda:registra_usuario(input_usuario.get()), width=13, height=1)
+>>>>>>> ac1c718cb83ba7d8618f3b9f57470f27cb4212a9
     btn_gravar_usuario.place(x=218,y=129)
 
  
