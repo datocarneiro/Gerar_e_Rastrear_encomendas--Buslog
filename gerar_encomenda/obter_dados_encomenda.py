@@ -5,11 +5,10 @@ import requests
 import pandas as pd
 import tkinter as tk
 from tkinter import messagebox, Label, Entry, filedialog
-from tabulate import tabulate
 import re
 
 
-def buscar_dados_eship(franquia, ordem):
+def buscar_dados_eship(franquia, ordem, usuario):
 	dados_encomenda = []	
 	dados_encomenda.clear()  # Limpa dados anteriores
 	
@@ -47,7 +46,10 @@ def buscar_dados_eship(franquia, ordem):
 
 	dimenssao_volume = dados_volumes(apikey, ordem)
 	qtd_volume = len(dimenssao_volume)
-	valor_documento = 'R$ 0,00'
+	valor_ordem= f"{response_data['corpo']['body']['dados'][0]['valorTotal']:.2f}"
+	valor_documento = float(valor_ordem)
+	print(type(valor_documento))
+	print(valor_documento)
 	# print(f'quantidade_volumes:', qtd_volume)
 	# print(f'valor_documento:', valor_documento)
 
@@ -55,8 +57,6 @@ def buscar_dados_eship(franquia, ordem):
 	embarcador = response_data['corpo']['body']['dados'][0]['produtosOrdem'][0]['ordem']['remetente']
 	cnpj_embarcador = embarcador['cnpj']
 	razaoSocial_embarcador = embarcador['razaoSocial']
-	# print(f'cnpj_embarcador: ',cnpj_embarcador)
-	# print(f'razaoSocial_embarcador: ',razaoSocial_embarcador)
 	endereçoEmbarcador = response_data['corpo']['body']['dados'][0]['produtosOrdem'][0]['ordem']['enderecoRemetente']
 	cep_embarcador = endereçoEmbarcador['codigoPostal']
 	bairro_embarcador = endereçoEmbarcador['bairro']
@@ -65,13 +65,6 @@ def buscar_dados_eship(franquia, ordem):
 	complemento_embarcador = endereçoEmbarcador['complemento']
 	cidade_embarcador = endereçoEmbarcador['municipio']['descricao']
 	estado_embarcador = endereçoEmbarcador['municipio']['estado']['sigla']
-	# print(f'cep_embarcador:', cep_embarcador)
-	# print(f'bairro_embarcador:', bairro_embarcador)
-	# print(f'rua_embarcador:', rua_embarcador)
-	# print(f'num_embarcador:', num_embarcador)
-	# print(f'complemento_embarcador:', complemento_embarcador)
-	# print(f'cidade_embarcador:', cidade_embarcador)
-	# print(f'estado_embarcador:', estado_embarcador)
 
 	# print('......................................... tomador .........................................')
 	cnpj_tomador = '08.806.647/0001-17'
@@ -84,22 +77,9 @@ def buscar_dados_eship(franquia, ordem):
 	complemento_tomador = 'Barracão 2'
 	cidade_tomador = 'Colombo'
 	estado_tomador = 'PR'
-	# print('cnpj_tomador:', cnpj_tomador)
-	# print('ie_tomador:', ie_tomador)
-	# print('razaoSocial_tomador: ', razaoSocial_tomador)
-	# print('cep_tomador:', cep_tomador)
-	# print('bairro_tomador:', bairro_tomador)
-	# print('rua_tomador:', rua_tomador)
-	# print('num_tomador:', num_tomador)
-	# print('complemento_tomador:', complemento_tomador)
-	# print('cidade_tomador:', cidade_tomador)
-	# print('estado_tomador:', estado_tomador)
 
 	# print('......................................... destinatario ......................................')
 	def formata_cnpj(cnpj):
-		"""
-		Formata um CNPJ que pode vir com 14 dígitos não formatados ou já formatado.
-		"""
 		# Remove qualquer caractere que não seja número
 		cnpj = re.sub(r'\D', '', cnpj)
 		
@@ -128,7 +108,6 @@ def buscar_dados_eship(franquia, ordem):
 			
 			# Formatar o CNPJ (pode estar formatado ou não)
 			cnpj_cpf_destinatario = formata_cnpj(cnpj_cpf_destinatario)
-		
 		else:
 			# Pessoa Física (PF)
 			tipo_pessoa = 'F'
@@ -138,10 +117,8 @@ def buscar_dados_eship(franquia, ordem):
 			
 			# Formatar o CPF (pode estar formatado ou não)
 			cnpj_cpf_destinatario = formata_cpf(cnpj_cpf_destinatario)
-		
 		return tipo_pessoa, cnpj_cpf_destinatario, ie_destinatario, nome_destinatario
 
-	# Exemplo de uso
 	destinatario = response_data['corpo']['body']['dados'][0]['produtosOrdem'][0]['ordem']['destinatario']
 	tipo_fiscal = destinatario['tipoFiscal']['id']
 	tipo_pessoa, cnpj_cpf_destinatario, ie_destinatario, nome_destinatario = tipo_de_destinatario(destinatario, tipo_fiscal)
@@ -154,19 +131,6 @@ def buscar_dados_eship(franquia, ordem):
 	complemento_destinatario = destinatario['complemento']
 	cidade_destinatario = destinatario['municipio']['descricao']
 	estado_destinatario = destinatario['municipio']['estado']['sigla']
-	# print(f'tipo_pessoa:', tipo_pessoa)
-	# print(f'cnpj_cpf_destinatario:', cnpj_cpf_destinatario)
-	# print(f'ie_destinatario:', ie_destinatario)
-	# print(f'nome_destinatario:', nome_destinatario)
-
-	# print(f'cep_destinatario:', cep_destinatario)
-	# print(f'bairro_destinatario:', bairro_destinatario)
-	# print(f'rua_destinatario:', rua_destinatario)
-	# print(f'num_destinatario:', num_destinatario)
-	# print(f'complemento_destinatario:', complemento_destinatario)
-	# print(f'cidade_destinatario:', cidade_destinatario)
-	# print(f'estado_destinatario:', estado_destinatario)
-
 
 
 	# print('....................................... Usauario emmissao ...............')
@@ -192,12 +156,61 @@ def buscar_dados_eship(franquia, ordem):
 
 	dados_encomenda.append({
 		# 'franquia': franquia,
-		'id_produto': id_produto,
-		'numero_pedido': numero_pedido,
-		'tipo': tipo_documento_transportado,
-		'numero': numero_pedido,
-		'quantidade_volumes': qtd_volume,
-		'valor_documento': valor_documento
+		"id_produto": id_produto,
+		"numero_pedido": numero_pedido,
+		"documento_transportado":{
+			"tipo": tipo_documento_transportado,
+			"numero": numero_pedido,
+			"quantidade_volumes": qtd_volume,
+			"valor_documento": valor_documento
+		},
+		"embarcador":{
+			"cnpj": cnpj_embarcador,
+			"razao_social": razaoSocial_embarcador,
+			"endereco":{
+				"cep": cep_embarcador,
+				"bairro": bairro_embarcador,
+				"rua": rua_embarcador,
+				"numero": num_embarcador,
+				"complemento": complemento_embarcador,
+				"cidade": cidade_embarcador,
+				"estado": estado_embarcador
+			}
+		},
+		"tomador":{
+			"cnpj": cnpj_tomador,
+			"inscricao_estadual": ie_tomador,
+			"razao_social": razaoSocial_tomador,
+			"endereco": {
+				"cep": cep_tomador,
+				"bairro": bairro_tomador,
+				"rua": rua_tomador,
+				"numero": num_tomador,
+				"complemento": complemento_tomador,
+				"cidade": cidade_tomador,
+				"estado": estado_tomador
+			}
+		},
+		"destinatario":{
+			"tipo_pessoa": tipo_pessoa,
+			"cnpj_cpf": cnpj_cpf_destinatario,
+			"inscricao_estadual": ie_destinatario,
+			"nome": nome_destinatario,
+			"endereco":{
+				"cep": cep_destinatario,
+				"bairro": bairro_destinatario,
+				"rua": rua_destinatario,
+				"numero": num_destinatario,
+				"complemento": complemento_destinatario,
+				"cidade": cidade_destinatario,
+				"estado": estado_destinatario
+			}
+		},
+		"loja_remetente":{
+			"tipo_pessoa": "F",
+			"nome": usuario
+		},
+		"volumes": volumes
 	})
 
 

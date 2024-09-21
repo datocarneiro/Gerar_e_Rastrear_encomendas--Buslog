@@ -76,7 +76,7 @@ payload = json.dumps(
     "destinatario": {
         "tipo_pessoa": "F",     // F = Pessoa Física,  J = Pessoa Jurídica
         "cnpj_cpf": "478.517.310-62",
-        // "inscricao_estadual": "",
+        "inscricao_estadual": "",
         "nome": "Dato Amplo",
         "endereco": {
         "cep": "83412-585",
@@ -92,21 +92,21 @@ payload = json.dumps(
         }
     },
 
-    //   "loja_remetente": {
-    //     "cnpj_cpf": "",
-    //     "inscricao_estadual": "",
-    //     "tipo_pessoa": "F",
-    //     "nome": "",
-    //     "endereco": {
-    //       "cep": "",
-    //       "bairro": "",
-    //       "rua": "",
-    //       "numero": "",
-    //       "complemento": "",
-    //       "cidade": "",
-    //       "estado": ""
-    //     }
-    //   },
+    "loja_remetente": {
+        "cnpj_cpf": "",
+        "inscricao_estadual": "",
+        "tipo_pessoa": "F",
+        "nome": "",
+        "endereco": {
+            "cep": "",
+            "bairro": "",
+            "rua": "",
+            "numero": "",
+            "complemento": "",
+            "cidade": "",
+            "estado": ""
+        }
+    },
 
     //   "transportadora_subcontratacao": {
     //     "cnpj": "",
@@ -128,16 +128,15 @@ payload = json.dumps(
     // Altura/Largura/Comprimento são campos são do tipo Double em Metros, 
     // para informar centímetro deve se informar 0.010 (um centímetro)
     // Pesos os campos são tipo Double em Kg, para informar grama deve se informar 0.100 (cem gramas)
-    //   "volumes": [
-    //     {
-    //       "codigo_etiqueta": "",
-    //       "altura": 0.00,
-    //       "largura": 0.00,
-    //       "comprimento": 0.00,
-    //       "peso_real": 0.00,
-    //       "peso_cubado": 0.00
-    //     }
-    //  ]
+      "volumes": [
+        {
+            "codigo_etiqueta": "",
+            "altura": 0.00,
+            "largura": 0.00,
+            "comprimento": 0.00,
+            "peso_real": 0.00,
+            "peso_cubado": 0.00
+        }]
     }
 ]
 }

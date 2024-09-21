@@ -8,11 +8,10 @@ import pandas as pd
 import tkinter as tk
 from tkinter import messagebox, Label, Entry, filedialog
 import json
-from dotenv import load_dotenv as ld
+from dotenv import load_dotenv
 
 
 def enviarobjeto(chave_session, usuario):
-	app = tk.Tk()
 
 	if usuario == "":
 		messagebox.showinfo("Informação", "Nenhum usuário foi registrado, registre-se")
@@ -23,7 +22,7 @@ def enviarobjeto(chave_session, usuario):
 	
 	if usuario_formatado not in usuarios_permitidos:
 		messagebox.showinfo("Informação",
-			f'''    *** !!! ATENÇÂO !!! ***\n\n\n
+            f'''    *** !!! ATENÇÂO !!! ***\n\n\n
             Usuário: "{usuario_formatado}" sem permissão ! ... \n\n
             Verifique o usuario registrado.\n
             Ou entre em contato com a equipe de TI
@@ -31,6 +30,7 @@ def enviarobjeto(chave_session, usuario):
 		return
 
 	
+	app = tk.Tk()
 	app.withdraw()  # Oculta a janela principal
 	file_path = filedialog.askopenfilename(title="Selecione um arquivo", filetypes=[("Arquivos Excel", "*.xlsx *.xls")])
     
@@ -41,12 +41,11 @@ def enviarobjeto(chave_session, usuario):
 	messagebox.showinfo("Informação", "Arquivo importado com sucesso")
 
 	# Pergunta ao usuário se deseja continuar
-	resposta = messagebox.askquestion('''
-		"Confirmação", f'*** !!! ATENÇÂO !!! ***\n\n\n
+	resposta = messagebox.askquestion("Confirmação",
+		f'''*** !!! ATENÇÂO !!! ***\n\n
 		Tem certeza que deseja realizar a Emissão em lote?\n
 		Essa ação será irrevercível.\n\n\n
-		{usuario}, você confirma a emissão?'
-	''')
+		{usuario_formatado}, você confirma a emissão?''')
 	
 	if resposta == 'no':
 		messagebox.showinfo("Informação", "Operação cancelada.")
@@ -56,27 +55,23 @@ def enviarobjeto(chave_session, usuario):
 
 	dados_emitidos = []
 	for  coluna_a, coluna_b, coluna_c in zip(dados.iloc[:, 0], dados.iloc[:, 1], dados.iloc[:, 2]):
-		totalOrdens = dados['CTE'].value_counts()
-		# print(f'Progresso:{totalOrdens} | Franquia: {coluna_a} | Cliente: {coluna_b} | Ordem: {coluna_c, type(coluna_c)}')
 		franquia = coluna_a
 		ordem = coluna_c
 		
-		dados_para_envio = buscar_dados_eship(franquia, ordem)
+		dados_para_envio = buscar_dados_eship(franquia, ordem, usuario_formatado)
 		print(f'Dadous para envio retornado: \n {dados_para_envio}')
+
 		print('='*90)
-		dados_emitidos.append(dados_para_envio})
+		dados_emitidos.append(*dados_para_envio)
 
 	df = pd.DataFrame(dados_emitidos)
+	print(df)
 	export_file_path = filedialog.asksaveasfilename(defaultextension=".xlsx", filetypes=[("Arquivos Excel", "*.xlsx *.xls")])
 	if export_file_path:
 		# df.to_json(export_file_path, index=False)
 		df.to_excel(export_file_path, index=False)
-	
+			
 	messagebox.showinfo("Informação", "Retornamos ao modulo gerar .....FIM")
-
-
-
-
 
 	################################ AQUI COMEÇA O ENVIOU ############################
 
@@ -90,142 +85,7 @@ def enviarobjeto(chave_session, usuario):
 	# 	#   "numero_carga": "2",      
 	# 	#                     
 	# 	"encomendas": [
-	# 		{
-	# 		# É o campo no json "id_produto" que corresponde ao tipo de transporte.
-	# 		# Exemplo: Expresso, Econômico, etc.
-	# 		# Os códigos devem ser solicitados à transportadora.
-	# 		# Cada transportadora tem o seu código e produto específico.
-	# 		"id_produto": 0,   
-	# 		"numero_pedido": "DatoTeste001",
-	# 		# "data_agendamento": "05/11/2020",
-	# 		# "hora_agendamento": "10:00",
-	# 		# "nome_marca": null,
-	# 		# "data_prevista_entrega": "05/11/2020",
-	# 		# "numero_rastreio_embarcador": "ABC123456",
-	# 		# "codigo_objeto": "DR125134225BR",
-	# 		# "cnpj_unidade_destino": "",
-	# 		# "codigo_unidade_destino": null,
-	# 		# "metros_cubicos": 0.200,
-	# 		# "pedido_integracao": "",
-	# 		# "pedido_aguardando_faturamento": false,
 
-	# 		"documento_transportado": {
-	# 			# 1 = NF-e (Nota Fiscal Eletrônica)
-	# 			# 2 = NFC (Nota Fiscal ao Consumidor)
-	# 			# 3 = Declaração
-	# 			"tipo": "3", 
-	# 			"numero": "OR644901",
-	# 			"quantidade_volumes": "1",
-	# 			"valor_documento": 20.00
-	# 			# "serie": "65",
-	# 			# "chave_acesso": "31200514055516000814550650010415031006468477",
-	# 			# "data_emissao": "13/05/2020"
-	# 		},
-
-	# 		# "frete_embarcador": {
-	# 		#   "frete": 130.00,
-	# 		#   "imposto": 5.80,
-	# 		#   "frete_total": 135.80
-	# 		# },
-
-	# 		"embarcador": {
-	# 			"cnpj": "02.891.567/0002-01",
-	# 			"razao_social": "SUBWAY SYSTEMS DO BRASIL LTDA",
-	# 			# "inscricao_estadual": "373.091.203.117",
-	# 			"endereco": {
-	# 			"cep": "83412-585",
-	# 			"bairro": "Canguiri",
-	# 			"rua": "Pedro Zanetti",
-	# 			"numero": "230",
-	# 			"complemento": "Barracão 2",
-	# 			"cidade": "Colombo",
-	# 			"estado": "PR"
-	# 			}
-	# 		},
-
-	# 			"tomador": {
-	# 			"cnpj": "08.806.647/0001-17",
-	# 			"inscricao_estadual": "9040355992",
-	# 			"razao_social": "Amplo Logistica e Armazenagem Ltda",
-	# 			"endereco": {
-	# 				"cep": "83412-585",
-	# 				"bairro": "Canguiri",
-	# 				"rua": "Pedro Zanetti",
-	# 				"numero": "230",
-	# 				"complemento": "Barracão 2",
-	# 				"cidade": "Colombo",
-	# 				"estado": "PR"
-	# 			}
-	# 		}, 
-
-	# 		"destinatario": {
-	# 			"tipo_pessoa": "F",     # F = Pessoa Física,  J = Pessoa Jurídica
-	# 			"cnpj_cpf": "478.517.310-62",
-	# 			# "inscricao_estadual": "",
-	# 			"nome": "Dato Amplo",
-	# 			"endereco": {
-	# 			"cep": "83412-585",
-	# 			"bairro": "Canguiri",
-	# 			"rua": "Pedro Zanetti",
-	# 			"numero": "230",
-	# 			"complemento": "Barracão 2",
-	# 			"cidade": "Colombo",
-	# 			"estado": "PR"
-	# 			# "email": "milena.alves@hotmail.com",
-	# 			# "telefone": "11912345678",
-	# 			# "observacoes": "",
-	# 			}
-	# 		},
-
-	# 		#   "loja_remetente": {
-	# 		#     "cnpj_cpf": "",
-	# 		#     "inscricao_estadual": "",
-	# 		#     "tipo_pessoa": "F",
-	# 		#     "nome": "",
-	# 		#     "endereco": {
-	# 		#       "cep": "",
-	# 		#       "bairro": "",
-	# 		#       "rua": "",
-	# 		#       "numero": "",
-	# 		#       "complemento": "",
-	# 		#       "cidade": "",
-	# 		#       "estado": ""
-	# 		#     }
-	# 		#   },
-
-	# 		#   "transportadora_subcontratacao": {
-	# 		#     "cnpj": "",
-	# 		#     "inscricao_estadual": "",
-	# 		#     "razao_social": "",
-	# 		#     "endereco": {
-	# 		#       "cep": "",
-	# 		#       "bairro": "",
-	# 		#       "rua": "",
-	# 		#       "numero": "",
-	# 		#       "complemento": "",
-	# 		#       "cidade": "",
-	# 		#       "estado": ""
-	# 		#     },
-	# 		#     "chave_cte": ""
-	# 		# },
-
-
-	# 		# Altura/Largura/Comprimento são campos são do tipo Double em Metros, 
-	# 		# para informar centímetro deve se informar 0.010 (um centímetro)
-	# 		# Pesos os campos são tipo Double em Kg, para informar grama deve se informar 0.100 (cem gramas)
-	# 		#   "volumes": [
-	# 		#     {
-	# 		#       "codigo_etiqueta": "",
-	# 		#       "altura": 0.00,
-	# 		#       "largura": 0.00,
-	# 		#       "comprimento": 0.00,
-	# 		#       "peso_real": 0.00,
-	# 		#       "peso_cubado": 0.00
-	# 		#     }
-	# 		#  ]
-	# 		}
-	# 	]
-	# }
 	# )
 	# headers = {
 	# 	'Content-Type': 'application/json'
