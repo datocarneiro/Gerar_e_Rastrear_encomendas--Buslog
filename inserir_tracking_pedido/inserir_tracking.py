@@ -4,7 +4,7 @@ import requests
 import json
 
 
-def inserir_trancking(ordem, tracking):
+def inserir_trancking(tracking, ordem):
     # apikey = load_apikey()
     # url = "https://amplo.eship.com.br/v2/?funcao=webServiceInserirRastreamento"
 
@@ -25,4 +25,4 @@ def inserir_trancking(ordem, tracking):
 
     # print(response.text)
 
-    messagebox.showinfo("Informação", f'Aqui gravamos o tracking "{tracking}"no pedido')
+    messagebox.showinfo("Informação", f'Aqui gravamos o tracking "{tracking}" para a ordem "{ordem}')

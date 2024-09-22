@@ -147,7 +147,7 @@ def buscar_dados_eship(franquia, ordem, usuario):
 			"largura": float(volume['larguraVolume']/1000),
 			"comprimento": float(volume['comprimentoVolume']/1000),
 			"peso_real": float(volume['pesoVolume']/1000),
-			"peso_cubado": float((volume['alturaVolume'])/1000 * (volume['larguraVolume']/1000 ) * (volume['comprimentoVolume']/1000) * 200)
+			"peso_cubado": round(float((volume['alturaVolume'])/1000 * (volume['larguraVolume']/1000 ) * (volume['comprimentoVolume']/1000) * 200), 2)
 
 
 		})

@@ -58,32 +58,52 @@ def gerar_encomenda(chave_session, usuario):
 		dados_emitidos.append(*dados_para_envio)
 
 
-	################################ AQUI COMEÇA O ENVIOU ############################
+		################################ AQUI COMEÇA O ENVIOU ############################
 
-	# chave = chave_session['sessao']
-	# url = "https://api.track3r.com.br/v2/api/GerarEncomendas"
+		# chave = chave_session['sessao']
+		# url = "https://api.track3r.com.br/v2/api/GerarEncomendas"
 
-	# payload = json.dumps(
-	# 	{
-	# 	"sessao": chave,
-	# 	"id_servico": 1,    # 1=Entrega, 4=Reversa, 7=Entrega na Loja, 8=Lotação, 9=Retira
-	# 	#   "numero_carga": "2",      
-	# 	#                     
-	# 	"encomendas": [
+		# payload = json.dumps(
+		# 	{
+		# 	"sessao": chave,
+		# 	"id_servico": 1,    # 1=Entrega, 4=Reversa, 7=Entrega na Loja, 8=Lotação, 9=Retira
+		# 	#   "numero_carga": "2",      
+		# 	#                     
+		# 	"encomendas": [
 
-	# )
-	# headers = {
-	# 	'Content-Type': 'application/json'
-	# }
+		# )
+		# headers = {
+		# 	'Content-Type': 'application/json'
+		# }
 
-	# response = requests.request("POST", url, headers=headers, data=payload)
+		# response = requests.request("POST", url, headers=headers, data=payload)
 
-	# print(f'fim do envio {response.text}')
+		# print(f'fim do envio {response.text}')
+		resposta_buslog = {
+							"totalProcessado": 1,
+							"totalRecebidoSucesso": 1,
+							"totalRecebidoErro": 0,
+							"status": [
+								{
+								"status": 'true',
+								"descricao": "Nota Recebida",
+								"notaFiscal": "644936",
+								"protocolo": "39696503",
+								"encomenda": "25258433",
+								"volumes": [
+									{
+									"volume": 1,
+									"codigoVolume": "44982667"
+									}
+								]
+								}
+							]
+							}
+		cod_encomenda = int(resposta_buslog['status'][0]['encomenda'])
+		inserir_trancking(cod_encomenda, ordem)
+		dados_emitidos.append({'tracking': cod_encomenda})
 
-
-	inserir_trancking()
-
-	df = pd.DataFrame(dados_emitidos)
+	df = pd.DataFrame(dados_emitidos, )
 	print(df)
 	export_file_path = filedialog.asksaveasfilename(defaultextension=".xlsx", filetypes=[("Arquivos Excel", "*.xlsx *.xls")])
 	if export_file_path:

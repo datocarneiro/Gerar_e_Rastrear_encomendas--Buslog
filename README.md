@@ -15,7 +15,7 @@ Tecnologias aplicadas: Tecnologia: 🎯 Python, API Requests , Pandas, Json, Tki
     ├── requirements.txt
     └── README.md
 
-![alt text](image.png)
+
 
 
 ## Configuração
