@@ -17,15 +17,9 @@ Tecnologias aplicadas: Tecnologia: 🎯 Python, API Requests , Pandas, Json, Tki
     ├── .env
     ├── requirements.txt
     └── README.md
-<<<<<<< HEAD
-![image](https://github.com/user-attachments/assets/17336bac-c90a-4407-a857-3f8b545624c9)
 
-=======
-![image](https://github.com/user-attachments/assets/58fb9c7b-a650-4299-a47c-5a8e90c7abcf)
->>>>>>> 24adf8e582bd1c05bcedf5eed176f9a0dcfbab78
+![image](https://github.com/user-attachments/assets/687e7de6-f453-4f85-b812-165ab30ec040)
 
-
-![image](https://github.com/datocarneiro/Rastreador_de_Objeto_Buslog-API-/assets/132966071/56e93925-d740-4de7-9f6b-ab8cc294b463)
 
 ## Configuração
 1. Criar Ambiente Virtual
