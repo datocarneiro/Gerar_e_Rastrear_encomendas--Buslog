@@ -1,18 +1,13 @@
-import sys
-import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from authentication.authenticate import authenticate_sessao as aut, load_usuario_permitidos
+from inserir_tracking_pedido.inserir_tracking import inserir_trancking
 from gerar_encomenda.obter_dados_encomenda import buscar_dados_eship
-import requests
-import pandas as pd
+from authentication.authenticate import load_usuario_permitidos
+from tkinter import messagebox, filedialog
 import tkinter as tk
-from tkinter import messagebox, Label, Entry, filedialog
+import pandas as pd
+import requests
 import json
-from dotenv import load_dotenv
 
-
-def enviarobjeto(chave_session, usuario):
-
+def gerar_encomenda(chave_session, usuario):
 	if usuario == "":
 		messagebox.showinfo("Informação", "Nenhum usuário foi registrado, registre-se")
 		return
@@ -29,7 +24,6 @@ def enviarobjeto(chave_session, usuario):
         ''')
 		return
 
-	
 	app = tk.Tk()
 	app.withdraw()  # Oculta a janela principal
 	file_path = filedialog.askopenfilename(title="Selecione um arquivo", filetypes=[("Arquivos Excel", "*.xlsx *.xls")])
@@ -40,7 +34,6 @@ def enviarobjeto(chave_session, usuario):
     
 	messagebox.showinfo("Informação", "Arquivo importado com sucesso")
 
-	# Pergunta ao usuário se deseja continuar
 	resposta = messagebox.askquestion("Confirmação",
 		f'''*** !!! ATENÇÂO !!! ***\n\n
 		Tem certeza que deseja realizar a Emissão em lote?\n
@@ -64,14 +57,6 @@ def enviarobjeto(chave_session, usuario):
 		print('='*90)
 		dados_emitidos.append(*dados_para_envio)
 
-	df = pd.DataFrame(dados_emitidos)
-	print(df)
-	export_file_path = filedialog.asksaveasfilename(defaultextension=".xlsx", filetypes=[("Arquivos Excel", "*.xlsx *.xls")])
-	if export_file_path:
-		# df.to_json(export_file_path, index=False)
-		df.to_excel(export_file_path, index=False)
-			
-	messagebox.showinfo("Informação", "Retornamos ao modulo gerar .....FIM")
 
 	################################ AQUI COMEÇA O ENVIOU ############################
 
@@ -95,8 +80,18 @@ def enviarobjeto(chave_session, usuario):
 
 	# print(f'fim do envio {response.text}')
 
-	# return response
 
+	inserir_trancking()
+
+	df = pd.DataFrame(dados_emitidos)
+	print(df)
+	export_file_path = filedialog.asksaveasfilename(defaultextension=".xlsx", filetypes=[("Arquivos Excel", "*.xlsx *.xls")])
+	if export_file_path:
+		# df.to_json(export_file_path, index=False)
+		df.to_excel(export_file_path, index=False)
+			
+	messagebox.showinfo("Informação", "Retornamos ao modulo gerar .....FIM")
+	
 	return 
 
 

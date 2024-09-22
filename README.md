@@ -14,10 +14,9 @@ Tecnologias aplicadas: Tecnologia: 🎯 Python, API Requests , Pandas, Json, Tki
     ├── .env
     ├── requirements.txt
     └── README.md
-![image](https://github.com/user-attachments/assets/58fb9c7b-a650-4299-a47c-5a8e90c7abcf)
 
+![alt text](image.png)
 
-![image](https://github.com/datocarneiro/Rastreador_de_Objeto_Buslog-API-/assets/132966071/56e93925-d740-4de7-9f6b-ab8cc294b463)
 
 ## Configuração
 1. Criar Ambiente Virtual
@@ -60,3 +59,5 @@ estamos trabalhando para realizar as Emissões de pediod de forma automatica par
 - Evitar perda de tempo tentando identificar o objeto com a transportadora
 - Evitar que a carga fique parada na Base da transortadora (para realizar operações internas, pois os objetos ja estaão prontos para seguir viajem)
 
+criar o executavel.
+pyinstaller -F -w main.py
