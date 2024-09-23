@@ -63,4 +63,4 @@ criar o executavel.
 pyinstaller -F -w main.py
 
 
-alterando part 222
+alterando part 3333
