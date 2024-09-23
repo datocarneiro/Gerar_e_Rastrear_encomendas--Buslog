@@ -36,27 +36,31 @@ def gerar_encomenda(chave_session, usuario):
 
 	resposta = messagebox.askquestion("Confirmação",
 		f'''*** !!! ATENÇÂO !!! ***\n\n
-		Tem certeza que deseja realizar a Emissão em lote?\n
+		Tem certeza que deseja realizar a emissão em lote?\n
 		Essa ação será irrevercível.\n\n\n
 		{usuario_formatado}, você confirma a emissão?''')
 	
 	if resposta == 'no':
 		messagebox.showinfo("Informação", "Operação cancelada.")
 		return
-	
-	dados = pd.read_excel(file_path, engine='openpyxl')
+	try: 
+		dados = pd.read_excel(file_path, engine='openpyxl')
 
-	dados_emitidos = []
-	for  coluna_a, coluna_b, coluna_c in zip(dados.iloc[:, 0], dados.iloc[:, 1], dados.iloc[:, 2]):
-		franquia = coluna_a
-		ordem = coluna_c
-		
-		dados_para_envio = buscar_dados_eship(franquia, ordem, usuario_formatado)
-		print(f'Dadous para envio retornado: \n {dados_para_envio}')
+		dados_emitidos = []
+		for  coluna_a, coluna_b, coluna_c in zip(dados.iloc[:, 0], dados.iloc[:, 1], dados.iloc[:, 2]):
+			franquia = coluna_a
+			ordem = coluna_c
+			
+			dados_para_envio = buscar_dados_eship(franquia, ordem, usuario_formatado)
+			print(f'Dadous para envio retornado: \n {dados_para_envio}')
 
-		print('='*90)
-		dados_emitidos.append(*dados_para_envio)
-
+			print('='*90)
+			dados_emitidos.append(*dados_para_envio)
+	except KeyError as e:
+		messagebox.showinfo("Informação", f'''Erro: \n
+            Base do arquivo é inválida\n
+            {usuario_formatado}, Confira o arquivo importado.''')
+		return
 
 		################################ AQUI COMEÇA O ENVIOU ############################
 

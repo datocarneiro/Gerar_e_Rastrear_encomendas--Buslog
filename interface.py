@@ -2,8 +2,10 @@ from consultar_tracking.consultar_objeto import rastrear_objeto
 from gerar_encomenda.m_gerar_encomenda import gerar_encomenda
 from authentication.authenticate import registra_usuario
 from export_arquivo.export import exportar_arquivo
+from PIL import Image, ImageTk
 from tkinter import Label, Entry
 import tkinter as tk
+import os
 
 def interface(chave_session):
     app = tk.Tk()
@@ -24,11 +26,13 @@ def interface(chave_session):
     app.title("Dato® || Gerar e Rastrear encomendas - Buslogs")
     app.configure(background='#273142')
 
+
+
     # Nome e Input Usuario
     bold_font = ('Arial', 14, 'bold')  # Substitua 'Arial' pelo nome da fonte que você deseja usar
 
-    usuario = Label(app, text='dato®', background='#273142', foreground='#ffae00', font=bold_font, anchor='e')
-    usuario.place(x=1150, y=40, width=100, height=20)
+    marca = Label(app, text='dato®', background='#273142', foreground='#ffae00', font=bold_font, anchor='e')
+    marca.place(x=1150, y=40, width=100, height=20)
     usuario = Label(app, text='Usuário', background='#273142', foreground='#ffae00', font=bold_font, anchor='w')
     usuario.place(x=20,y=60, width=100, height=20)
     input_usuario = Entry(app, background='#dde', foreground='#009',font=5)
@@ -36,6 +40,18 @@ def interface(chave_session):
     btn_gravar_usuario = tk.Button(app, text="Registrar usuário", background='#08990f', foreground='#ffffff', command=lambda:registra_usuario(input_usuario.get()), width=13, height=1)
     btn_gravar_usuario = tk.Button(app, text="Registrar usuário", background='#3f8f57', foreground='#fff', command=lambda:registra_usuario(input_usuario.get()), width=13, height=1)
     btn_gravar_usuario.place(x=218,y=129)
+
+    texto = 'O layout da planilha, deve estar como a base abaixo:'
+    texto_base = Label(app, text=texto, background='#273142', foreground='#dde',anchor='w')
+    texto_base.place(x=20,y=250, width=300, height=20)
+
+    # Carrega a imagem e redimensiona
+    imagem_original = Image.open("bases/imagens/base_planilha.png")
+    imagem_redimensionada = imagem_original.resize((300, 100))  # Altere o tamanho conforme necessário
+    imagem = ImageTk.PhotoImage(imagem_redimensionada)
+    # Cria um widget Label para exibir a imagem com tamanho e posição controlados
+    label_imagem = Label(app, image=imagem)
+    label_imagem.place(x=20, y=280, width=300, height=100)  # Controla a posição e o tamanho
 
 
     # Botão para importar arquivo
