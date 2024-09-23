@@ -11,75 +11,87 @@ dados_rastreamento = []
 
 def rastrear_objeto(chave_session, usuario):
     global dados_rastreamento
-
-    if usuario == "":
-        messagebox.showinfo("Informação", "Nenhum usuário foi registrado, registre-se")
-        return
-    
-    usuario_formatado = usuario.capitalize()
-    
-    usuarios_permitidos = load_usuario_permitidos()
-    
-    if usuario_formatado not in usuarios_permitidos:
-        messagebox.showinfo("Informação",
-            f'''    *** !!! ATENÇÂO !!! ***\n\n\n
-            Usuário: "{usuario_formatado}" sem permissão ! ... \n\n
-            Verifique o usuario registrado.\n
-            Ou entre em contato com a equipe de TI
-        ''')
-        return
-
-    app = tk.Tk()
-    app.withdraw()  # Oculta a janela principal
-    file_path = filedialog.askopenfilename(title="Selecione um arquivo", filetypes=[("Arquivos Excel", "*.xlsx *.xls")])
-    
-    if not file_path:
-        messagebox.showinfo("Informação", "Nenhum arquivo selecionado")
-        return
-    
-    dados = pd.read_excel(file_path, engine='openpyxl')
-    dados_rastreamento.clear()  # Limpa dados anteriores
-
-    messagebox.showinfo("Informação", "Arquivo importado com sucesso")
-
-    for coluna_a, coluna_c in zip(dados.iloc[:, 0], dados.iloc[:, 2]):
-        tracking = str(coluna_c)
-        print(tracking, type(tracking))
-        chave = chave_session['sessao']
-        url = "https://api.track3r.com.br/v2/api/Tracking"
-        payload = {
-            "Sessao": chave,
-            "CodigoServico": 1,
-            "DataInicial": "",
-            "DataFinal": "",
-            "Pedidos": [
-                {"NotaFiscal": tracking}
-            ]
-        }
+    try: 
+        if usuario == "":
+            messagebox.showinfo("Informação", "Nenhum usuário foi registrado, registre-se")
+            return
         
-        headers = {'Content-Type': 'application/json'}
-        response = requests.post(url, headers=headers, json=payload)
-        response_data = response.json()
-        print(response_data)
+        usuario_formatado = usuario.capitalize()
         
-        NrNota = response_data['Pedidos'][0]['NrNota']
-        DtPrevistaEntrega = response_data['Pedidos'][0]['DtPrevistaEntrega']
-        status = response_data['Pedidos'][0]['Ocorrencias'][0]['Descricao']
-        Data = response_data['Pedidos'][0]['Ocorrencias'][0]['Data']
-        NomeRecebedor = response_data['Pedidos'][0]['Ocorrencias'][0]['NomeRecebedor']
-        CaminhoFoto = response_data['Pedidos'][0]['Ocorrencias'][0]['CaminhoFoto']
+        usuarios_permitidos = load_usuario_permitidos()
         
-        dados_rastreamento.append({
-            'Franqui': coluna_a,
-            'Tracking': NrNota,
-            'DtPrevistaEntrega': DtPrevistaEntrega,
-            'Status': status,
-            'Data/Hora': Data,
-            'NomeRecebedor': NomeRecebedor,
-            'Comprovante': CaminhoFoto,
-            "UsuarioLog": usuario_formatado
-        })
-    
-    messagebox.showinfo("Informação", "Rastreamentos realizados com sucesso\n\nClique em 'OK' para salvar o arquivo")
+        if usuario_formatado not in usuarios_permitidos:
+            messagebox.showinfo("Informação",
+                f'''    *** !!! ATENÇÂO !!! ***\n\n\n
+                Usuário: "{usuario_formatado}" sem permissão ! ... \n\n
+                Verifique o usuario registrado.\n
+                Ou entre em contato com a equipe de TI
+            ''')
+            return
+
+        app = tk.Tk()
+        app.withdraw()  # Oculta a janela principal
+        file_path = filedialog.askopenfilename(title="Selecione um arquivo", filetypes=[("Arquivos Excel", "*.xlsx *.xls")])
+        
+        if not file_path:
+            messagebox.showinfo("Informação", "Nenhum arquivo selecionado")
+            return
+        
+        dados = pd.read_excel(file_path, engine='openpyxl')
+        dados_rastreamento.clear()  # Limpa dados anteriores
+
+        messagebox.showinfo("Informação", "Arquivo importado com sucesso")
+
+        for coluna_a, coluna_c in zip(dados.iloc[:, 0], dados.iloc[:, 2]):
+            tracking = str(coluna_c)
+            print(tracking, type(tracking))
+            chave = chave_session['sessao']
+            url = "https://api.track3r.com.br/v2/api/Tracking"
+            payload = {
+                "Sessao": chave,
+                "CodigoServico": 1,
+                "DataInicial": "",
+                "DataFinal": "",
+                "Pedidos": [
+                    {"NotaFiscal": tracking}
+                ]
+            }
+            
+            headers = {'Content-Type': 'application/json'}
+            response = requests.post(url, headers=headers, json=payload)
+            response_data = response.json()
+            print(response_data)
+            
+            NrNota = response_data['Pedidos'][0]['NrNota']
+            DtPrevistaEntrega = response_data['Pedidos'][0]['DtPrevistaEntrega']
+            status = response_data['Pedidos'][0]['Ocorrencias'][0]['Descricao']
+            Data = response_data['Pedidos'][0]['Ocorrencias'][0]['Data']
+            NomeRecebedor = response_data['Pedidos'][0]['Ocorrencias'][0]['NomeRecebedor']
+            CaminhoFoto = response_data['Pedidos'][0]['Ocorrencias'][0]['CaminhoFoto']
+            
+            dados_rastreamento.append({
+                'Franqui': coluna_a,
+                'Tracking': NrNota,
+                'DtPrevistaEntrega': DtPrevistaEntrega,
+                'Status': status,
+                'Data/Hora': Data,
+                'NomeRecebedor': NomeRecebedor,
+                'Comprovante': CaminhoFoto,
+                "LogUsuario": usuario_formatado
+            })
+    except KeyError as e:
+        messagebox.showinfo("Informação", f'''Erro: \n
+            Base do arquivo é inválida!\n
+            {usuario_formatado}, Confira o arquivo importado.''')
+        return
+
+    resposta = messagebox.askquestion("Confirmação",
+    f'''*** !!! ATENÇÂO !!! ***\n\n
+    {usuario_formatado}, Deseja exporta o arquivo dos ratreamento realizado?\n
+    ''')
+	
+    if resposta == 'no':
+        messagebox.showinfo("Informação", "Operação cancelada.")
+        return
 
     exportar_arquivo(usuario_formatado, dados_rastreamento)
