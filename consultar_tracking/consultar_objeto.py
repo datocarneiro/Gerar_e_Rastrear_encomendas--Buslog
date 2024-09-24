@@ -9,8 +9,12 @@ import requests
 # Variável global para armazenar dados do rastreamentoclear
 dados_rastreamento = []
 
-def rastrear_objeto(chave_session, usuario):
+def rastrear_objeto(chave_session, usuario, progress):
     global dados_rastreamento
+
+    app = tk.Tk()
+    app.withdraw()
+
     try: 
         if usuario == "":
             messagebox.showinfo("Informação", "Nenhum usuário foi registrado, registre-se")
@@ -29,8 +33,6 @@ def rastrear_objeto(chave_session, usuario):
             ''')
             return
 
-        app = tk.Tk()
-        app.withdraw()  # Oculta a janela principal
         file_path = filedialog.askopenfilename(title="Selecione um arquivo", filetypes=[("Arquivos Excel", "*.xlsx *.xls")])
         
         if not file_path:
@@ -38,11 +40,14 @@ def rastrear_objeto(chave_session, usuario):
             return
         
         dados = pd.read_excel(file_path, engine='openpyxl')
+        total_rows = len(dados)  # Total de linhas para rastrear
         dados_rastreamento.clear()  # Limpa dados anteriores
 
         messagebox.showinfo("Informação", "Arquivo importado com sucesso")
 
-        for coluna_a, coluna_c in zip(dados.iloc[:, 0], dados.iloc[:, 2]):
+        progress['maximum'] = total_rows  # Define o valor máximo da barra de progresso
+
+        for i, (coluna_a, coluna_c) in enumerate(zip(dados.iloc[:, 0], dados.iloc[:, 2])):
             tracking = str(coluna_c)
             print(tracking, type(tracking))
             chave = chave_session['sessao']
@@ -79,6 +84,11 @@ def rastrear_objeto(chave_session, usuario):
                 'Comprovante': CaminhoFoto,
                 "LogUsuario": usuario_formatado
             })
+
+            # Atualiza a barra de progresso
+            progress['value'] = i + 1  # Atualiza o progresso
+            app.update_idletasks()  # Atualiza a interface gráfica
+
     except KeyError as e:
         messagebox.showinfo("Informação", f'''Erro: \n
             Base do arquivo é inválida!\n

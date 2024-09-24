@@ -7,7 +7,7 @@ import pandas as pd
 import requests
 import json
 
-def gerar_encomenda(chave_session, usuario):
+def gerar_encomenda(chave_session, usuario, progress):
 	if usuario == "":
 		messagebox.showinfo("Informação", "Nenhum usuário foi registrado, registre-se")
 		return
@@ -36,7 +36,7 @@ def gerar_encomenda(chave_session, usuario):
 
 	resposta = messagebox.askquestion("Confirmação",
 		f'''*** !!! ATENÇÂO !!! ***\n\n
-		Tem certeza que deseja realizar a emissão em lote?\n
+		Deseja realizar a emissão em lote?\n
 		Essa ação será irrevercível.\n\n\n
 		{usuario_formatado}, você confirma a emissão?''')
 	
@@ -46,8 +46,11 @@ def gerar_encomenda(chave_session, usuario):
 	try: 
 		dados = pd.read_excel(file_path, engine='openpyxl')
 
+		total_rows = len(dados)
+		progress['maximum'] = total_rows  # Define o valor máximo da barra de progresso
+
 		dados_emitidos = []
-		for  coluna_a, coluna_b, coluna_c in zip(dados.iloc[:, 0], dados.iloc[:, 1], dados.iloc[:, 2]):
+		for i, (coluna_a, coluna_b, coluna_c) in enumerate(zip(dados.iloc[:, 0], dados.iloc[:, 1], dados.iloc[:, 2])):
 			franquia = coluna_a
 			ordem = coluna_c
 			
@@ -56,10 +59,16 @@ def gerar_encomenda(chave_session, usuario):
 
 			print('='*90)
 			dados_emitidos.append(*dados_para_envio)
+
+			# Atualiza a barra de progresso
+			progress['value'] = i + 1  # Atualiza o progresso
+			app.update_idletasks()  # Atualiza a interface gráfica
+	
 	except KeyError as e:
-		messagebox.showinfo("Informação", f'''Erro: \n
+		messagebox.showinfo("Informação", 
+			f'''Erro: \n
             Base do arquivo é inválida\n
-            {usuario_formatado}, Confira o arquivo importado.''')
+            {usuario_formatado}, confira o arquivo importado.''')
 		return
 
 		################################ AQUI COMEÇA O ENVIOU ############################
