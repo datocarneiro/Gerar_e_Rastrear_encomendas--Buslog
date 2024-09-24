@@ -19,6 +19,7 @@ Tecnologias aplicadas: Tecnologia: 🎯 Python, API Requests , Pandas, Json, Tki
     └── README.md
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 ![image](https://github.com/user-attachments/assets/17336bac-c90a-4407-a857-3f8b545624c9)
 
 =======
@@ -30,6 +31,12 @@ Tecnologias aplicadas: Tecnologia: 🎯 Python, API Requests , Pandas, Json, Tki
 
 
 
+=======
+
+![image](https://github.com/user-attachments/assets/687e7de6-f453-4f85-b812-165ab30ec040)
+
+
+>>>>>>> 606cc37e88f562cdb16284f70ae5dcc1cb136b79
 ## Configuração
 1. Criar Ambiente Virtual
 `python -m venv venv`
