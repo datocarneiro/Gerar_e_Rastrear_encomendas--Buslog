@@ -1,10 +1,12 @@
 from authentication.authenticate import load_apikey
-from tkinter import messagebox
+import tkinter as tk
+from tkinter import messagebox, Label, ttk
 import requests
 import json
 
 
 def inserir_trancking(tracking, ordem):
+    app = tk.Tk()
     # apikey = load_apikey()
     # url = "https://amplo.eship.com.br/v2/?funcao=webServiceInserirRastreamento"
 
@@ -25,4 +27,7 @@ def inserir_trancking(tracking, ordem):
 
     # print(response.text)
 
+
     messagebox.showinfo("Informação", f'Aqui gravamos o tracking "{tracking}" para a ordem "{ordem}')
+
+    

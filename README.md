@@ -61,3 +61,6 @@ estamos trabalhando para realizar as Emissões de pediod de forma automatica par
 
 criar o executavel.
 pyinstaller -F -w main.py
+
+
+alterando part 3333

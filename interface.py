@@ -3,7 +3,7 @@ from gerar_encomenda.m_gerar_encomenda import gerar_encomenda
 from authentication.authenticate import registra_usuario
 from export_arquivo.export import exportar_arquivo
 from PIL import Image, ImageTk
-from tkinter import Label, Entry
+from tkinter import Label, Entry, ttk
 import tkinter as tk
 import os
 
@@ -47,23 +47,37 @@ def interface(chave_session):
 
     # Carrega a imagem e redimensiona
     imagem_original = Image.open("bases/imagens/base_planilha.png")
-    imagem_redimensionada = imagem_original.resize((300, 100))  # Altere o tamanho conforme necessário
+    imagem_redimensionada = imagem_original.resize((330, 110))  # Altere o tamanho conforme necessário
     imagem = ImageTk.PhotoImage(imagem_redimensionada)
     # Cria um widget Label para exibir a imagem com tamanho e posição controlados
     label_imagem = Label(app, image=imagem)
-    label_imagem.place(x=20, y=280, width=300, height=100)  # Controla a posição e o tamanho
+    label_imagem.place(x=20, y=280, width=330, height=110)  # Controla a posição e o tamanho
 
 
     # Botão para importar arquivo
-    btn_rastrear_objeto = tk.Button(app, text="Rastrear", background='#dde', font=5, command=lambda: rastrear_objeto(chave_session, input_usuario.get()), width=20, height=2)
+    btn_rastrear_objeto = tk.Button(app, text="Rastrear", background='#dde', font=5, command=lambda: rastrear_objeto(chave_session, input_usuario.get(), progress), width=20, height=2)
     btn_rastrear_objeto.pack(pady=(180, 35))
 
     # Botão para importar arquivo
-    btn_gerar_encomenda = tk.Button(app, text="Gerar encomendas", background='#dde',font=5,command=lambda: gerar_encomenda(chave_session, input_usuario.get()), width=20, height=2)
+    btn_gerar_encomenda = tk.Button(app, text="Gerar encomendas", background='#dde',font=5,command=lambda: gerar_encomenda(chave_session, input_usuario.get(), progress), width=20, height=2)
     btn_gerar_encomenda.pack(pady=(35, 35))
     
     # Botão para exportar arquivo
     btn_exportar = tk.Button(app, text="Exportar Arquivo", background='#ffae00', font=2,command=lambda:exportar_arquivo(input_usuario.get()))
     btn_exportar.pack(pady=(40, 35))
+
+    # Estilo para personalizar a Progressbar
+    style = ttk.Style()
+    # Definir o estilo da Progressbar com uma cor de fundo (#dde) e progresso verde
+    style.theme_use('clam')  # Modo de estilo que permite personalizações
+    style.configure("TProgressbar",
+                    troughcolor='#273142',  # Cor de fundo (fundo da barra)
+                    background='green',  # Cor do progresso
+                    thickness=80,  # Altura da barra
+                    borderwidth=1)  # Remove a borda
+    
+    # Criar a Progressbar com o estilo personalizado
+    progress = ttk.Progressbar(app, orient='horizontal', length=600, mode='determinate', style="TProgressbar")
+    progress.pack(pady=(80, 55))
 
     app.mainloop()

@@ -45,7 +45,6 @@ def buscar_dados_eship(franquia, ordem, usuario):
 	qtd_volume = len(dimenssao_volume)
 	valor_ordem= f"{response_data['corpo']['body']['dados'][0]['valorTotal']:.2f}"
 	valor_documento = float(valor_ordem)
-	print(type(valor_documento))
 	print(valor_documento)
 	# print(f'quantidade_volumes:', qtd_volume)
 	# print(f'valor_documento:', valor_documento)
