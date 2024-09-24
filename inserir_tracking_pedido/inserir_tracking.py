@@ -6,28 +6,25 @@ import json
 
 
 def inserir_trancking(tracking, ordem):
-    app = tk.Tk()
-    # apikey = load_apikey()
-    # url = "https://amplo.eship.com.br/v2/?funcao=webServiceInserirRastreamento"
+    apikey = load_apikey()
+    url = "https://amplo.eship.com.br/v2/?funcao=webServiceInserirRastreamento"
 
-    # payload = json.dumps({
-    # "numeroOrdem": ordem,
-    # "rastreamentos": [
-    #     {
-    #     "codigoRastreio": tracking
-    #     }
-    # ]
-    # })
-    # headers = {
-    # 'Api': apikey,
-    # 'Content-Type': 'application/json',
-    # }
+    payload = json.dumps({
+    "numeroOrdem": ordem,
+    "rastreamentos": [
+        {
+        "codigoRastreio": tracking
+        }
+    ]
+    })
+    headers = {
+    'Api': apikey,
+    'Content-Type': 'application/json',
+    }
 
-    # response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload)
 
-    # print(response.text)
-
-
-    messagebox.showinfo("Informação", f'Aqui gravamos o tracking "{tracking}" para a ordem "{ordem}')
+    print(response.text)
+    return
 
     
