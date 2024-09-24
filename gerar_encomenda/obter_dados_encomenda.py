@@ -2,9 +2,6 @@
 from authentication.authenticate import load_apikey
 from gerar_encomenda.dados_faturamento import dados_volumes
 import requests
-import pandas as pd
-import tkinter as tk
-from tkinter import messagebox, Label, Entry, filedialog
 import re
 
 
@@ -48,7 +45,6 @@ def buscar_dados_eship(franquia, ordem, usuario):
 	qtd_volume = len(dimenssao_volume)
 	valor_ordem= f"{response_data['corpo']['body']['dados'][0]['valorTotal']:.2f}"
 	valor_documento = float(valor_ordem)
-	print(type(valor_documento))
 	print(valor_documento)
 	# print(f'quantidade_volumes:', qtd_volume)
 	# print(f'valor_documento:', valor_documento)
@@ -147,7 +143,7 @@ def buscar_dados_eship(franquia, ordem, usuario):
 			"largura": float(volume['larguraVolume']/1000),
 			"comprimento": float(volume['comprimentoVolume']/1000),
 			"peso_real": float(volume['pesoVolume']/1000),
-			"peso_cubado": float((volume['alturaVolume'])/1000 * (volume['larguraVolume']/1000 ) * (volume['comprimentoVolume']/1000) * 200)
+			"peso_cubado": round(float((volume['alturaVolume'])/1000 * (volume['larguraVolume']/1000 ) * (volume['comprimentoVolume']/1000) * 200), 2)
 
 
 		})
@@ -213,12 +209,4 @@ def buscar_dados_eship(franquia, ordem, usuario):
 		"volumes": volumes
 	})
 
-
 	return dados_encomenda
-
-
-	# export_file_path = filedialog.asksaveasfilename(defaultextension=".json", filetypes=[("Arquivos", "*.json")])
-	# if export_file_path:
-	# 	df.to_json(export_file_path, index=False)
-	# 	# df.to_excel(export_file_path, index=False)
-	# 	messagebox.showinfo("Informação", f"Arquivo exportado com sucesso para:\n\n{export_file_path}")
