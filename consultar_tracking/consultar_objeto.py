@@ -25,12 +25,7 @@ def rastrear_objeto(chave_session, usuario, progress):
         usuarios_permitidos = load_usuario_permitidos()
         
         if usuario_formatado not in usuarios_permitidos:
-            messagebox.showinfo("Informação",
-                f'''    *** !!! ATENÇÂO !!! ***\n\n\n
-                Usuário: "{usuario_formatado}" sem permissão ! ... \n\n
-                Verifique o usuario registrado.\n
-                Ou entre em contato com a equipe de TI
-            ''')
+            messagebox.showinfo("Informação", f'''    *** !!! ATENÇÂO !!! ***\n\n\nUsuário: "{usuario_formatado}" sem permissão ! ...\n\nVerifique o usuario registrado.''')
             return
 
         file_path = filedialog.askopenfilename(title="Selecione um arquivo", filetypes=[("Arquivos Excel", "*.xlsx *.xls")])
@@ -48,46 +43,53 @@ def rastrear_objeto(chave_session, usuario, progress):
         progress['maximum'] = total_rows  # Define o valor máximo da barra de progresso
 
         for i, (coluna_a, coluna_c) in enumerate(zip(dados.iloc[:, 0], dados.iloc[:, 2])):
-            tracking = str(coluna_c)
-            print(tracking, type(tracking))
-            chave = chave_session['sessao']
-            url = "https://api.track3r.com.br/v2/api/Tracking"
-            payload = {
-                "Sessao": chave,
-                "CodigoServico": 1,
-                "DataInicial": "",
-                "DataFinal": "",
-                "Pedidos": [
-                    {"NotaFiscal": tracking}
-                ]
-            }
+            try:
+                tracking = str(coluna_c)
             
-            headers = {'Content-Type': 'application/json'}
-            response = requests.post(url, headers=headers, json=payload)
-            response_data = response.json()
-            print(response_data)
-            
-            NrNota = response_data['Pedidos'][0]['NrNota']
-            DtPrevistaEntrega = response_data['Pedidos'][0]['DtPrevistaEntrega']
-            status = response_data['Pedidos'][0]['Ocorrencias'][0]['Descricao']
-            Data = response_data['Pedidos'][0]['Ocorrencias'][0]['Data']
-            NomeRecebedor = response_data['Pedidos'][0]['Ocorrencias'][0]['NomeRecebedor']
-            CaminhoFoto = response_data['Pedidos'][0]['Ocorrencias'][0]['CaminhoFoto']
-            
-            dados_rastreamento.append({
-                'Franqui': coluna_a,
-                'Tracking': NrNota,
-                'DtPrevistaEntrega': DtPrevistaEntrega,
-                'Status': status,
-                'Data/Hora': Data,
-                'NomeRecebedor': NomeRecebedor,
-                'Comprovante': CaminhoFoto,
-                "LogUsuario": usuario_formatado
-            })
+                chave = chave_session['sessao']
+                url = "https://api.track3r.com.br/v2/api/Tracking"
+                payload = {
+                    "Sessao": chave,
+                    "CodigoServico": 1,
+                    "DataInicial": "",
+                    "DataFinal": "",
+                    "Pedidos": [
+                        {"NotaFiscal": tracking}
+                    ]
+                }
+                
+                headers = {'Content-Type': 'application/json'}
+                response = requests.post(url, headers=headers, json=payload)
+                response_data = response.json()
+                        
+                NrNota = response_data['Pedidos'][0]['NrNota']
+                DtPrevistaEntrega = response_data['Pedidos'][0]['DtPrevistaEntrega']
+                status = response_data['Pedidos'][0]['Ocorrencias'][0]['Descricao']
+                Data = response_data['Pedidos'][0]['Ocorrencias'][0]['Data']
+                NomeRecebedor = response_data['Pedidos'][0]['Ocorrencias'][0]['NomeRecebedor']
+                CaminhoFoto = response_data['Pedidos'][0]['Ocorrencias'][0]['CaminhoFoto']
+                
+                print(f'...... Progresso: {i+1}/{total_rows} - Ordem: {coluna_c} ......')
+                print(f'\tStatus: {status}')
 
-            # Atualiza a barra de progresso
-            progress['value'] = i + 1  # Atualiza o progresso
-            app.update_idletasks()  # Atualiza a interface gráfica
+                dados_rastreamento.append({
+                    'Franqui': coluna_a,
+                    'Tracking': NrNota,
+                    'DtPrevistaEntrega': DtPrevistaEntrega,
+                    'Status': status,
+                    'Data/Hora': Data,
+                    'NomeRecebedor': NomeRecebedor,
+                    'Comprovante': CaminhoFoto,
+                    "LogUsuario": usuario_formatado
+                })
+
+                # Atualiza a barra de progresso
+                progress['value'] = i + 1  # Atualiza o progresso
+                app.update_idletasks()  # Atualiza a interface gráfica
+
+            except KeyError as e:
+                messagebox.showinfo("Informação", f'''*** ATENÇÂO *** !\n\nErro: Tracking {tracking} não localizado!\n\n\n{usuario_formatado}, Confirme se a encomenda realmente existe.''')
+                return
 
     except KeyError as e:
         messagebox.showinfo("Informação", f'''Erro: \n

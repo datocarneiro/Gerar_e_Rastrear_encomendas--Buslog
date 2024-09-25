@@ -2,6 +2,7 @@ from consultar_tracking.consultar_objeto import rastrear_objeto
 from gerar_encomenda.m_gerar_encomenda import gerar_encomenda
 from authentication.authenticate import registra_usuario
 from export_arquivo.export import exportar_arquivo
+from consultar_emissão.consultar_bd import consultar_banco
 from PIL import Image, ImageTk
 from tkinter import Label, Entry, ttk
 import tkinter as tk
@@ -10,8 +11,8 @@ import os
 def interface(chave_session):
     app = tk.Tk()
     # Define o tamanho da janela
-    largura = 1300
-    altura = 800
+    largura = 1100
+    altura = 700
 
     # Obtém a largura e altura da tela do usuário
     largura_tela = app.winfo_screenwidth()
@@ -32,12 +33,11 @@ def interface(chave_session):
     bold_font = ('Arial', 14, 'bold')  # Substitua 'Arial' pelo nome da fonte que você deseja usar
 
     marca = Label(app, text='dato®', background='#273142', foreground='#ffae00', font=bold_font, anchor='e')
-    marca.place(x=1150, y=40, width=100, height=20)
+    marca.place(x=950, y=40, width=100, height=20)
     usuario = Label(app, text='Usuário', background='#273142', foreground='#ffae00', font=bold_font, anchor='w')
     usuario.place(x=20,y=60, width=100, height=20)
-    input_usuario = Entry(app, background='#dde', foreground='#009',font=5)
+    input_usuario = Entry(app, background='#dde', foreground='#161616',font=5)
     input_usuario.place(x=20,y=90,width=300, height=35,)
-    btn_gravar_usuario = tk.Button(app, text="Registrar usuário", background='#08990f', foreground='#ffffff', command=lambda:registra_usuario(input_usuario.get()), width=13, height=1)
     btn_gravar_usuario = tk.Button(app, text="Registrar usuário", background='#3f8f57', foreground='#fff', command=lambda:registra_usuario(input_usuario.get()), width=13, height=1)
     btn_gravar_usuario.place(x=218,y=129)
 
@@ -56,7 +56,7 @@ def interface(chave_session):
 
     # Botão para importar arquivo
     btn_rastrear_objeto = tk.Button(app, text="Rastrear", background='#dde', font=5, command=lambda: rastrear_objeto(chave_session, input_usuario.get(), progress), width=20, height=2)
-    btn_rastrear_objeto.pack(pady=(180, 35))
+    btn_rastrear_objeto.pack(pady=(150, 35))
 
     # Botão para importar arquivo
     btn_gerar_encomenda = tk.Button(app, text="Gerar encomendas", background='#dde',font=5,command=lambda: gerar_encomenda(chave_session, input_usuario.get(), progress), width=20, height=2)
@@ -65,6 +65,16 @@ def interface(chave_session):
     # Botão para exportar arquivo
     btn_exportar = tk.Button(app, text="Exportar Arquivo", background='#ffae00', font=2,command=lambda:exportar_arquivo(input_usuario.get()))
     btn_exportar.pack(pady=(40, 35))
+    # Criar a Progressbar com o estilo personalizado
+    progress = ttk.Progressbar(app, orient='horizontal', length=600, mode='determinate', style="TProgressbar")
+    progress.pack(pady=(60, 55))
+
+    consulta_emissão = Label(app, text="Log's emissão, consultar por numero de ordem", background='#273142', foreground='#ffae00', anchor='e')
+    consulta_emissão.place(x=410,y=670)
+    input_consulta_emissão = Entry(app, background='#dde', foreground='#161616', font=1)
+    input_consulta_emissão.place(x=430,y=640)
+    btn_consulta_emissão = tk.Button(app, text="Buscar", background='#3f8f57', foreground='#fff', command=lambda:consultar_banco(input_consulta_emissão.get()), width=9, height=1)
+    btn_consulta_emissão.place(x=581,y=641)
 
     # Estilo para personalizar a Progressbar
     style = ttk.Style()
@@ -76,8 +86,5 @@ def interface(chave_session):
                     thickness=80,  # Altura da barra
                     borderwidth=1)  # Remove a borda
     
-    # Criar a Progressbar com o estilo personalizado
-    progress = ttk.Progressbar(app, orient='horizontal', length=600, mode='determinate', style="TProgressbar")
-    progress.pack(pady=(80, 55))
 
     app.mainloop()

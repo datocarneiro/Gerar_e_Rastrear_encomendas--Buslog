@@ -24,7 +24,6 @@ def inserir_trancking(tracking, ordem):
 
     response = requests.request("POST", url, headers=headers, data=payload)
 
-    print(response.text)
-    return
+    return response
 
     
