@@ -29,8 +29,19 @@ def buscar_dados_eship(franquia, ordem, usuario):
 
 	
 	# print('.........................................encomendas.......................................')
-	id_produto = 1
-	# print('id_produto:', id_produto)
+	'''
+	###################### ... PARA "id_produto" ... ####################################
+
+	SERVÇO ENTREGA
+	"id_produto" = 1225 -> COLETA x ENTREGA
+	"id_produto" = 1224 -> BALCÃO x ENTREGA
+
+	SERVIÇO RETIRA
+	"id_produto" = 1177 -> COLETA x BALCÃO
+	"id_produto" = 1170 -> BALCÃO x BALCÃO
+
+	'''
+	id_produto = 1225 
 
 	numero_pedido = response_data['corpo']['body']['dados'][0]['produtosOrdem'][0]['idOrdem']
 	# print(f'numero_pedido:', numero_pedido)
@@ -45,7 +56,6 @@ def buscar_dados_eship(franquia, ordem, usuario):
 	qtd_volume = len(dimenssao_volume)
 	valor_ordem= f"{response_data['corpo']['body']['dados'][0]['valorTotal']:.2f}"
 	valor_documento = float(valor_ordem)
-	print(valor_documento)
 	# print(f'quantidade_volumes:', qtd_volume)
 	# print(f'valor_documento:', valor_documento)
 
@@ -119,14 +129,18 @@ def buscar_dados_eship(franquia, ordem, usuario):
 	tipo_fiscal = destinatario['tipoFiscal']['id']
 	tipo_pessoa, cnpj_cpf_destinatario, ie_destinatario, nome_destinatario = tipo_de_destinatario(destinatario, tipo_fiscal)
 
-	endereçoDestinatario = destinatario = response_data['corpo']['body']['dados'][0]['produtosOrdem'][0]['ordem']['enderecoDestinatario']
-	cep_destinatario = destinatario['codigoPostal']
-	bairro_destinatario = destinatario['bairro']
-	rua_destinatario = destinatario['logradouro']
-	num_destinatario = destinatario['numero']
-	complemento_destinatario = destinatario['complemento']
-	cidade_destinatario = destinatario['municipio']['descricao']
-	estado_destinatario = destinatario['municipio']['estado']['sigla']
+	endereçoDestinatario = response_data['corpo']['body']['dados'][0]['produtosOrdem'][0]['ordem']['enderecoDestinatario']
+	cep_destinatario = endereçoDestinatario['codigoPostal']
+	# Remove qualquer caractere que não seja numérico
+	cep_destinatario_numerico = re.sub(r'\D', '', cep_destinatario)
+	print(f'cep destinatario {cep_destinatario},  {type(cep_destinatario)}')
+	print(f'cep destinatario {cep_destinatario_numerico},  {type(cep_destinatario_numerico)}')
+	bairro_destinatario = endereçoDestinatario['bairro']
+	rua_destinatario = endereçoDestinatario['logradouro']
+	num_destinatario = endereçoDestinatario['numero']
+	complemento_destinatario = endereçoDestinatario['complemento']
+	cidade_destinatario = endereçoDestinatario['municipio']['descricao']
+	estado_destinatario = endereçoDestinatario['municipio']['estado']['sigla']
 
 
 	# print('....................................... Usauario emmissao ...............')
@@ -162,7 +176,8 @@ def buscar_dados_eship(franquia, ordem, usuario):
 		},
 		"embarcador":{
 			"cnpj": cnpj_embarcador,
-			"razao_social": razaoSocial_embarcador,
+			"razao_social": f'{razaoSocial_embarcador} ({usuario})',
+			"nome_fantasia": f'{razaoSocial_embarcador} ({usuario})',
 			"endereco":{
 				"cep": cep_embarcador,
 				"bairro": bairro_embarcador,
@@ -193,7 +208,7 @@ def buscar_dados_eship(franquia, ordem, usuario):
 			"inscricao_estadual": ie_destinatario,
 			"nome": nome_destinatario,
 			"endereco":{
-				"cep": cep_destinatario,
+				"cep": cep_destinatario_numerico,
 				"bairro": bairro_destinatario,
 				"rua": rua_destinatario,
 				"numero": num_destinatario,
@@ -202,10 +217,12 @@ def buscar_dados_eship(franquia, ordem, usuario):
 				"estado": estado_destinatario
 			}
 		},
-		"loja_remetente":{
-			"tipo_pessoa": "F",
-			"nome": usuario
-		},
+		# "loja_remetente":{
+		# 	# "cnpj_cpf": "478.517.310-62",
+        # 	# "inscricao_estadual": "",
+		# 	"tipo_pessoa": "F",
+		# 	"nome": usuario
+		# },
 		"volumes": volumes
 	})
 

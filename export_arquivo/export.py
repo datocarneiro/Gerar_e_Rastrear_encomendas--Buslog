@@ -11,12 +11,7 @@ def exportar_arquivo(usuario='', dados_rastreamento=[]):
     usuarios_permitidos = load_usuario_permitidos()
     
     if usuario_formatado not in usuarios_permitidos:
-        messagebox.showinfo("Informação",                                                    
-            f'''    *** !!! ATENÇÂO !!! ***\n\n\n
-            Usuário: "{usuario_formatado}" sem permissão ! ... \n\n
-            Verifique o usuario registrado.\n
-            Ou entre em contato com a equipe de TI
-        ''')
+        messagebox.showinfo("Informação", f'''    *** !!! ATENÇÂO !!! ***\n\n\nUsuário: "{usuario_formatado}" sem permissão ! ...\n\nVerifique o usuario registrado.''')
         return
     
     if not dados_rastreamento:
