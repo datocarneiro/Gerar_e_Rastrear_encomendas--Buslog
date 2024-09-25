@@ -8,10 +8,15 @@ def load_token():
     return token
 
 def authenticate_sessao():
-    token = load_token()
-    url = f"http://api.track3r.com.br/v2/api/Autenticacao?token={token}"
-    response = requests.get(url)
-    retorno = response.json()
+    try:
+        token = load_token()
+        url = f"http://api.track3r.com.br/v2/api/Autenticacao?token={token}"
+        response = requests.get(url)
+        retorno = response.json()
+    except TimeoutError as e:
+        print(f'erro: {e}')
+        return e
+    
     return retorno
 
 def load_apikey():
