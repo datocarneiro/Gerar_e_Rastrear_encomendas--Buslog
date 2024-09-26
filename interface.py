@@ -1,7 +1,7 @@
 from consultar_tracking.consultar_objeto import rastrear_objeto
 from gerar_encomenda.m_gerar_encomenda import gerar_encomenda
 from authentication.authenticate import registra_usuario
-from export_arquivo.export import exportar_arquivo
+from export_arquivo_base.export import base_arquivo
 from consultar_emissão.consultar_bd import consultar_banco
 from PIL import Image, ImageTk
 from tkinter import Label, Entry, ttk
@@ -63,8 +63,8 @@ def interface(chave_session):
     btn_gerar_encomenda.pack(pady=(35, 35))
     
     # Botão para exportar arquivo
-    btn_exportar = tk.Button(app, text="Exportar Arquivo", background='#ffae00', font=2,command=lambda:exportar_arquivo(input_usuario.get()))
-    btn_exportar.pack(pady=(40, 35))
+    btn_exportar = tk.Button(app, text="Exportar base arquivo", background='#ffae00',command=lambda:base_arquivo())
+    btn_exportar.pack(pady=(30, 25))
     # Criar a Progressbar com o estilo personalizado
     progress = ttk.Progressbar(app, orient='horizontal', length=600, mode='determinate', style="TProgressbar")
     progress.pack(pady=(60, 55))

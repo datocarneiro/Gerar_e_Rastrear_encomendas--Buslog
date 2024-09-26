@@ -60,7 +60,4 @@ estamos trabalhando para realizar as Emissões de pediod de forma automatica par
 - Evitar que a carga fique parada na Base da transortadora (para realizar operações internas, pois os objetos ja estaão prontos para seguir viajem)
 
 criar o executavel.
-pyinstaller -F -w main.py
-
-
-alterando part 3333
+python setup.py build
