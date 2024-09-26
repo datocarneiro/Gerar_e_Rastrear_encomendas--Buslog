@@ -3,13 +3,12 @@ import pandas as pd
 
 def base_arquivo():
     base = []
-    for i in range(0,3):
-        base.append({
-            "FRANQUIA": 'Not Null',
-            "MODAL": 'Null',
-            "ORDEM": 'Not Null',
-            "STATUS": 'Null',
-        })
+    base.append({
+        "FRANQUIA": 'Not Null',
+        "MODAL": '',
+        "ORDEM": 'Not Null',
+        "STATUS": '',
+    })
     
     df = pd.DataFrame(base)
     export_file_path = filedialog.asksaveasfilename(defaultextension=".xlsx", filetypes=[("Arquivos Excel", "*.xlsx *.xls")])

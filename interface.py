@@ -43,7 +43,7 @@ def interface(chave_session):
 
     texto = 'O layout da planilha, deve estar como a base abaixo:'
     texto_base = Label(app, text=texto, background='#273142', foreground='#dde',anchor='w')
-    texto_base.place(x=20,y=250, width=300, height=20)
+    texto_base.place(x=20,y=240, width=300, height=20)
 
     # Carrega a imagem e redimensiona
     imagem_original = Image.open("bases/imagens/base_planilha.png")
@@ -53,6 +53,9 @@ def interface(chave_session):
     label_imagem = Label(app, image=imagem)
     label_imagem.place(x=20, y=280, width=330, height=110)  # Controla a posição e o tamanho
 
+    texto_obrigatorio = "** Campos obrigatórios: 'FRANQUIA' e 'ORDEM'."
+    texto_obrigatoroio = Label(app, text=texto_obrigatorio, background='#273142', foreground='#dde',anchor='w')
+    texto_obrigatoroio.place(x=20,y=258, width=400, height=20)
 
     # Botão para importar arquivo
     btn_rastrear_objeto = tk.Button(app, text="Rastrear", background='#dde', font=5, command=lambda: rastrear_objeto(chave_session, input_usuario.get(), progress), width=20, height=2)
