@@ -1,7 +1,6 @@
 # sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from authentication.authenticate import load_usuario_permitidos
 from tkinter import messagebox, filedialog
-from export_arquivo.export import exportar_arquivo
 import tkinter as tk
 import pandas as pd
 import requests
@@ -106,4 +105,8 @@ def rastrear_objeto(chave_session, usuario, progress):
         messagebox.showinfo("Informação", "Operação cancelada.")
         return
 
-    exportar_arquivo(usuario_formatado, dados_rastreamento)
+    df = pd.DataFrame(dados_rastreamento)
+    export_file_path = filedialog.asksaveasfilename(defaultextension=".xlsx", filetypes=[("Arquivos Excel", "*.xlsx *.xls")])
+    if export_file_path:
+        df.to_excel(export_file_path, index=False)
+        messagebox.showinfo("Informação", f"Arquivo exportado com sucesso para:\n\n{export_file_path}")

@@ -178,6 +178,8 @@ def gerar_encomenda(chave_session, usuario, progress):
 									'numero_pedido', 
 									['documento_transportado', 'tipo'], 
 									['documento_transportado', 'numero'], 
+									'LogUsuario',
+									'tracking',
 									['documento_transportado', 'quantidade_volumes'], 
 									['documento_transportado', 'valor_documento'], 
 									# ['embarcador', 'cnpj'], 
@@ -209,10 +211,9 @@ def gerar_encomenda(chave_session, usuario, progress):
 									['destinatario', 'endereco', 'numero'], 
 									['destinatario', 'endereco', 'complemento'], 
 									['destinatario', 'endereco', 'cidade'], 
-									['destinatario', 'endereco', 'estado'], 
+									['destinatario', 'endereco', 'estado']
 									# ['loja_remetente', 'tipo_pessoa'], 
 									# ['loja_remetente', 'nome'], 
-									'tracking'
 								])
 	
 	# Conexão com o banco de dados SQLite (cria o arquivo se não existir)
@@ -226,12 +227,19 @@ def gerar_encomenda(chave_session, usuario, progress):
 	print("\nDataFrame com volumes:\n ")
 	print(df)
 
+	resposta = messagebox.askquestion("Confirmação",
+    f'''*** !!! ATENÇÂO !!! ***\n\n
+    {usuario_formatado}, Deseja exporta o arquivo com o registro das emissões?\n
+    ''')
+	
+	if resposta == 'no':
+		messagebox.showinfo("Informação", "Operação cancelada.")
+		return
+
 	export_file_path = filedialog.asksaveasfilename(defaultextension=".xlsx", filetypes=[("Arquivos Excel", "*.xlsx *.xls")])
 	if export_file_path:
-		# df.to_json(export_file_path, index=False)
 		df.to_excel(export_file_path, index=False)
 			
-	messagebox.showinfo("Informação", "Retornamos ao modulo gerar .....FIM")
 	
 	return 
 

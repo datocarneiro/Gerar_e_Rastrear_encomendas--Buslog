@@ -1,7 +1,7 @@
 from consultar_tracking.consultar_objeto import rastrear_objeto
 from gerar_encomenda.m_gerar_encomenda import gerar_encomenda
 from authentication.authenticate import registra_usuario
-from export_arquivo.export import exportar_arquivo
+from export_arquivo_base.export import base_arquivo
 from consultar_emissão.consultar_bd import consultar_banco
 from PIL import Image, ImageTk
 from tkinter import Label, Entry, ttk
@@ -43,7 +43,7 @@ def interface(chave_session):
 
     texto = 'O layout da planilha, deve estar como a base abaixo:'
     texto_base = Label(app, text=texto, background='#273142', foreground='#dde',anchor='w')
-    texto_base.place(x=20,y=250, width=300, height=20)
+    texto_base.place(x=20,y=240, width=300, height=20)
 
     # Carrega a imagem e redimensiona
     imagem_original = Image.open("bases/imagens/base_planilha.png")
@@ -53,6 +53,9 @@ def interface(chave_session):
     label_imagem = Label(app, image=imagem)
     label_imagem.place(x=20, y=280, width=330, height=110)  # Controla a posição e o tamanho
 
+    texto_obrigatorio = "** Campos obrigatórios: 'FRANQUIA' e 'ORDEM'."
+    texto_obrigatoroio = Label(app, text=texto_obrigatorio, background='#273142', foreground='#dde',anchor='w')
+    texto_obrigatoroio.place(x=20,y=258, width=400, height=20)
 
     # Botão para importar arquivo
     btn_rastrear_objeto = tk.Button(app, text="Rastrear", background='#dde', font=5, command=lambda: rastrear_objeto(chave_session, input_usuario.get(), progress), width=20, height=2)
@@ -63,8 +66,8 @@ def interface(chave_session):
     btn_gerar_encomenda.pack(pady=(35, 35))
     
     # Botão para exportar arquivo
-    btn_exportar = tk.Button(app, text="Exportar Arquivo", background='#ffae00', font=2,command=lambda:exportar_arquivo(input_usuario.get()))
-    btn_exportar.pack(pady=(40, 35))
+    btn_exportar = tk.Button(app, text="Exportar base arquivo", background='#ffae00',command=lambda:base_arquivo())
+    btn_exportar.pack(pady=(30, 25))
     # Criar a Progressbar com o estilo personalizado
     progress = ttk.Progressbar(app, orient='horizontal', length=600, mode='determinate', style="TProgressbar")
     progress.pack(pady=(60, 55))

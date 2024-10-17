@@ -3,7 +3,7 @@ from cx_Freeze import setup, Executable
 
 # Definir as opções de build (inclua as bibliotecas que deseja)
 build_exe_options = {
-    "packages": ["os", "pandas", "openpyxl", "requests", "json", "numpy", "tkinter", "dotenv"],
+    "packages": ["os", "pandas", "openpyxl", "requests", "json", "numpy", "tkinter", "dotenv", "PIL"],
     "include_files": [".env"],
 }
 
@@ -15,9 +15,9 @@ if sys.platform == "win32":
 
 # Configuração do cx_Freeze
 setup(
-    name="Dato - Buslog",
-    version="1.0",
+    name="Dato_Buslog.v2",
+    version="2.0",
     description="Aplicação gera e rastreia encomendas Buslog!",
     options={"build_exe": build_exe_options},
-    executables=[Executable("main.py", base=base)],  # Altere "app.py" para o nome do seu script principal
+    executables=[Executable("dato_buslog.py", base=base)],  # Altere "app.py" para o nome do seu script principal
 )
