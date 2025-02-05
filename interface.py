@@ -54,8 +54,8 @@ def interface(chave_session):
     label_imagem.place(x=20, y=280, width=330, height=110)  # Controla a posição e o tamanho
 
     texto_obrigatorio = "** Campos obrigatórios: 'FRANQUIA' e 'ORDEM'."
-    texto_obrigatoroio = Label(app, text=texto_obrigatorio, background='#273142', foreground='#dde',anchor='w')
-    texto_obrigatoroio.place(x=20,y=258, width=400, height=20)
+    texto_obrigatorio = Label(app, text=texto_obrigatorio, background='#273142', foreground='#dde',anchor='w')
+    texto_obrigatorio.place(x=20,y=258, width=400, height=20)
 
     # Botão para importar arquivo
     btn_rastrear_objeto = tk.Button(app, text="Rastrear", background='#dde', font=5, command=lambda: rastrear_objeto(chave_session, input_usuario.get(), progress), width=20, height=2)
@@ -66,8 +66,10 @@ def interface(chave_session):
     btn_gerar_encomenda.pack(pady=(35, 35))
     
     # Botão para exportar arquivo
-    btn_exportar = tk.Button(app, text="Exportar base arquivo", background='#ffae00',command=lambda:base_arquivo())
-    btn_exportar.pack(pady=(30, 25))
+    btn_exportar = tk.Button(app, text="Baixe a planilha base aqui", background='#ffae00',command=lambda:base_arquivo())
+    # btn_exportar.pack(pady=(30, 5))
+    btn_exportar.place(x=40,y=400, width=200, height=20)
+
     # Criar a Progressbar com o estilo personalizado
     progress = ttk.Progressbar(app, orient='horizontal', length=600, mode='determinate', style="TProgressbar")
     progress.pack(pady=(60, 55))

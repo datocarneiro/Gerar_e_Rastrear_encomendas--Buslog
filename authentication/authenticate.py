@@ -16,7 +16,6 @@ def authenticate_sessao():
     except TimeoutError as e:
         print(f'erro: {e}')
         return e
-    
     return retorno
 
 def load_apikey():

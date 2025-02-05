@@ -1,4 +1,4 @@
-from authentication.authenticate import authenticate_sessao as autenticar
+from authentication.authenticate import authenticate_sessao
 from interface import interface
 
 def main():
@@ -6,7 +6,7 @@ def main():
     interface(chave_session)
 
 def obter_session():
-    chave_session = autenticar()
+    chave_session = authenticate_sessao()
     return chave_session
 
 if __name__ == "__main__":
