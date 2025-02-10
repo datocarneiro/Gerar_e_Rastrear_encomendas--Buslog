@@ -94,34 +94,34 @@ def gerar_encomenda(chave_session, usuario, progress):
 							inserir_trancking(cod_encomenda, ordem)
 						except ValueError:
 							cod_encomenda = resposta_status[0]['descricao']
-							raise ValueError(resposta_status[0]['descricao'])
+							raise ValueError(f"Ordem {ordem} linha {i+1}: {resposta_status[0]['descricao']}")
 					else:
 						cod_encomenda = resposta_status[0]['descricao']
-						raise ValueError(resposta_status[0]['descricao'])
+						raise ValueError(f"Ordem {ordem} linha {i+1}: {resposta_status[0]['descricao']}")
 				else:
 					# Captura a mensagem de erro no response, caso exista
 					error_message = response_data.get('mensagem', 'Erro desconhecido no servidor')
 					cod_encomenda = error_message
-					raise KeyError(f"Erro ao processar encomenda: {error_message}")
+					raise KeyError(f"Erro ao processar encomenda Ordem {ordem} linha {i+1}: {error_message}")
 
 			except KeyError as e:
 				print(f'Erro ao processar a encomenda: {e}')
 				messagebox.showinfo("Informação", 
-					f'''\nOrdem: {ordem} com falha!\n\nErro: {e}\n\n\n{usuario_formatado}, confira os dados.''')
-				
+					f'''\nOrdem: {ordem} linha {i+1} com falha!\n\nErro: {e}\n\n\n{usuario_formatado}, confira os dados.''')
+				raise SystemExit(f"Execução interrompida devido a erro da Ordem: {ordem} linha: {i+1}")  # Interrompe o loop
 
 			except ValueError as e:
 				print(f'Erro de valor: {e}')
 				messagebox.showinfo("Informação", 
-					f'''\nOrdem: {ordem} com falha!\n\nErro de valor: {e}\n\n\n{usuario_formatado}, confira os dados.''')
-				
+					f'''\nOrdem: {ordem} linha {i+1} com falha!\n\nErro de valor: {e}\n\n\n{usuario_formatado}, confira os dados.''')
+				raise SystemExit(f"Execução interrompida devido a erro da Ordem: {ordem} linha: {i+1}")  # Interrompe o loop
 
 			except Exception as e:
 				print(f'Erro inesperado: {e}')
 				messagebox.showinfo("Informação", 
-					f'''\nOrdem: {ordem} com falha!\n\nErro inesperado: {e}\n\n\n{usuario_formatado}, confira os dados.''')
+					f'''\nOrdem: {ordem} linha {i+1} com falha!\n\nErro inesperado: {e}\n\n\n{usuario_formatado}, confira os dados.''')
 				
-				
+				raise SystemExit(f"Execução interrompida devido a erro da Ordem: {ordem} linha: {i+1}")  # Interrompe o loop
 
 				
 
