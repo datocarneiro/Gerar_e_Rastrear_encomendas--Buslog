@@ -4,7 +4,7 @@ from cx_Freeze import setup, Executable
 # Definir as opções de build (inclua as bibliotecas que deseja)
 build_exe_options = {
     "packages": ["os", "pandas", "openpyxl", "requests", "json", "numpy", "tkinter", "dotenv", "PIL"],
-    "include_files": [".env"],
+    "include_files": [".env",],
 }
 
 
@@ -19,5 +19,5 @@ setup(
     version="2.0",
     description="Aplicação gera e rastreia encomendas Buslog!",
     options={"build_exe": build_exe_options},
-    executables=[Executable("dato_buslog.py", base=base)],  # Altere "nome.py" para o nome do seu script principal
+    executables=[Executable("dato_buslog.py", base=base, icon="bases/imagens/icone.ico")],  # Altere "nome.py" para o nome do seu script principal
 )

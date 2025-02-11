@@ -1,7 +1,8 @@
 from consultar_tracking.consultar_objeto import rastrear_objeto
 from gerar_encomenda.m_gerar_encomenda import gerar_encomenda
+from cotacao.cotar_frete import realizar_cotação
 from authentication.authenticate import registra_usuario
-from export_arquivo_base.export import base_arquivo
+from export_arquivo_base.export import base_arquivo, base_arquivo_cotacao
 from consultar_emissão.consultar_bd import consultar_banco
 from PIL import Image, ImageTk
 from tkinter import Label, Entry, ttk
@@ -57,18 +58,27 @@ def interface(chave_session):
     texto_obrigatorio = Label(app, text=texto_obrigatorio, background='#273142', foreground='#dde',anchor='w')
     texto_obrigatorio.place(x=20,y=258, width=400, height=20)
 
-    # Botão para importar arquivo
+    # Botão Rastrear
     btn_rastrear_objeto = tk.Button(app, text="Rastrear", background='#dde', font=5, command=lambda: rastrear_objeto(chave_session, input_usuario.get(), progress), width=20, height=2)
     btn_rastrear_objeto.pack(pady=(150, 35))
 
-    # Botão para importar arquivo
+    # Botão Gerar encomenda
     btn_gerar_encomenda = tk.Button(app, text="Gerar encomendas", background='#dde',font=5,command=lambda: gerar_encomenda(chave_session, input_usuario.get(), progress), width=20, height=2)
     btn_gerar_encomenda.pack(pady=(35, 35))
+
+    # Botão Cotação
+    btn_cotacao = tk.Button(app, text="Cotação", background='#dde',font=5,command=lambda: realizar_cotação(input_usuario.get(), progress), width=15, height=1)
+    btn_cotacao.pack(pady=(35, 5))
     
     # Botão para exportar arquivo
     btn_exportar = tk.Button(app, text="Baixe a planilha base aqui", background='#ffae00',command=lambda:base_arquivo())
     # btn_exportar.pack(pady=(30, 5))
     btn_exportar.place(x=40,y=400, width=200, height=20)
+
+    # Botão para exportar arquivo
+    btn_exportar = tk.Button(app, text="Baixe a base para cotação", background='#ffae00',command=lambda:base_arquivo_cotacao())
+    btn_exportar.pack(pady=(1, 4))
+    # btn_exportar.place(x=40,y=480, width=200, height=20)
 
     # Criar a Progressbar com o estilo personalizado
     progress = ttk.Progressbar(app, orient='horizontal', length=600, mode='determinate', style="TProgressbar")
