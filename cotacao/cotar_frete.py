@@ -116,7 +116,7 @@ def realizar_cotação(usuario, progress):
                 'Franquia': franquia,
                 'Ordem': ordem,
                 'Cep': cep_destino,
-                'ValorFrete': response_data['status'],
+                'ValorFrete': response_data['mensagem'],
                 })
                 print('entrou no if status, continue')
                 continue
