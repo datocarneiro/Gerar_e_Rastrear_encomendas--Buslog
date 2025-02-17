@@ -1,4 +1,5 @@
-# Rastreador de Objeto Buslog - API
+# GERAR E RASTREAR ENCOMENDAS - BUSLOG
+
 
 ## Objetivo: 
 - Ganhar agilidade no processo de operação
@@ -9,6 +10,12 @@
 
 ### Algumas funcionalidades:
 Gerar encomenda, Realizar a cotação em lote de encomendas, rastrear encomendas enviadas 
+
+Nesse projeto atuei como `Desenvolvedor`, construindo uma aplicação permite autenticar uma sessão via API, importar dados de um arquivo Excel, consultar informações de rastreamento de objetos e exportar os resultados para um novo arquivo Excel
+
+Alem disso iniciamos a 2ª fase do projeto que é gerar encomenda na transportado (em fase de desenvolvimento).
+A interface gráfica é implementada usando Tkinter.
+
 
 Nesse projeto atuei como `Desenvolvedor`, construindo uma aplicação permite autenticar uma sessão via API, importar dados de um arquivo Excel e usar como base para consultar informações de rastreamento de objetos, gerar, e realizar cotações.
 
@@ -48,13 +55,25 @@ Tecnologias aplicadas: Tecnologia: 🎯 Python, API Requests , Pandas, Json, Tki
     ├── setup.py
     └── README.md
 
+![image](https://github.com/user-attachments/assets/17336bac-c90a-4407-a857-3f8b545624c9)
+
+![image](https://github.com/user-attachments/assets/58fb9c7b-a650-4299-a47c-5a8e90c7abcf)
+
+
 
 ![alt text](image-1.png)
 
 
 
 
+
 ## Configuração para execultar a aplicação
+
+![image](https://github.com/user-attachments/assets/687e7de6-f453-4f85-b812-165ab30ec040)
+
+
+## Configuração
+
 1. Criar Ambiente Virtual
 `python -m venv venv`
 
