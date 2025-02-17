@@ -7,6 +7,11 @@ def load_token():
     token = os.getenv("TOKEN")
     return token
 
+def load_token_cotacao():
+    load_dotenv()
+    token_cotacao = os.getenv("TOKEN_COTACAO")
+    return token_cotacao
+
 def authenticate_sessao():
     try:
         token = load_token()
