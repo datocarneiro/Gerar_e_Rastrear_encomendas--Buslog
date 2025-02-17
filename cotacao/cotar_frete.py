@@ -1,4 +1,4 @@
-from authentication.authenticate import load_usuario_permitidos, load_token
+from authentication.authenticate import load_usuario_permitidos, load_token_cotacao
 from tkinter import messagebox, filedialog
 import tkinter as tk
 import pandas as pd
@@ -7,7 +7,7 @@ from cotacao.validar_cep import validar_cep
 import json
 import os
 
-token = load_token()
+token = load_token_cotacao()
 
 def realizar_cotação(usuario, progress):
     if usuario == "":
