@@ -3,7 +3,8 @@ from gerar_encomenda.m_gerar_encomenda import gerar_encomenda
 from cotacao.cotar_frete import realizar_cotação
 from authentication.authenticate import registra_usuario
 from export_arquivo_base.export import base_arquivo, base_arquivo_cotacao
-from consultar_emissão.consultar_bd import consultar_banco
+from consultar_emissao.consultar_bd import consultar_banco
+from fiscal.docfiscal import get_doc_fiscal
 from PIL import Image, ImageTk
 from tkinter import Label, Entry, ttk
 import tkinter as tk
@@ -28,13 +29,13 @@ def interface(chave_session):
     app.title("Dato® || Gerar e Rastrear encomendas - Buslogs")
     app.configure(background='#273142')
 
-
-
     # Nome e Input Usuario
     bold_font = ('Arial', 14, 'bold')  # Substitua 'Arial' pelo nome da fonte que você deseja usar
 
-    marca = Label(app, text='dato®', background='#273142', foreground='#ffae00', font=bold_font, anchor='e')
-    marca.place(x=950, y=40, width=100, height=20)
+    margem_direita = 37  # Aproximadamente 1 cm em pixels
+    marca = Label(app, text='dato®', background='#273142', foreground='#ffae00', font=bold_font)
+    marca.place(relx=1.0, x=-margem_direita, y=10, anchor='ne')
+
     usuario = Label(app, text='Usuário', background='#273142', foreground='#ffae00', font=bold_font, anchor='w')
     usuario.place(x=20,y=60, width=100, height=20)
     input_usuario = Entry(app, background='#dde', foreground='#161616',font=5)
@@ -59,15 +60,16 @@ def interface(chave_session):
     texto_obrigatorio.place(x=20,y=258, width=400, height=20)
 
     # Botão Rastrear
-    btn_rastrear_objeto = tk.Button(app, text="Rastrear", background='#dde', font=5, command=lambda: rastrear_objeto(chave_session, input_usuario.get(), progress), width=20, height=2)
-    btn_rastrear_objeto.pack(pady=(150, 35))
+    btn_rastrear_objeto = tk.Button(app, text="Rastrear", background='#dde', font=5, command=lambda: rastrear_objeto(input_usuario.get(), progress_label, progress_label_descricao), width=20, height=2)
+    btn_rastrear_objeto.pack(pady=(150, 5))
 
     # Botão Gerar encomenda
-    btn_gerar_encomenda = tk.Button(app, text="Gerar encomendas", background='#dde',font=5,command=lambda: gerar_encomenda(chave_session, input_usuario.get(), progress), width=20, height=2)
-    btn_gerar_encomenda.pack(pady=(35, 35))
+    btn_gerar_encomenda = tk.Button(app, text="Gerar encomendas", background='#dde',font=5,command=lambda: gerar_encomenda(chave_session, input_usuario.get(), progress_label , progress_label_descricao), width=20, height=2)
+    btn_gerar_encomenda.pack(pady=(35, 25))
 
+    
     # Botão Cotação
-    btn_cotacao = tk.Button(app, text="Cotação", background='#dde',font=5,command=lambda: realizar_cotação(input_usuario.get(), progress), width=15, height=1)
+    btn_cotacao = tk.Button(app, text="Cotação", background='#dde',font=5,command=lambda: realizar_cotação(input_usuario.get(), progress_label, progress_label_descricao), width=15, height=1)
     btn_cotacao.pack(pady=(35, 5))
     
     # Botão para exportar arquivo
@@ -77,19 +79,37 @@ def interface(chave_session):
 
     # Botão para exportar arquivo
     btn_exportar = tk.Button(app, text="Baixe a base para cotação", background='#ffae00',command=lambda:base_arquivo_cotacao())
-    btn_exportar.pack(pady=(1, 4))
+    btn_exportar.pack(pady=(1, 5))
     # btn_exportar.place(x=40,y=480, width=200, height=20)
+    
+    # Documento fiscal
+    btn_doc_fiscal = tk.Button(app, text="Doc Fiscal", background='#dde',font=5,command=lambda: get_doc_fiscal(input_usuario.get()), width=15, height=1)
+    btn_doc_fiscal.pack(pady=(35, 5))
 
-    # Criar a Progressbar com o estilo personalizado
-    progress = ttk.Progressbar(app, orient='horizontal', length=600, mode='determinate', style="TProgressbar")
-    progress.pack(pady=(60, 55))
+    # # Criar Barra de Progressbar com o estilo personalizado
+    # progress = ttk.Progressbar(app, orient='horizontal', length=600, mode='determinate', style="TProgressbar")
+    # progress.pack(pady=(5, 5))
+
+    # Label para mostrar o progresso (Ex: "3/10")
+    progress_label = Label(app, text="", background='#273142', foreground='#ffae00', font=bold_font)
+    progress_label.pack(pady=(10, 2))  # Mantém a barra com um espaçamento menor
+
+    # Label para exibir a descrição logo abaixo
+    progress_label_descricao = Label(app, text="Aguardando...", background='#273142', foreground='#dde')
+    progress_label_descricao.pack(pady=(2, 10))  # Mantém a descrição logo abaixo da barra 
+
 
     consulta_emissão = Label(app, text="Log's emissão, consultar por numero de ordem", background='#273142', foreground='#ffae00', anchor='e')
-    consulta_emissão.place(x=410,y=670)
+    # consulta_emissão.place(x=410,y=670)
+    consulta_emissão.pack(pady=(1, 1))
+
     input_consulta_emissão = Entry(app, background='#dde', foreground='#161616', font=1)
-    input_consulta_emissão.place(x=430,y=640)
+    # input_consulta_emissão.place(x=430,y=640)
+    input_consulta_emissão.pack(pady=(1, 1))
+
     btn_consulta_emissão = tk.Button(app, text="Buscar", background='#3f8f57', foreground='#fff', command=lambda:consultar_banco(input_consulta_emissão.get()), width=9, height=1)
     btn_consulta_emissão.place(x=581,y=641)
+    btn_consulta_emissão.pack(pady=(1, 1))
 
     # Estilo para personalizar a Progressbar
     style = ttk.Style()

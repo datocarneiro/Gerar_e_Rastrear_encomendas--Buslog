@@ -9,7 +9,7 @@ import os
 
 token = load_token_cotacao()
 
-def realizar_cotação(usuario, progress):
+def realizar_cotação(usuario, progress_label, progress_label_descricao):
     if usuario == "":
         messagebox.showinfo("Informação", "Nenhum usuário foi registrado, registre-se")
         return
@@ -39,7 +39,7 @@ def realizar_cotação(usuario, progress):
 
 
         total_rows = len(dados)
-        progress['maximum'] = total_rows  # Define o valor máximo da barra de progresso
+        # progress['maximum'] = total_rows  # Define o valor máximo da barra de progresso
 
         dados_cotacao = []
         # Correção no loop que gera o payload dinamicamente
@@ -73,10 +73,6 @@ def realizar_cotação(usuario, progress):
 
             print(f'......................................................Progresso: {i+1}/{total_rows} - Ordem: {ordem}..............................................')
 
-            # Atualiza a barra de progresso
-            progress['value'] = i + 1  # Atualiza o progresso
-            app.update_idletasks()  # Atualiza a interface gráfica
-
             ############################### ENVIO DO PAYLOAD ############################
             
             
@@ -106,29 +102,40 @@ def realizar_cotação(usuario, progress):
             response_data = response.json()
 
 
-            print()
+
             print(response_data)
-            print()
+
 
             # Verifica se a chave 'status' está presente e contém dados
             if 'status' in response_data:
+                mensagem = response_data['mensagem']
                 dados_cotacao.append({
                 'Franquia': franquia,
                 'Ordem': ordem,
                 'Cep': cep_destino,
-                'ValorFrete': response_data['mensagem'],
+                'ValorFrete': mensagem,
                 })
                 print('entrou no if status, continue')
+                # progress['value'] = i + 1  # Atualiza o progresso
+                progress_label.config(text=f"{i+1}/{total_rows}")  # Atualiza o texto do label
+                progress_label_descricao.config(text=f"Franquia: {franquia}, CEP: {cep_destino} ... Mensagem: {mensagem}") 
                 continue
-
+        
+            valorFrete = response_data['frete'][0]['ValorFrete']
+            prazo = response_data['frete'][0]['Prazo']
             dados_cotacao.append({
                 'Franquia': franquia,
                 'Ordem': ordem,
                 'Cep': cep_destino,
                 'Serviço': response_data['frete'][0]['DescricaoProduto'],
-                'ValorFrete': response_data['frete'][0]['ValorFrete'],
-                'Prazo': response_data['frete'][0]['Prazo'],
+                'ValorFrete': valorFrete,
+                'Prazo': prazo,
             })
+
+            # progress['value'] = i + 1  # Atualiza o progresso
+            progress_label.config(text=f"{i+1}/{total_rows}")  # Atualiza o texto do label
+            progress_label_descricao.config(text=f"Franquia: {franquia}, CEP: {cep_destino} ... Valor: R$ {valorFrete}, Prazo: {prazo} Dia(s)")  # Atualiza descrição
+            app.update_idletasks()  # Atualiza a interface gráfica
 
     except KeyError as e:
         messagebox.showinfo("Informação", 
