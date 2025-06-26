@@ -8,7 +8,7 @@ import sqlite3
 import requests
 import json
 
-def gerar_encomenda(chave_session, usuario, progress):
+def gerar_encomenda(chave_session, usuario, progress_label, progress_label_descricao):
 	if usuario == "":
 		messagebox.showinfo("Informação", "Nenhum usuário foi registrado, registre-se")
 		return
@@ -29,6 +29,8 @@ def gerar_encomenda(chave_session, usuario, progress):
 		return
     
 	messagebox.showinfo("Informação", "Arquivo importado com sucesso")
+	print('arquivo carregado::::::::::::')
+
 
 	resposta = messagebox.askquestion("Confirmação", f'''*** !!! ATENÇÂO !!! ***\n\nDeseja realizar a emissão em lote? Essa ação será irrevercível.\n\n\n{usuario_formatado}, você confirma a emissão?''')
 	
@@ -36,28 +38,35 @@ def gerar_encomenda(chave_session, usuario, progress):
 		messagebox.showinfo("Informação", "Operação cancelada.")
 		return
 	try: 
+		print('´Vamos ler o excel::::::::::')
 		dados = pd.read_excel(file_path, engine='openpyxl')
+		print('´passou a leirura do excel l::::::::::')
 
 		total_rows = len(dados)
-		progress['maximum'] = total_rows  # Define o valor máximo da barra de progresso
+
+		print(f'total de linhas:::::::::::{total_rows}')
+		# progress['maximum'] = total_rows  # Define o valor máximo da barra de progresso
 
 		dados_emitidos = []
 		for i, (coluna_a, coluna_b, coluna_c) in enumerate(zip(dados.iloc[:, 0], dados.iloc[:, 1], dados.iloc[:, 2])):
+			print('entrou no for ::::::::::::')
 			ordem = coluna_c
 			franquia = coluna_a
-			print(f'......................................................Progresso: {i+1}/{total_rows} - Ordem: {ordem}..............................................')
-			
+			print(f'ordem {ordem} :::::::: franquia {franquia}')
+
+			print('Vai chamar dados do eship ::::::::::')
 			dados_para_envio = buscar_dados_eship(franquia, ordem, usuario_formatado)
+
+			print('retornou dados do eship::::::::::::::')
 
 			print(f'Dados para envios : \n{dados_para_envio}')
 
-			# Atualiza a barra de progresso
-			progress['value'] = i + 1  # Atualiza o progresso
-			app.update_idletasks()  # Atualiza a interface gráfica
-
+        
 			############################### AQUI COMEÇA O ENVIOU ############################
 
 			chave = chave_session['sessao']
+
+			print('Estrando api Buslo::::::::::::')
 			url = "https://api.track3r.com.br/v2/api/GerarEncomendas"
 
 			try: 
@@ -77,11 +86,17 @@ def gerar_encomenda(chave_session, usuario, progress):
 				response = requests.request("POST", url, headers=headers, data=payload)
 
 				response_data = response.json()
+
+				print('Estrando api Buslo::::::::::::')
 				print(response_data)
 
-				print(f'fim do envio {response.text}')
+				# print(f'fim do envio {response.text}')
 
 				resposta_status = response_data['status']
+				resposta_descricao = response_data['status'][0]['descricao']
+
+				print(f'Progresso: {i+1}/{total_rows} - Ordem: {ordem} ... {resposta_descricao}')
+				print('_____________________________________________________')
 
 				# Verifica se a chave 'status' está presente e contém dados
 				if 'status' in response_data and resposta_status:
@@ -94,34 +109,34 @@ def gerar_encomenda(chave_session, usuario, progress):
 							inserir_trancking(cod_encomenda, ordem)
 						except ValueError:
 							cod_encomenda = resposta_status[0]['descricao']
-							raise ValueError(f"Ordem {ordem} linha {i+1}: {resposta_status[0]['descricao']}")
+							raise ValueError(f"Ordem {ordem} linha {i+2}: {resposta_status[0]['descricao']}")
 					else:
 						cod_encomenda = resposta_status[0]['descricao']
-						raise ValueError(f"Ordem {ordem} linha {i+1}: {resposta_status[0]['descricao']}")
+						raise ValueError(f"Ordem {ordem} linha {i+2}: {resposta_status[0]['descricao']}")
 				else:
 					# Captura a mensagem de erro no response, caso exista
 					error_message = response_data.get('mensagem', 'Erro desconhecido no servidor')
 					cod_encomenda = error_message
-					raise KeyError(f"Erro ao processar encomenda Ordem {ordem} linha {i+1}: {error_message}")
+					raise KeyError(f"Erro ao processar encomenda Ordem {ordem} linha {i+2}: {error_message}")
 
 			except KeyError as e:
 				print(f'Erro ao processar a encomenda: {e}')
 				messagebox.showinfo("Informação", 
-					f'''\nOrdem: {ordem} linha {i+1} com falha!\n\nErro: {e}\n\n\n{usuario_formatado}, confira os dados.''')
-				raise SystemExit(f"Execução interrompida devido a erro da Ordem: {ordem} linha: {i+1}")  # Interrompe o loop
+					f'''\nOrdem: {ordem} linha {i+2} com falha!\n\nErro: {e}\n\n\n{usuario_formatado}, confira os dados.''')
+				raise SystemExit(f"Execução interrompida devido a erro da Ordem: {ordem} linha: {i+2}")  # Interrompe o loop
 
 			except ValueError as e:
 				print(f'Erro de valor: {e}')
 				messagebox.showinfo("Informação", 
-					f'''\nOrdem: {ordem} linha {i+1} com falha!\n\nErro de valor: {e}\n\n\n{usuario_formatado}, confira os dados.''')
-				raise SystemExit(f"Execução interrompida devido a erro da Ordem: {ordem} linha: {i+1}")  # Interrompe o loop
+					f'''\nOrdem: {ordem} linha {i+2} com falha!\n\nErro de valor: {e}\n\n\n{usuario_formatado}, confira os dados.''')
+				raise SystemExit(f"Execução interrompida devido a erro da Ordem: {ordem} linha: {i+2}")  # Interrompe o loop
 
 			except Exception as e:
 				print(f'Erro inesperado: {e}')
 				messagebox.showinfo("Informação", 
-					f'''\nOrdem: {ordem} linha {i+1} com falha!\n\nErro inesperado: {e}\n\n\n{usuario_formatado}, confira os dados.''')
+					f'''\nOrdem: {ordem} linha {i+2} com falha!\n\nErro inesperado: {e}\n\n\n{usuario_formatado}, confira os dados.''')
 				
-				raise SystemExit(f"Execução interrompida devido a erro da Ordem: {ordem} linha: {i+1}")  # Interrompe o loop
+				raise SystemExit(f"Execução interrompida devido a erro da Ordem: {ordem} linha: {i+2}")  # Interrompe o loop
 
 				
 
@@ -148,6 +163,9 @@ def gerar_encomenda(chave_session, usuario, progress):
 			# 				}
 			
 			
+			progress_label.config(text=f" {int(i) + 1}/{int(total_rows)}")   # Atualiza contagem
+			progress_label_descricao.config(text=f"Ordem: {ordem} ...  {resposta_descricao}")  # Atualiza descrição
+			app.update_idletasks()  # Garante a atualização da UI
 
 			# Criar o dicionário de encomenda com o código de rastreamento
 			encomenda = {'tracking': cod_encomenda, 'LogUsuario': usuario_formatado}
@@ -161,6 +179,7 @@ def gerar_encomenda(chave_session, usuario, progress):
 				
 				# Adiciona o dicionário combinado à lista 'dados_emitidos'
 				dados_emitidos.append(unindo_dict)
+
 
 	
 	except KeyError as e:

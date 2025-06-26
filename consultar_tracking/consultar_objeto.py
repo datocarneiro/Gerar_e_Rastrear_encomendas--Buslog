@@ -1,5 +1,7 @@
-# sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from authentication.authenticate import load_usuario_permitidos
+import sys
+import os
+from authentication.authenticate import load_usuario_permitidos, authenticate_sessao
+from fiscal.docfiscal import get_doc_fiscal
 from tkinter import messagebox, filedialog
 import tkinter as tk
 import pandas as pd
@@ -8,9 +10,10 @@ import requests
 # Variável global para armazenar dados do rastreamentoclear
 dados_rastreamento = []
 
-def rastrear_objeto(chave_session, usuario, progress):
+def rastrear_objeto(usuario, progress_label, progress_label_descricao):
     global dados_rastreamento
-
+    
+    chave_session = authenticate_sessao()
     app = tk.Tk()
     app.withdraw()
 
@@ -39,7 +42,7 @@ def rastrear_objeto(chave_session, usuario, progress):
 
         messagebox.showinfo("Informação", "Arquivo importado com sucesso")
 
-        progress['maximum'] = total_rows  # Define o valor máximo da barra de progresso
+        # progress['maximum'] = total_rows  # Define o valor máximo da barra de progresso
 
         for i, (coluna_a, coluna_c) in enumerate(zip(dados.iloc[:, 0], dados.iloc[:, 2])):
             try:
@@ -67,9 +70,11 @@ def rastrear_objeto(chave_session, usuario, progress):
                 Data = response_data['Pedidos'][0]['Ocorrencias'][0]['Data']
                 NomeRecebedor = response_data['Pedidos'][0]['Ocorrencias'][0]['NomeRecebedor']
                 CaminhoFoto = response_data['Pedidos'][0]['Ocorrencias'][0]['CaminhoFoto']
+
+                numeroCTe, vlPrest, dacte = get_doc_fiscal(tracking)
                 
-                print(f'...... Progresso: {i+1}/{total_rows} - Ordem: {coluna_c} ......')
-                print(f'\tStatus: {status}')
+                print(f'Progresso: {i+1}/{total_rows} - Ordem: {coluna_c} - Status: {status}')
+                print(f'________________________________________________')
 
                 dados_rastreamento.append({
                     'Franqui': coluna_a,
@@ -79,12 +84,19 @@ def rastrear_objeto(chave_session, usuario, progress):
                     'Data/Hora': Data,
                     'NomeRecebedor': NomeRecebedor,
                     'Comprovante': CaminhoFoto,
-                    "LogUsuario": usuario_formatado
+                    "LogUsuario": usuario_formatado,
+                    "NumeroCTe": numeroCTe,
+                    "ValorPrest": vlPrest,
+                    "Dacte_pdf": dacte
                 })
 
-                # Atualiza a barra de progresso
-                progress['value'] = i + 1  # Atualiza o progresso
+
+                 # Atualiza a barra de progresso
+                # progress['value'] = i + 1  # Atualiza o progresso
+                progress_label.config(text=f"{i+1}/{total_rows}")  # Atualiza o texto do label
+                progress_label_descricao.config(text=f"Ordem: {tracking} ...  {status}")  # Atualiza descrição
                 app.update_idletasks()  # Atualiza a interface gráfica
+            
 
             except KeyError as e:
                 messagebox.showinfo("Informação", f'''*** ATENÇÂO *** !\n\nErro: Tracking {tracking} não localizado!\n\n\n{usuario_formatado}, Confirme se a encomenda realmente existe.''')
