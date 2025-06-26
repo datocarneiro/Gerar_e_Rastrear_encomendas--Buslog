@@ -29,6 +29,8 @@ def gerar_encomenda(chave_session, usuario, progress_label, progress_label_descr
 		return
     
 	messagebox.showinfo("Informação", "Arquivo importado com sucesso")
+	print('arquivo carregado::::::::::::')
+
 
 	resposta = messagebox.askquestion("Confirmação", f'''*** !!! ATENÇÂO !!! ***\n\nDeseja realizar a emissão em lote? Essa ação será irrevercível.\n\n\n{usuario_formatado}, você confirma a emissão?''')
 	
@@ -36,24 +38,35 @@ def gerar_encomenda(chave_session, usuario, progress_label, progress_label_descr
 		messagebox.showinfo("Informação", "Operação cancelada.")
 		return
 	try: 
+		print('´Vamos ler o excel::::::::::')
 		dados = pd.read_excel(file_path, engine='openpyxl')
+		print('´passou a leirura do excel l::::::::::')
 
 		total_rows = len(dados)
+
+		print(f'total de linhas:::::::::::{total_rows}')
 		# progress['maximum'] = total_rows  # Define o valor máximo da barra de progresso
 
 		dados_emitidos = []
 		for i, (coluna_a, coluna_b, coluna_c) in enumerate(zip(dados.iloc[:, 0], dados.iloc[:, 1], dados.iloc[:, 2])):
+			print('entrou no for ::::::::::::')
 			ordem = coluna_c
 			franquia = coluna_a
-			
+			print(f'ordem {ordem} :::::::: franquia {franquia}')
+
+			print('Vai chamar dados do eship ::::::::::')
 			dados_para_envio = buscar_dados_eship(franquia, ordem, usuario_formatado)
 
-			# print(f'Dados para envios : \n{dados_para_envio}')
+			print('retornou dados do eship::::::::::::::')
+
+			print(f'Dados para envios : \n{dados_para_envio}')
 
         
 			############################### AQUI COMEÇA O ENVIOU ############################
 
 			chave = chave_session['sessao']
+
+			print('Estrando api Buslo::::::::::::')
 			url = "https://api.track3r.com.br/v2/api/GerarEncomendas"
 
 			try: 
@@ -73,7 +86,9 @@ def gerar_encomenda(chave_session, usuario, progress_label, progress_label_descr
 				response = requests.request("POST", url, headers=headers, data=payload)
 
 				response_data = response.json()
-				# print(response_data)
+
+				print('Estrando api Buslo::::::::::::')
+				print(response_data)
 
 				# print(f'fim do envio {response.text}')
 
