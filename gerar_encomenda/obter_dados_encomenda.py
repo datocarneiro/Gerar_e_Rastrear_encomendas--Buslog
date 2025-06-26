@@ -12,6 +12,8 @@ def buscar_dados_eship(franquia, ordem, usuario):
 	
 	apikey = load_apikey()
 
+	print('entrendo na api do eship ::::::')
+
 	url = 'https://amplo.eship.com.br/v3/?api=&funcao=webServiceGetOrdem'
 
 	payload = {
@@ -21,13 +23,16 @@ def buscar_dados_eship(franquia, ordem, usuario):
 	# Cabeçalhos da requisição
 	headers = {
 		'Content-Type': 'application/json',
-		'api': apikey
+		'Api': '56c113c26deeb18c682ba0ccc1796d8d'
 	}
 
+
 	# Realiza a requisição GET
-	response = requests.get(url, headers=headers, json=payload)
+	response = requests.get(url, headers=headers, params=payload)
 	response_data = response.json()
 
+	print('Retornou dados:::::::::::: ')
+	print(f'resposne eship ::::::::::: {response_data }')
 	
 	# print('.........................................encomendas.......................................')
 	'''
@@ -261,5 +266,7 @@ def buscar_dados_eship(franquia, ordem, usuario):
 		# },
 		"volumes": volumes
 	})
+
+	print('Saidndo da função do eship :::::::')
 
 	return dados_encomenda
