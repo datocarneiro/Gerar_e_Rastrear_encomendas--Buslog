@@ -55,9 +55,6 @@ Tecnologias aplicadas: Tecnologia: 🎯 Python, API Requests , Pandas, Json, Tki
     ├── setup.py
     └── README.md
 
-![image](https://github.com/user-attachments/assets/17336bac-c90a-4407-a857-3f8b545624c9)
-
-![image](https://github.com/user-attachments/assets/58fb9c7b-a650-4299-a47c-5a8e90c7abcf)
 
 
 
@@ -68,8 +65,6 @@ Tecnologias aplicadas: Tecnologia: 🎯 Python, API Requests , Pandas, Json, Tki
 
 
 ## Configuração para execultar a aplicação
-
-![image](https://github.com/user-attachments/assets/687e7de6-f453-4f85-b812-165ab30ec040)
 
 
 ## Configuração
