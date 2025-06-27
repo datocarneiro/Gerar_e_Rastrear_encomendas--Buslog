@@ -18,8 +18,8 @@ def dados_volumes(apikey, ordem):
 
 	response = requests.request("POST", url, headers=headers, data=payload)
 	response_data = response.json()
-	print('vai sair na Api de volumes ')
-	print(f'response volumes :::::: {response_data} ')
+	# print('vai sair na Api de volumes ')
+	# print(f'response volumes :::::: {response_data} ')
 
 	dadosFaturamento = response_data['corpo']['classePadrao']['dadosFaturamento'][0]['dados']
 
