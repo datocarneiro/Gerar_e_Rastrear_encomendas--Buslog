@@ -87,8 +87,8 @@ def gerar_encomenda(chave_session, usuario, progress_label, progress_label_descr
 
 				response_data = response.json()
 
-				print('Estrando api Buslo::::::::::::')
-				print(response_data)
+				# print('Estrando api Buslo::::::::::::')
+				# print(response_data)
 
 				# print(f'fim do envio {response.text}')
 

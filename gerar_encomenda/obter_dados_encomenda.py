@@ -31,8 +31,8 @@ def buscar_dados_eship(franquia, ordem, usuario):
 	response = requests.get(url, headers=headers, params=payload)
 	response_data = response.json()
 
-	print('Retornou dados:::::::::::: ')
-	print(f'resposne eship ::::::::::: {response_data }')
+	# print('Retornou dados:::::::::::: ')
+	# print(f'resposne eship ::::::::::: {response_data }')
 	
 	# print('.........................................encomendas.......................................')
 	'''
