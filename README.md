@@ -55,13 +55,7 @@ Tecnologias aplicadas: Tecnologia: 🎯 Python, API Requests , Pandas, Json, Tki
     ├── setup.py
     └── README.md
 
-
-
-
 ![alt text](image-1.png)
-
-
-
 
 
 ## Configuração para execultar a aplicação
