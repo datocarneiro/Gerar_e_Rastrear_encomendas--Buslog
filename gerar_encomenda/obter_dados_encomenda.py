@@ -122,6 +122,24 @@ def buscar_dados_eship(franquia, ordem, usuario):
 			cnpj_cpf_cadastro = formata_cpf(cnpj_cpf_cadastro)
 		return tipo_pessoa, cnpj_cpf_cadastro, ie_cadastro, nome_cadastro
 	
+
+	def formatar_cep(cep):
+		"""
+		Recebe um CEP em vários formatos (ex.: xx.xxx-xxx, xxxxxxxx, xx.xxxxxx, etc)
+		e retorna no formato padrão xxxxx-xxx.
+		Mantém zeros à esquerda.
+		"""
+		# Remove tudo que não seja dígito
+		cep_numeros = re.sub(r'\D', '', str(cep))
+		
+		# Garante que tem exatamente 8 dígitos
+		if len(cep_numeros) == 8:
+			return f"{cep_numeros[:5]}-{cep_numeros[5:]}"
+		else:
+			# Se não tiver 8 dígitos, retorna vazio ou pode lançar um erro se preferir
+			return 'Cep REMETENTE com cadastro incorreto, verifique!'
+
+	
 	# print('................ ......................... REMETENTE ...................................')
 
 	remetente = response_data['corpo']['body']['dados'][0]['produtosOrdem'][0]['ordem']['remetente']
@@ -130,7 +148,8 @@ def buscar_dados_eship(franquia, ordem, usuario):
 	tipo_pessoa_remetente, cnpj_cpf_remetente, ie_remetente, nome_remetente = tipo_de_cadastro(remetente, tipo_fiscal)
 
 	enderecoRemetente = response_data['corpo']['body']['dados'][0]['produtosOrdem'][0]['ordem']['enderecoRemetente']
-	cep_remetente = enderecoRemetente['codigoPostal']
+	cep_remetente_original = enderecoRemetente['codigoPostal']
+	cep_remetente = formatar_cep(cep_remetente_original)
 	bairro_remetente = enderecoRemetente['bairro']
 	rua_remetente = enderecoRemetente['logradouro']
 	num_remetente = enderecoRemetente['numero']
@@ -157,11 +176,14 @@ def buscar_dados_eship(franquia, ordem, usuario):
 	tipo_pessoa, cnpj_cpf_destinatario, ie_destinatario, nome_destinatario = tipo_de_cadastro(destinatario, tipo_fiscal)
 
 	endereçoDestinatario = response_data['corpo']['body']['dados'][0]['produtosOrdem'][0]['ordem']['enderecoDestinatario']
-	cep_destinatario = endereçoDestinatario['codigoPostal']
-	# Remove qualquer caractere que não seja numérico
-	cep_destinatario_numerico = re.sub(r'\D', '', cep_destinatario)
-	# print(f'cep destinatario {cep_destinatario},  {type(cep_destinatario)}')
-	# print(f'cep destinatario {cep_destinatario_numerico},  {type(cep_destinatario_numerico)}')
+	cep_destinatario_original = endereçoDestinatario['codigoPostal']
+	cep_destinatario = formatar_cep(cep_destinatario_original)
+
+	# ''' codigo anterior '''
+	# cep_destinatario = endereçoDestinatario['codigoPostal']
+	# # Remove qualquer caractere que não seja numérico
+	# cep_destinatario_numerico = re.sub(r'\D', '', cep_destinatario)
+
 	bairro_destinatario = endereçoDestinatario['bairro']
 	rua_destinatario = endereçoDestinatario['logradouro']
 	num_destinatario = endereçoDestinatario['numero']
@@ -249,7 +271,7 @@ def buscar_dados_eship(franquia, ordem, usuario):
 			"inscricao_estadual": ie_destinatario,
 			"nome": nome_destinatario,
 			"endereco":{
-				"cep": cep_destinatario_numerico,
+				"cep": cep_destinatario,
 				"bairro": bairro_destinatario,
 				"rua": rua_destinatario,
 				"numero": num_destinatario,
