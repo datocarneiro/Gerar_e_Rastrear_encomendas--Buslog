@@ -1,0 +1,80 @@
+[
+  {
+    "id_produto": 1225,
+    "numero_pedido": 815266,
+    "documento_transportado": {
+      "tipo": 3,
+      "numero": 815266,
+      "quantidade_volumes": 1,
+      "valor_documento": 288.77
+    },
+    "embarcador": {
+      "cnpj": "08.806.647/0001-17",
+      "razao_social": "Amplo Logistica e Armazenagem Ltda",
+      "nome_fantasia": "Amplo Logistica e Armazenagem Ltda (Dato)",
+      "endereco": {
+        "cep": "83412-585",
+        "bairro": "Canguiri",
+        "rua": "Pedro Zanetti",
+        "numero": "230",
+        "complemento": "Barracão 2",
+        "cidade": "Colombo",
+        "estado": "PR"
+      }
+    },
+    "tomador": {
+      "cnpj": "08.806.647/0001-17",
+      "inscricao_estadual": "9040355992",
+      "razao_social": "Amplo Logistica e Armazenagem Ltda",
+      "endereco": {
+        "cep": "83412-585",
+        "bairro": "Canguiri",
+        "rua": "Pedro Zanetti",
+        "numero": "230",
+        "complemento": "Barracão 2",
+        "cidade": "Colombo",
+        "estado": "PR"
+      }
+    },
+    "loja_remetente": {
+      "cnpj_cpf": "55.683.132/0001-57",
+      "inscricao_estadual": "",
+      "tipo_pessoa": "J",
+      "nome": "Zamp III S.A",
+      "endereco": {
+        "cep": "83412-585",
+        "bairro": "CANGUIRI",
+        "rua": "Pedro Zannetti",
+        "numero": "230",
+        "complemento": "BARRACÃO 2",
+        "cidade": "Colombo",
+        "estado": "PR"
+      }
+    },
+    "destinatario": {
+      "tipo_pessoa": "J",
+      "cnpj_cpf": "55.567.582/0112-08",
+      "inscricao_estadual": "150.178.899.114",
+      "nome": "Star260-Shopping Mueller Joinville",
+      "endereco": {
+        "cep": "83412-585",
+        "bairro": "Centro",
+        "rua": "Av. Visconde de Taunay",
+        "numero": "235",
+        "complemento": "LOJA LUC 001/2/3 1 PISO",
+        "cidade": "Joinville",
+        "estado": "SC"
+      }
+    },
+    "volumes": [
+      {
+        "codigo_etiqueta": "VL000000535678",
+        "altura": 0.585,
+        "largura": 0.1,
+        "comprimento": 0.945,
+        "peso_real": 5.34,
+        "peso_cubado": 11.06
+      }
+    ]
+  }
+]
