@@ -4,7 +4,7 @@ import pandas as pd
 def base_arquivo():
     base = []
     base.append({
-        "FRANQUIA": 'Not Null',
+        "FRANQUIA/ORIGEM": 'Not Null',
         "MODAL": '',
         "ORDEM": 'Not Null',
         "STATUS": '',
@@ -19,14 +19,14 @@ def base_arquivo():
 def base_arquivo_cotacao():
     base_cotacao = []
     base_cotacao.append({
-        "FRANQUIA": 'Not Null',
+        "FRANQUIA/ORIGEM": 'Not Null',
         "ORDEM": 'Not Null',
         "CEP_DESTINO(xxxxx-xxx)": 'Not Null',
         "PESO(kg)": 'Not Null',
         "VALOR_MERCADORIA": 'Not Null',
-        "ALTURA": 'Null',
-        "COMPRIMENTO": 'Null',
-        "LARGURA": 'Null',
+        "ALTURA (cm)": 'Null',
+        "COMPRIMENTO (cm)": 'Null',
+        "LARGURA(cm)": 'Null',
         "PESO_CUBADO": 'Null',
     })
     
