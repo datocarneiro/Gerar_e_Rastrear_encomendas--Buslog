@@ -5,3 +5,5 @@ __pycache
 pycache
 build
 /build
+.vscode
+/.vscod

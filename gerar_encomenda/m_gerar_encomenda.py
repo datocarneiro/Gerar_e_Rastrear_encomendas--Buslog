@@ -62,7 +62,7 @@ def gerar_encomenda(chave_session, usuario, progress_label, progress_label_descr
 			print(f'Dados para envios : \n{dados_para_envio}')
 
         
-			############################### AQUI COMEÇA O ENVIOU ############################
+			############################## AQUI COMEÇA O ENVIOU ############################
 
 			chave = chave_session['sessao']
 
